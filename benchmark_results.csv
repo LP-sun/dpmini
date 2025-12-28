@@ -1,0 +1,1 @@
+batch_spec,batch_size,num_workers,steps,duration_s,steps_per_s,frames_per_s,gpu_util_avg,gpu_mem_avg_mib,cpu_sum_avg_pct,gpu_shared,notes,log_path

@@ -1,0 +1,24 @@
+{
+  "nframes": 501,
+  "natoms": 192,
+  "time_ps": 0.5,
+  "energy": {
+    "pe_mean": -941.5618896484375,
+    "pe_std": 0.0,
+    "ke_mean": 6.956419467926025,
+    "ke_std": 0.0,
+    "etot_drift_percent": 0.0
+  },
+  "temperature": {
+    "mean": 280.29824922920596,
+    "std": 5.684341886080802e-14,
+    "min": 280.298249229206,
+    "max": 280.298249229206
+  },
+  "structure": {
+    "rmsd_max": 0.06531552970409393,
+    "rmsd_mean": 0.03272307124370127,
+    "displacement_max": 0.2658384144306183,
+    "displacement_mean": 0.09391850233078003
+  }
+}

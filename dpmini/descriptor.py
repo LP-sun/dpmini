@@ -123,35 +123,35 @@ def build_neighbor_list(positions: torch.Tensor,
     # Compute distances
     dist = torch.sqrt(torch.sum(r_ij * r_ij, dim=-1) + 1e-12)  # (natom, natom)
     
-    # Build neighbor list for each atom (optimized vectorized version where possible)
+    # Build neighbor list - VECTORIZED VERSION (GPU parallel)
     # Find all valid neighbors (within cutoff, not self)
     valid_mask = (dist < rcut) & (dist > 1e-8)  # (natom, natom)
     
-    for i in range(natom):
-        # Get valid neighbors for this atom
-        valid_i = valid_mask[i]
-        n_valid = valid_i.sum().item()
-        
-        if n_valid == 0:
-            continue
-            
-        valid_indices = torch.where(valid_i)[0]
-        valid_types = atom_types[valid_indices]
-        valid_dists = dist[i, valid_indices]
-        
-        # Sort by type first, then by distance
-        sort_key = valid_types.float() * 1000.0 + valid_dists
-        sort_idx = torch.argsort(sort_key)
-        valid_indices = valid_indices[sort_idx]
-        valid_types = valid_types[sort_idx]
-        
-        # Fill neighbors respecting per-type limits (simplified)
-        # For performance, we'll just take first Nc neighbors after sorting
-        # This naturally respects type ordering
-        n_to_take = min(len(valid_indices), Nc)
-        neighbor_indices[i, :n_to_take] = valid_indices[:n_to_take]
-        neighbor_types[i, :n_to_take] = valid_types[:n_to_take]
-        neighbor_mask[i, :n_to_take] = 1.0
+    # Create sort keys for all atoms at once: type * 1000 + distance
+    # This prioritizes sorting by type first, then by distance
+    atom_types_expanded = atom_types.unsqueeze(0).expand(natom, -1)  # (natom, natom)
+    sort_keys = atom_types_expanded.float() * 1000.0 + dist  # (natom, natom)
+    
+    # Mask out invalid neighbors by setting their sort keys to a large value
+    sort_keys = torch.where(valid_mask, sort_keys, torch.tensor(1e10, device=device))
+    
+    # Sort all atoms' neighbors in parallel
+    sort_idx = torch.argsort(sort_keys, dim=1)  # (natom, natom)
+    
+    # Gather the top Nc neighbors for each atom
+    neighbor_indices = sort_idx[:, :Nc]  # (natom, Nc)
+    
+    # Gather neighbor types
+    neighbor_types = torch.gather(atom_types.unsqueeze(0).expand(natom, -1), 1, neighbor_indices)
+    
+    # Create neighbor mask: valid if distance is within cutoff
+    gathered_distances = torch.gather(dist, 1, neighbor_indices)  # (natom, Nc)
+    gathered_valid = torch.gather(valid_mask, 1, neighbor_indices)  # (natom, Nc)
+    neighbor_mask = gathered_valid.float()
+    
+    # Set invalid entries to -1 for indices and types
+    neighbor_indices = torch.where(gathered_valid, neighbor_indices, torch.tensor(-1, dtype=torch.long, device=device))
+    neighbor_types = torch.where(gathered_valid, neighbor_types, torch.tensor(-1, dtype=torch.long, device=device))
     
     return neighbor_indices, neighbor_types, neighbor_mask
 
