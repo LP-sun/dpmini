@@ -1,0 +1,46 @@
+{
+    "model": {
+        "type_map": [
+            "O",
+            "H"
+        ],
+        "descriptor": {
+            "type": "se_e2_a",
+            "sel": [
+                46,
+                92
+            ],
+            "rcut": 6.0,
+            "rcut_smth": 0.5,
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "axis_neuron": 4
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "activation": "tanh"
+        }
+    },
+    "loss": {
+        "start_pref_e": 0.02,
+        "limit_pref_e": 1.0,
+        "start_pref_f": 1000.0,
+        "limit_pref_f": 50.0
+    },
+    "learning_rate": {
+        "start_lr": 0.001,
+        "stop_lr": 1e-6
+    },
+    "training": {
+        "numb_steps": 20000,
+        "disp_freq": 100,
+        "save_freq": 1000
+    }
+}

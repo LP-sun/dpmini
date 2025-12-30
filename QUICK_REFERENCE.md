@@ -89,7 +89,7 @@ conda activate ai4m  # 或你的环境名
 ```bash
 # 复制以下文件到目标设备：
 scp run_training_optimized.sh user@remote:/path/
-scp train_deepmd_pytorch_cuda.py user@remote:/path/
+scp train_cuda.py user@remote:/path/
 scp -r se_e2_a dpmini collect user@remote:/path/
 
 # 在目标设备运行

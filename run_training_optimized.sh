@@ -158,7 +158,7 @@ echo "Starting training at $(date)..."
 echo ""
 
 # Build command
-CMD="$PYTHON -u train_deepmd_pytorch_cuda.py \
+CMD="$PYTHON -u train_cuda.py \
     --config $CONFIG_TO_USE \
     --checkpoint-dir $CHECKPOINT_DIR \
     --export-dir $EXPORT_DIR \

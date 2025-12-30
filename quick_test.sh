@@ -34,7 +34,7 @@ echo "  日志文件: quick_test.log"
 echo ""
 
 # 后台启动训练
-python3 train_deepmd_pytorch_cuda.py \
+python3 train_cuda.py \
     --config config_example_test.json \
     --checkpoint-dir checkpoints_quick_test \
     --export-dir exports_quick_test \

@@ -54,8 +54,8 @@ cd /home/ubuntu/pj || {
 }
 
 # 检查训练脚本
-if [ ! -f "train_deepmd_pytorch_cuda.py" ]; then
-    echo "❌ 错误: 找不到 train_deepmd_pytorch_cuda.py"
+if [ ! -f "train_cuda.py" ]; then
+    echo "❌ 错误: 找不到 train_cuda.py"
     exit 1
 fi
 
@@ -137,7 +137,7 @@ echo "步数: 500 (快速测试)"
 echo "设备: CUDA GPU (如果可用)"
 echo ""
 
-python train_deepmd_pytorch_cuda.py \
+python train_cuda.py \
     --config se_e2_a/input_torch_quick_test.json \
     --data-dir collect/O64H128 \
     --checkpoint-dir checkpoints_cuda \

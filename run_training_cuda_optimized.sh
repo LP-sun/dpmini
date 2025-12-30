@@ -24,7 +24,7 @@ echo "[$(date +'%Y-%m-%d %H:%M:%S')] Log file: ${LOG_FILE}"
 echo ""
 
 # Start training with nohup and tee for both console and file logging
-nohup python3 train_deepmd_pytorch_cuda_optimized.py \
+nohup python3 train_cuda_optimized.py \
     --config se_e2_a/input_torch.json \
     --data-dir collect/O64H128 \
     --checkpoint-dir checkpoints_cuda_opt \

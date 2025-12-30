@@ -1,0 +1,12 @@
+{
+  "f_rmse_mean": 0.7259459467804684,
+  "f_rmse_median": 0.6310432669257631,
+  "f_rmse_95": 1.2236511471409484,
+  "f_rmse_tail": 1.3427987491826445,
+  "f_rmse_std": 0.25640518487231634,
+  "e_rmse_per_atom": 61.21037169689043,
+  "e_mae_per_atom": 61.21037169689043,
+  "n_frames": 200,
+  "checkpoint": "backups/best_checkpoints/best_model_v3_step80000_20251230_183155.pt",
+  "config": "config_formal_100k_optimized.json"
+}

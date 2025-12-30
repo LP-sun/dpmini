@@ -15,7 +15,7 @@ dpmini/                     # 核心实现包
 ├── model.py                # 完整模型（fitting net + autograd 力计算）
 └── data.py                 # DeepMD 格式数据加载
 
-train_deepmd_pytorch.py     # 主训练脚本
+train_cpu.py     # 主训练脚本
 inference.py                # 推理脚本
 tests/
 └── test_descriptor.py      # 单元测试（5 个，全通过）
@@ -53,7 +53,7 @@ pytest tests/test_descriptor.py -v
 ### 3. 训练（快速）
 
 ```bash
-python train_deepmd_pytorch.py \
+python train_cpu.py \
   --config se_e2_a/input_torch_test.json \
   --data-dir collect/O64H128
 # 500 步，loss 从 372 → 60
@@ -62,7 +62,7 @@ python train_deepmd_pytorch.py \
 ### 4. 训练（完整）
 
 ```bash
-python train_deepmd_pytorch.py \
+python train_cpu.py \
   --config se_e2_a/input_torch.json \
   --data-dir collect/O64H128
 # 100000 步，导出到 exports/model_*.pth

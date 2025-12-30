@@ -26,7 +26,7 @@ echo "Log file      : $LOG_FILE"
 echo "=========================================="
 
 # Launch CUDA training with unbuffered output and nohup
-PYTHONUNBUFFERED=1 nohup /home/ubuntu/miniforge3/envs/ai4m/bin/python -u train_deepmd_pytorch_cuda.py \
+PYTHONUNBUFFERED=1 nohup /home/ubuntu/miniforge3/envs/ai4m/bin/python -u train_cuda.py \
   --config se_e2_a/input_torch.json \
   --data-dir collect/O64H128 \
   --checkpoint-dir checkpoints_cuda \

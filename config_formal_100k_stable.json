@@ -1,0 +1,59 @@
+{
+    "_comment": "Formal training - 100000 steps with ENHANCED STABILITY (lower start_lr, stronger prefactors)",
+    "model": {
+        "type_map": [
+            "O",
+            "H"
+        ],
+        "descriptor": {
+            "type": "se_e2_a",
+            "rcut": 6.0,
+            "rcut_smth": 5.5,
+            "sel": [
+                46,
+                92
+            ],
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "axis_neuron": 16,
+            "type_one_side": true,
+            "seed": 1
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "resnet_dt": true,
+            "seed": 1
+        }
+    },
+    "learning_rate": {
+        "type": "exp",
+        "start_lr": 0.0001,
+        "stop_lr": 1e-6,
+        "decay_steps": 20000,
+        "_comment_lr": "Reduced start_lr from 0.001 to 0.0001 for numerical stability"
+    },
+    "loss": {
+        "start_pref_e": 0.1,
+        "limit_pref_e": 1.0,
+        "start_pref_f": 100.0,
+        "limit_pref_f": 20.0,
+        "_comment_loss": "Increased start_pref_e (0.02→0.1), reduced start_pref_f (1000→100) to avoid early loss spikes"
+    },
+    "training": {
+        "systems": [
+            "collect/O64H128"
+        ],
+        "batch_size": 1,
+        "numb_steps": 100000,
+        "seed": 1,
+        "disp_freq": 1,
+        "save_freq": 5000
+    }
+}

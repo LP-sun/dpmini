@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Test DeepMD model on collect/data0 dataset and compute error metrics
-Similar to 'dp test' command
+Test DeepMD model on dataset and compute error metrics (MAE & RMSE).
+Similar to 'dp test' command.
 """
 import argparse
 import json
@@ -10,11 +10,10 @@ import numpy as np
 import torch
 from dpmini import DeepMDModel
 from dpmini.data import DeepMDDataset
-from torch.utils.data import DataLoader
 
 
 def compute_metrics(pred, true):
-    """Compute MAE and RMSE"""
+    """Compute MAE and RMSE."""
     mae = np.mean(np.abs(pred - true))
     rmse = np.sqrt(np.mean((pred - true)**2))
     return mae, rmse
@@ -26,8 +25,6 @@ def main():
                        help='Path to saved .pth model checkpoint')
     parser.add_argument('--data-dir', type=str, default='collect/data0',
                        help='Path to test data system directory')
-    parser.add_argument('--batch-size', type=int, default=1,
-                       help='Batch size for testing')
     parser.add_argument('--num-frames', type=int, default=None,
                        help='Number of frames to test (default: all)')
     args = parser.parse_args()
@@ -47,8 +44,8 @@ def main():
         model_state = checkpoint['model_state_dict']
     else:
         # Try to load from config file
-        print("Checkpoint doesn't contain config, loading from se_e2_a/input_torch.json")
-        with open('se_e2_a/input_torch.json') as f:
+        print("Checkpoint doesn't contain config, loading from config_minimal.json")
+        with open('config_minimal.json') as f:
             config = json.load(f)
         type_map = config['model']['type_map']
         model_state = checkpoint
@@ -90,12 +87,12 @@ def main():
         test_size = len(dataset)
     
     # Test loop
-    print(f"\nTesting on {test_size} frames...")
+    print(f"Testing on {test_size} frames...")
     
     pred_energies = []
     true_energies = []
-    pred_forces = []
-    true_forces = []
+    pred_forces_list = []
+    true_forces_list = []
     
     for i in range(test_size):
         positions, atom_types, box, energy, forces = dataset[i]
@@ -111,31 +108,53 @@ def main():
         # Forward pass
         total_energy, atomic_energies = model.forward(positions, atom_types, box)
         
-        # Compute forces
+        # Compute forces (need gradient, so not in no_grad)
         pred_force = -torch.autograd.grad(
             total_energy,
             positions,
             create_graph=False,
             retain_graph=False
         )[0]
-            
-            # Store predictions
-            pred_energies.append(total_energy.item())
-            true_energies.append(energy.item())
-        pred_forces.append(pred_force.detach().cpu().numpy())
+        
+        # Store predictions
+        pred_energies.append(total_energy.item())
+        true_energies.append(energy.item())
+        pred_forces_list.append(pred_force.detach().cpu().numpy())
+        true_forces_list.append(forces.numpy())
+    
+    # Convert to arrays
+    pred_energies = np.array(pred_energies)
+    true_energies = np.array(true_energies)
+    pred_forces_all = np.concatenate(pred_forces_list, axis=0)
+    true_forces_all = np.concatenate(true_forces_list, axis=0)
+    
+    # Compute metrics
+    e_mae, e_rmse = compute_metrics(pred_energies, true_energies)
+    f_mae, f_rmse = compute_metrics(pred_forces_all, true_forces_all)
+    
+    # Print results
+    print(f"\n{'='*60}")
+    print(f"Test Results on {args.data_dir}")
+    print(f"{'='*60}")
+    print(f"\nEnergy (total):")
+    print(f"  MAE:  {e_mae:.6f} eV")
+    print(f"  RMSE: {e_rmse:.6f} eV")
+    
+    print(f"\nForce (per component):")
+    print(f"  MAE:  {f_mae:.6f} eV/Å")
     print(f"  RMSE: {f_rmse:.6f} eV/Å")
     
-    # Per-atom energy metrics
-    natoms = len(dataset[0][1])  # Number of atoms
+    # Per-atom metrics
+    natoms = len(dataset[0][1])
     e_mae_per_atom = e_mae / natoms
     e_rmse_per_atom = e_rmse / natoms
     print(f"\nEnergy per atom ({natoms} atoms):")
     print(f"  MAE:  {e_mae_per_atom:.6f} eV/atom")
     print(f"  RMSE: {e_rmse_per_atom:.6f} eV/atom")
     
-    print("\n" + "="*60)
-    print(f"Tested {test_size} frames from {args.data_dir}")
-    print("="*60 + "\n")
+    print(f"\n{'='*60}")
+    print(f"Tested {test_size} frames")
+    print(f"{'='*60}\n")
 
 
 if __name__ == '__main__':

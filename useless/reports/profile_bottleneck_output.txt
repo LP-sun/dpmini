@@ -1,0 +1,77 @@
+Configuration:
+  Systems: ['collect/data0']
+  Batch size: 8
+  Type map: ['O', 'H']
+
+================================================================================
+Testing with num_workers=0
+================================================================================
+Loaded 1458 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+================================================================================
+Profiling Data Loading
+================================================================================
+Batch 1: 0.0 ms
+Batch 2: 0.0 ms
+Batch 3: 0.0 ms
+Batch 4: 0.0 ms
+Batch 5: 0.0 ms
+Batch 6: 0.0 ms
+Batch 7: 0.0 ms
+Batch 8: 0.0 ms
+Batch 9: 0.0 ms
+Batch 10: 0.0 ms
+
+Average data loading time: 0.0 ms/batch
+
+================================================================================
+Profiling GPU Transfer
+================================================================================
+Batch 1: 0.8 ms
+Batch 2: 0.7 ms
+Batch 3: 0.7 ms
+Batch 4: 0.7 ms
+Batch 5: 0.7 ms
+Batch 6: 0.7 ms
+Batch 7: 0.7 ms
+Batch 8: 0.7 ms
+Batch 9: 0.7 ms
+Batch 10: 0.7 ms
+
+Average GPU transfer time: 0.7 ms/batch
+
+================================================================================
+Profiling Forward Pass
+================================================================================
+Traceback (most recent call last):
+  File "/home/ubuntu/pj/profile_training_bottleneck.py", line 255, in <module>
+    main()
+    ~~~~^^
+  File "/home/ubuntu/pj/profile_training_bottleneck.py", line 226, in main
+    forward_time = profile_forward_pass(model, dataloader, device, num_batches=10)
+  File "/home/ubuntu/pj/profile_training_bottleneck.py", line 86, in profile_forward_pass
+    pred_energy, pred_forces = model(positions, atom_types, box)
+                               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniforge3/envs/ai4m/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniforge3/envs/ai4m/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pj/dpmini/model.py", line 140, in forward
+    descriptor = self.descriptor(positions, atom_types, box)  # (natom, desc_dim)
+  File "/home/ubuntu/miniforge3/envs/ai4m/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniforge3/envs/ai4m/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pj/dpmini/descriptor.py", line 297, in forward
+    neighbor_indices, neighbor_types, neighbor_mask = build_neighbor_list(
+                                                      ~~~~~~~~~~~~~~~~~~~^
+        positions, atom_types, self.type_map, self.sel, self.rcut, box
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/ubuntu/pj/dpmini/descriptor.py", line 152, in build_neighbor_list
+    neighbor_indices[i, :n_to_take] = valid_indices[:n_to_take]
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+RuntimeError: expand(torch.cuda.LongTensor{[138, 192]}, size=[138]): the number of sizes provided (1) must be greater or equal to the number of dimensions in the tensor (2)

@@ -1,0 +1,57 @@
+{
+    "_comment": "Formal training - 100000 steps with force loss optimization",
+    "model": {
+        "type_map": [
+            "O",
+            "H"
+        ],
+        "descriptor": {
+            "type": "se_e2_a",
+            "rcut": 6.0,
+            "rcut_smth": 5.5,
+            "sel": [
+                46,
+                92
+            ],
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "axis_neuron": 16,
+            "type_one_side": true,
+            "seed": 1
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "resnet_dt": true,
+            "seed": 1
+        }
+    },
+    "learning_rate": {
+        "type": "exp",
+        "start_lr": 0.001,
+        "stop_lr": 1e-6,
+        "decay_steps": 20000
+    },
+    "loss": {
+        "start_pref_e": 0.02,
+        "limit_pref_e": 1.0,
+        "start_pref_f": 1000.0,
+        "limit_pref_f": 20.0
+    },
+    "training": {
+        "systems": [
+            "collect/O64H128"
+        ],
+        "batch_size": 1,
+        "numb_steps": 100000,
+        "seed": 1,
+        "disp_freq": 500,
+        "save_freq": 5000
+    }
+}

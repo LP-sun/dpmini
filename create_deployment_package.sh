@@ -20,7 +20,7 @@ echo "Copying files to package..."
 
 # Core training files
 cp run_training_optimized.sh "$TEMP_DIR/"
-cp train_deepmd_pytorch_cuda.py "$TEMP_DIR/"
+cp train_cuda.py "$TEMP_DIR/"
 cp README_OPTIMIZED_TRAINING.md "$TEMP_DIR/"
 
 # Configuration and data

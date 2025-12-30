@@ -97,7 +97,7 @@ export MKL_NUM_THREADS=8
 kill <PID>  # 从 list_training_processes.sh 获取PID
 
 # 启动优化后的训练
-python3 train_deepmd_pytorch_cuda.py \
+python3 train_cuda.py \
     --config se_e2_a/input_torch.json \
     --num-workers 4
 ```
@@ -195,7 +195,7 @@ cat benchmark_results_*/results.csv
 python3 train_example_optimized.py --num-epochs 5
 
 # 2. 确认没问题后，使用完整数据
-python3 train_deepmd_pytorch_cuda.py \
+python3 train_cuda.py \
     --config se_e2_a/input_torch.json \
     --num-workers 4 \
     > training.log 2>&1 &

@@ -24,7 +24,7 @@
 
 | 文件 | 用途 | 命令 |
 |------|------|------|
-| [train_deepmd_pytorch.py](train_deepmd_pytorch.py) | 训练脚本 | `python train_deepmd_pytorch.py --config se_e2_a/input_torch.json` |
+| [train_cpu.py](train_cpu.py) | 训练脚本 | `python train_cpu.py --config se_e2_a/input_torch.json` |
 | [inference.py](inference.py) | 推理脚本 | `python inference.py --model exports/model_*.pth --input collect/O64H128` |
 | [quickstart.sh](quickstart.sh) | 快速启动 | `bash quickstart.sh` |
 
@@ -72,14 +72,14 @@ pytest tests/test_descriptor.py::TestSmoothCutoff -v
 
 ### 快速训练（500步）
 ```bash
-python train_deepmd_pytorch.py \
+python train_cpu.py \
   --config se_e2_a/input_torch_test.json \
   --data-dir collect/O64H128
 ```
 
 ### 完整训练（100000步）
 ```bash
-python train_deepmd_pytorch.py \
+python train_cpu.py \
   --config se_e2_a/input_torch.json \
   --data-dir collect/O64H128
 ```
@@ -98,7 +98,7 @@ python inference.py \
 3. **查看实现**：
    - SE(e2_a): [dpmini/descriptor.py](dpmini/descriptor.py) 第 60-450 行
    - Fitting: [dpmini/model.py](dpmini/model.py) 第 1-60 行
-   - 训练循环: [train_deepmd_pytorch.py](train_deepmd_pytorch.py) 第 130-210 行
+   - 训练循环: [train_cpu.py](train_cpu.py) 第 130-210 行
 4. **修改和扩展**：
    - 改配置: 编辑 `se_e2_a/input_torch.json`
    - 改模型: 编辑 `dpmini/descriptor.py` 或 `dpmini/model.py`
@@ -120,12 +120,12 @@ python inference.py \
 
 | 步骤 | 函数 | 文件 | 行数 |
 |------|------|------|------|
-| 1. 配置加载 | `load_config()` | train_deepmd_pytorch.py | 29-35 |
+| 1. 配置加载 | `load_config()` | train_cpu.py | 29-35 |
 | 2. 数据加载 | `DeepMDDataset()` | dpmini/data.py | 165-195 |
 | 3. 模型创建 | `DeepMDModel()` | dpmini/model.py | 65-120 |
 | 4. 前向传播 | `model.get_forces()` | dpmini/model.py | 155-175 |
-| 5. 损失计算 | `compute_loss()` | train_deepmd_pytorch.py | 65-80 |
-| 6. 反向传播 | `loss.backward()` | train_deepmd_pytorch.py | 205-210 |
+| 5. 损失计算 | `compute_loss()` | train_cpu.py | 65-80 |
+| 6. 反向传播 | `loss.backward()` | train_cpu.py | 205-210 |
 
 ## 📌 重要提醒
 

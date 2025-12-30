@@ -72,13 +72,21 @@ class SmoothCutoffFunction(nn.Module):
         return s
 
 
-def build_neighbor_list(positions: torch.Tensor, 
-                       atom_types: torch.Tensor,
-                       type_map: List[str],
-                       sel: List[int],
-                       rcut: float,
-                       box: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-    """Build neighbor list with PBC support.
+def build_neighbor_list(
+    positions: torch.Tensor,
+    atom_types: torch.Tensor,
+    type_map: List[str],
+    sel: List[int],
+    rcut: float,
+    box: Optional[torch.Tensor] = None
+) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Build neighbor list with strict self-exclusion and per-type selection.
+    
+    CRITICAL FIXES (2025-12-29 v2):
+    - Use dist2.fill_diagonal_(inf) for guaranteed self-exclusion
+    - Detach positions to avoid topk entering autograd graph
+    - Per-type neighbor selection: for each atom, select sel[t] nearest neighbors of type t
+    - Safety assertions to catch self-inclusion or mask/index mismatch
     
     Args:
         positions: (natom, 3) atom positions in Angstrom
@@ -91,68 +99,71 @@ def build_neighbor_list(positions: torch.Tensor,
     Returns:
         neighbor_indices: (natom, Nc) neighbor indices, padded with -1
         neighbor_types: (natom, Nc) neighbor type indices, padded with -1
-        neighbor_mask: (natom, Nc) binary mask, 1 for valid neighbors, 0 for padding
+        neighbor_mask: (natom, Nc) float32 in {0,1}, 1 for valid neighbors
     """
     natom = positions.shape[0]
-    ntypes = len(type_map)
-    Nc = sum(sel)
-    
     device = positions.device
-    
-    # Initialize outputs
-    neighbor_indices = torch.full((natom, Nc), -1, dtype=torch.long, device=device)
-    neighbor_types = torch.full((natom, Nc), -1, dtype=torch.long, device=device)
-    neighbor_mask = torch.zeros((natom, Nc), dtype=torch.float32, device=device)
-    
-    # Compute pairwise displacements with PBC
+    ntypes = len(type_map)
+    Nc = int(sum(sel))
+
+    # Neighbor list does not need gradient: detach to avoid discrete ops in autograd
+    pos = positions.detach()
+
     # r_ij = r_j - r_i
-    r_ij = positions.unsqueeze(0) - positions.unsqueeze(1)  # (natom, natom, 3)
-    
+    r_ij = pos.unsqueeze(1) - pos.unsqueeze(0)  # (natom, natom, 3)
+
+    # PBC: minimum image convention for diagonal box
     if box is not None:
         if box.shape == (3,):
-            # Cubic box: apply minimum image convention
             box_diag = box
-            r_ij = r_ij - torch.round(r_ij / box_diag.unsqueeze(0).unsqueeze(0)) * box_diag.unsqueeze(0).unsqueeze(0)
-        elif box.shape == (3, 3):
-            # General box: convert to fractional coords, wrap, convert back
-            # This is simplified - for production use proper PBC with box matrix
-            # Here we assume orthogonal box for simplicity
+        else:  # (3,3)
             box_diag = torch.diagonal(box)
-            r_ij = r_ij - torch.round(r_ij / box_diag.unsqueeze(0).unsqueeze(0)) * box_diag.unsqueeze(0).unsqueeze(0)
-    
-    # Compute distances
-    dist = torch.sqrt(torch.sum(r_ij * r_ij, dim=-1) + 1e-12)  # (natom, natom)
-    
-    # Build neighbor list - VECTORIZED VERSION (GPU parallel)
-    # Find all valid neighbors (within cutoff, not self)
-    valid_mask = (dist < rcut) & (dist > 1e-8)  # (natom, natom)
-    
-    # Create sort keys for all atoms at once: type * 1000 + distance
-    # This prioritizes sorting by type first, then by distance
-    atom_types_expanded = atom_types.unsqueeze(0).expand(natom, -1)  # (natom, natom)
-    sort_keys = atom_types_expanded.float() * 1000.0 + dist  # (natom, natom)
-    
-    # Mask out invalid neighbors by setting their sort keys to a large value
-    sort_keys = torch.where(valid_mask, sort_keys, torch.tensor(1e10, device=device))
-    
-    # Sort all atoms' neighbors in parallel
-    sort_idx = torch.argsort(sort_keys, dim=1)  # (natom, natom)
-    
-    # Gather the top Nc neighbors for each atom
-    neighbor_indices = sort_idx[:, :Nc]  # (natom, Nc)
-    
-    # Gather neighbor types
-    neighbor_types = torch.gather(atom_types.unsqueeze(0).expand(natom, -1), 1, neighbor_indices)
-    
-    # Create neighbor mask: valid if distance is within cutoff
-    gathered_distances = torch.gather(dist, 1, neighbor_indices)  # (natom, Nc)
-    gathered_valid = torch.gather(valid_mask, 1, neighbor_indices)  # (natom, Nc)
-    neighbor_mask = gathered_valid.float()
-    
-    # Set invalid entries to -1 for indices and types
-    neighbor_indices = torch.where(gathered_valid, neighbor_indices, torch.tensor(-1, dtype=torch.long, device=device))
-    neighbor_types = torch.where(gathered_valid, neighbor_types, torch.tensor(-1, dtype=torch.long, device=device))
-    
+        r_ij = r_ij - torch.round(r_ij / box_diag.view(1, 1, 3)) * box_diag.view(1, 1, 3)
+
+    dist2 = (r_ij * r_ij).sum(dim=-1)  # (natom, natom)
+    dist2.fill_diagonal_(float("inf"))  # CRITICAL:永远排除 self
+
+    rcut2 = rcut * rcut
+
+    idx_chunks = []
+    type_chunks = []
+    mask_chunks = []
+
+    for t in range(ntypes):
+        k = int(sel[t])
+        # 选择"邻居原子 j 的类型为 t"
+        type_mask = (atom_types == t).view(1, natom).expand(natom, natom)
+
+        dist2_t = dist2.masked_fill(~type_mask, float("inf"))
+
+        # 取最小的 k 个
+        k_eff = min(k, natom)
+        d2, idx = torch.topk(dist2_t, k=k_eff, dim=1, largest=False)
+
+        valid = d2 < rcut2  # (natom, k_eff)
+
+        # 不足 k 时 padding
+        if k_eff < k:
+            pad = k - k_eff
+            idx = torch.cat([idx, idx.new_full((natom, pad), -1)], dim=1)
+            valid = torch.cat([valid, valid.new_zeros((natom, pad), dtype=torch.bool)], dim=1)
+
+        idx = torch.where(valid, idx, idx.new_full(idx.shape, -1))
+        idx_chunks.append(idx)
+        type_chunks.append(idx.new_full(idx.shape, t))
+        mask_chunks.append(valid.float())
+
+    neighbor_indices = torch.cat(idx_chunks, dim=1)  # (natom, Nc)
+    neighbor_types = torch.cat(type_chunks, dim=1)   # (natom, Nc)
+    neighbor_mask = torch.cat(mask_chunks, dim=1)    # (natom, Nc)
+
+    # Safety assertions (optional but highly recommended during initial validation)
+    arange = torch.arange(natom, device=device).view(-1, 1)
+    if torch.any(neighbor_indices == arange):
+        raise RuntimeError("Neighbor list contains self indices (self-exclusion failed).")
+    if torch.any((neighbor_indices == -1) & (neighbor_mask > 0)):
+        raise RuntimeError("Mask/index mismatch: idx=-1 but mask=1.")
+
     return neighbor_indices, neighbor_types, neighbor_mask
 
 
@@ -271,10 +282,16 @@ class SEe2aDescriptor(nn.Module):
         # Embedding network
         self.embedding_net = EmbeddingNet(neuron, type_one_side, self.ntypes)
         
-        # Axis projection: from M to axis_neuron
-        # This is G^i_< in the formula
+        # Axis projection: learnable projection from M to axis_neuron
+        # This creates G^i_< from G^i
         self.axis_projection = nn.Linear(self.M, axis_neuron, bias=False)
-        self.axis_neuron = axis_neuron
+        # Initialize with small values to avoid numerical explosion
+        nn.init.normal_(self.axis_projection.weight, mean=0.0, std=0.01)
+        
+        # Ensure axis_neuron <= M for numerical stability
+        if axis_neuron > self.M:
+            import warnings
+            warnings.warn(f"axis_neuron ({axis_neuron}) > M ({self.M}), may cause issues")
         
     def forward(self, 
                 positions: torch.Tensor,
@@ -303,7 +320,9 @@ class SEe2aDescriptor(nn.Module):
         
         # Compute displacements r_ij = r_j - r_i
         # Handle padding: set padded neighbor positions to center atom position (distance 0)
-        neighbor_positions = torch.zeros(natom, self.Nc, 3, device=device, dtype=positions.dtype)
+        # Use actual neighbor list length returned by build_neighbor_list (may be < sum(sel) for small systems)
+        Nc = neighbor_indices.shape[1]
+        neighbor_positions = torch.zeros(natom, Nc, 3, device=device, dtype=positions.dtype)
         for i in range(natom):
             valid_mask = neighbor_mask[i] > 0
             valid_indices = neighbor_indices[i, valid_mask]
@@ -325,6 +344,10 @@ class SEe2aDescriptor(nn.Module):
         # Compute distances
         r = torch.sqrt(torch.sum(r_ij * r_ij, dim=-1) + 1e-12)  # (natom, Nc)
         
+        # CRITICAL FIX: Force padded r to be outside cutoff to avoid s(r)=1/r explosion
+        # This prevents numerical instability from r≈0 for padding neighbors
+        r = r * neighbor_mask + (self.rcut + 1.0) * (1.0 - neighbor_mask)
+        
         # Compute s(r)
         s_r = self.cutoff_fn(r)  # (natom, Nc)
         
@@ -343,11 +366,18 @@ class SEe2aDescriptor(nn.Module):
         # Compute embedding G^i: (natom, Nc, M)
         G = self.embedding_net(s_r, neighbor_types, neighbor_mask)  # (natom, Nc, M)
         
-        # Compute G^i_< via axis projection: (natom, Nc, axis_neuron)
+        # Compute G^i_< via learnable projection
+        # Shape: (natom, Nc, M) -> (natom, Nc, axis_neuron)
         G_axis = self.axis_projection(G)  # (natom, Nc, axis_neuron)
-        # se_e2_a: G_< 直接取前 M_< 列
-        M_axis = min(self.axis_neuron, G.shape[-1])  # 防御性写法
-        G_axis = G[..., :M_axis]                     # (B, Nc, M_<)
+        
+        # Debug: check for numerical issues (can be removed after validation)
+        if torch.isnan(G).any() or torch.isinf(G).any():
+            raise ValueError(f"NaN/Inf detected in G embedding")
+        if G.abs().max() > 1e3:
+            # Embedding outputs are too large - may indicate training divergence
+            import warnings
+            warnings.warn(f"Large embedding values: max={G.abs().max().item():.3e}")
+        
         # Compute descriptor matrix D^i = (1/Nc) * G^T @ R @ R^T @ G_<
         # Result shape: (natom, M, axis_neuron)
         
@@ -365,12 +395,24 @@ class SEe2aDescriptor(nn.Module):
             
             # D_i = (1/Nc) * G_i^T @ (R_i @ R_i^T) @ G_axis_i
             # = (1/Nc) * G_i^T @ R_i @ (R_i^T @ G_axis_i)
+            # where Nc is the actual valid neighbor count for this atom
+            n_valid = neighbor_mask[i].sum()
+            if n_valid < 1:
+                n_valid = 1.0
+            
             RtG = torch.matmul(R_i.T, G_axis_i)  # (4, axis_neuron)
             RRtG = torch.matmul(R_i, RtG)  # (Nc, axis_neuron)
-            D_i = torch.matmul(G_i.T, RRtG) / (self.Nc * self.Nc) # (M, axis_neuron)
+            # Correct DeepMD formula: D = (1/Nc) * G^T @ R @ R^T @ G_<
+            # This means: D = G^T @ (R @ R^T @ G_<) / Nc
+            # NOT dividing by Nc^2
+            D_i = torch.matmul(G_i.T, RRtG) / n_valid  # (M, axis_neuron)
             
             descriptors.append(D_i.flatten())  # (M * axis_neuron,)
         
         descriptor = torch.stack(descriptors, dim=0)  # (natom, M * axis_neuron)
+        
+        # Numerical stability: clip extreme descriptor values to prevent gradient explosion
+        # This is especially important during early training with random initialization
+        descriptor = torch.clamp(descriptor, min=-1e4, max=1e4)
         
         return descriptor

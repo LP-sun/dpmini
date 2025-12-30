@@ -1,0 +1,59 @@
+{
+    "_comment": "Formal training - 100k steps with FIXED loss scaling and proper gradient accumulation",
+    "model": {
+        "type_map": [
+            "O",
+            "H"
+        ],
+        "descriptor": {
+            "type": "se_e2_a",
+            "rcut": 6.0,
+            "rcut_smth": 5.5,
+            "sel": [
+                46,
+                92
+            ],
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "axis_neuron": 16,
+            "type_one_side": true,
+            "seed": 1
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "resnet_dt": true,
+            "seed": 1
+        }
+    },
+    "learning_rate": {
+        "type": "exp",
+        "start_lr": 0.0001,
+        "stop_lr": 1e-07,
+        "decay_steps": 100000,
+        "_comment_lr": "Full 100k decay: lr stays active throughout training (not frozen at 20k)"
+    },
+    "loss": {
+        "start_pref_e": 0.05,
+        "limit_pref_e": 1.0,
+        "start_pref_f": 200.0,
+        "limit_pref_f": 50.0,
+        "_comment_loss": "Fixed force scaling: pref_f=200→50 (maintains force emphasis), pref_e=0.05→1.0 (gradual energy focus)"
+    },
+    "training": {
+        "systems": [
+            "collect/O64H128"
+        ],
+        "batch_size": 1,
+        "numb_steps": 100000,
+        "seed": 1,
+        "disp_freq": 500,
+        "save_freq": 5000
+    }
+}

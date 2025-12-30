@@ -166,7 +166,7 @@ conda activate ai4m  # 替换为你的环境名
 1. 确认GPU确实被使用：
    ```bash
    nvidia-smi
-   # 应该看到 train_deepmd_pytorch_cuda.py 进程
+   # 应该看到 train_cuda.py 进程
    ```
 
 2. 检查实际使用的配置：
@@ -236,7 +236,7 @@ grep "speed" training_optimized.log | tail -5
 ```bash
 # 1. 复制必要文件
 scp run_training_optimized.sh user@new-host:/path/to/project/
-scp train_deepmd_pytorch_cuda.py user@new-host:/path/to/project/
+scp train_cuda.py user@new-host:/path/to/project/
 scp diagnose_training_performance.sh user@new-host:/path/to/project/
 scp -r se_e2_a/ user@new-host:/path/to/project/
 scp -r collect/ user@new-host:/path/to/project/

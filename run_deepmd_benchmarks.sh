@@ -191,11 +191,11 @@ PY
     if [[ "$BENCH_TIME" -gt 0 ]]; then
       timeout --signal=INT "${BENCH_TIME}"s \
         env OMP_NUM_THREADS="$OMP_THREADS" MKL_NUM_THREADS="$MKL_THREADS" PYTHONUNBUFFERED=1 \
-        python3 -u train_deepmd_pytorch_cuda.py --config "$tmp_cfg" --checkpoint-dir "$ckpt_dir" --export-dir "$exp_dir" --num-workers "$w" \
+        python3 -u train_cuda.py --config "$tmp_cfg" --checkpoint-dir "$ckpt_dir" --export-dir "$exp_dir" --num-workers "$w" \
         >"${log_file}" 2>&1 &
     else
       OMP_NUM_THREADS="$OMP_THREADS" MKL_NUM_THREADS="$MKL_THREADS" PYTHONUNBUFFERED=1 \
-        python3 -u train_deepmd_pytorch_cuda.py --config "$tmp_cfg" --checkpoint-dir "$ckpt_dir" --export-dir "$exp_dir" --num-workers "$w" \
+        python3 -u train_cuda.py --config "$tmp_cfg" --checkpoint-dir "$ckpt_dir" --export-dir "$exp_dir" --num-workers "$w" \
         >"${log_file}" 2>&1 &
     fi
     train_pid=$!

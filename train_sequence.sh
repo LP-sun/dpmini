@@ -6,7 +6,7 @@ cd /home/ubuntu/pj
 source /home/ubuntu/miniforge3/bin/activate ai4m
 
 echo "Starting quick validation test (1000 steps)..."
-python3 train_deepmd_pytorch_cuda.py \
+python3 train_cuda.py \
   --config se_e2_a/input_torch_quick_test.json \
   --data-dir collect/O64H128 \
   --checkpoint-dir checkpoints_cuda \
@@ -19,7 +19,7 @@ echo ""
 echo "Now starting full training (100000 steps)..."
 echo "Log: cuda_training_session.log"
 
-python3 train_deepmd_pytorch_cuda.py \
+python3 train_cuda.py \
   --config se_e2_a/input_torch.json \
   --data-dir collect/O64H128 \
   --checkpoint-dir checkpoints_cuda \

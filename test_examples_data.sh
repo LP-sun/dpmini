@@ -38,7 +38,7 @@ echo "  batch_size: 8"
 echo "  步数: 500"
 echo ""
 
-python3 train_deepmd_pytorch_cuda.py \
+python3 train_cuda.py \
     --config $CONFIG \
     --checkpoint-dir checkpoints_example_test \
     --export-dir exports_example_test \

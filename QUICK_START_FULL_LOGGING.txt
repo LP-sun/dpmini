@@ -1,0 +1,134 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    完整日志启动 - 快速参考                                      ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+📋 目标：启动训练时确保 stdout/stderr 完整写入独立日志文件，包含死亡时的完整信息
+
+───────────────────────────────────────────────────────────────────────────────
+
+🚀 最简单的启动命令（推荐）
+
+  cd /home/ubuntu/pj
+  ./launch_training_with_full_logging.sh --config config_formal_100k_stable.json --grad-accum 4
+
+  📁 日志保存到：logs/train_formal_YYYYMMDD-HHMMSS.log
+
+───────────────────────────────────────────────────────────────────────────────
+
+📊 快速测试（验证稳定性，~3 分钟）
+
+  ./launch_training_with_full_logging.sh \
+    --config config_formal_100k_stable.json \
+    --steps 500 \
+    --grad-accum 4 \
+    --checkpoint-dir checkpoints_quick_test \
+    --export-dir exports_quick_test
+
+  检查 loss 是否正常、是否产生 NaN/Inf
+
+───────────────────────────────────────────────────────────────────────────────
+
+🔍 查看日志
+
+  # 实时跟随
+  tail -f logs/train_formal_20251229-*.log
+
+  # 查看最后 50 行（含死亡信息）
+  tail -n 50 logs/train_formal_20251229-*.log
+
+  # 搜索错误
+  grep -i "error\|warning\|nan\|inf" logs/train_formal_20251229-*.log
+
+───────────────────────────────────────────────────────────────────────────────
+
+⚙️ 脚本选项
+
+  --config FILE              配置文件路径 (默认: config_formal_100k.json)
+  --checkpoint-dir DIR       保存 checkpoint 的目录 (默认: checkpoints_formal_long)
+  --export-dir DIR           导出模型的目录 (默认: exports_formal_long)
+  --grad-accum N             梯度累积步数 (默认: 8)
+  --steps N                  总训练步数 (默认: config 中的 numb_steps)
+  --force-loss TYPE          Loss 类型: mse | huber (默认: mse)
+
+───────────────────────────────────────────────────────────────────────────────
+
+📝 脚本确保
+
+  ✓ stdout + stderr 完全捕获到日志文件
+  ✓ 无缓冲 Python 执行 (python -u)
+  ✓ 实时输出显示到终端 (tee)
+  ✓ 完整环境与启动参数记录
+  ✓ 进程死亡原因与资源使用记录
+  ✓ 最后 N 行 loss 输出快照
+  ✓ 下一步操作建议
+
+───────────────────────────────────────────────────────────────────────────────
+
+💾 输出文件说明
+
+  logs/train_formal_YYYYMMDD-HHMMSS.log
+    └─ 完整训练日志（包含全部 stdout/stderr，推荐查看）
+
+  logs/train_formal_YYYYMMDD-HHMMSS_metadata.txt
+    └─ 启动时的元数据快照（可选）
+
+  cuda_training_opt.log
+    └─ train_cuda_optimized.py 内部 loss 日志（备用）
+
+  checkpoints_formal_long/*.pt
+    └─ 定期保存的 checkpoint
+
+  exports_formal_long/*.pth
+    └─ 最终导出的模型
+
+───────────────────────────────────────────────────────────────────────────────
+
+🛠️ 稳定配置 vs 原始配置
+
+  config_formal_100k_stable.json        config_formal_100k.json
+  ├─ start_lr: 0.0001                 ├─ start_lr: 0.001 (10x 更高)
+  ├─ start_pref_e: 0.1                ├─ start_pref_e: 0.02 (更低)
+  ├─ start_pref_f: 100.0              ├─ start_pref_f: 1000.0 (10x 更高)
+  └─ 推荐首选                          └─ 导致之前崩溃，仅对比用
+
+───────────────────────────────────────────────────────────────────────────────
+
+✅ 推荐启动流程
+
+  1️⃣ 短验证 (验证数值稳定性)
+     ./launch_training_with_full_logging.sh \
+       --config config_formal_100k_stable.json --steps 500 --grad-accum 4
+
+  2️⃣ 查看日志，确认无异常
+     tail -n 100 logs/train_formal_*.log
+
+  3️⃣ 若验证通过，启动完整训练
+     ./launch_training_with_full_logging.sh \
+       --config config_formal_100k_stable.json --grad-accum 4
+
+  4️⃣ 后续监控 (在另一个终端)
+     tail -f logs/train_formal_*.log
+
+───────────────────────────────────────────────────────────────────────────────
+
+❌ 故障排除
+
+  Q: 日志文件为空？
+  A: 确认脚本在运行:  ps aux | grep launch_training
+
+  Q: Python 输出不显示？
+  A: 脚本已包含 python -u，但检查 conda 激活:
+     source /home/ubuntu/miniforge3/bin/activate
+     conda activate cuda_env
+
+  Q: 进程死亡但日志未显示完整错误？
+  A: 检查日志末尾的"TRAINING COMPLETION/FAILURE REPORT"部分，
+     内含退出码和最后 10 行 loss
+
+───────────────────────────────────────────────────────────────────────────────
+
+📖 详细信息参见：LAUNCH_WITH_FULL_LOGGING_GUIDE.md
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║  脚本位置：/home/ubuntu/pj/launch_training_with_full_logging.sh (已可执行)     ║
+╚═══════════════════════════════════════════════════════════════════════════════╝

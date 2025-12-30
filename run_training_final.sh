@@ -3,7 +3,7 @@
 cd /home/ubuntu/pj
 
 # Run training and output to log
-/home/ubuntu/miniforge3/bin/conda run -n ai4m python3 train_deepmd_pytorch_cuda.py \
+/home/ubuntu/miniforge3/bin/conda run -n ai4m python3 train_cuda.py \
     --config se_e2_a/input_torch.json \
     --data-dir collect/O64H128 \
     --checkpoint-dir checkpoints_cuda \

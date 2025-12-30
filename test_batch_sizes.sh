@@ -29,7 +29,7 @@ for BS in 8 16 32 64; do
     
     # Run training for 50 steps
     echo "Running 50 steps with batch_size=$BS..."
-    timeout 120 $PYTHON train_deepmd_pytorch_cuda.py \
+    timeout 120 $PYTHON train_cuda.py \
         --config "$TEST_CONFIG" \
         --checkpoint-dir "test_bs${BS}" \
         --export-dir "test_bs${BS}_export" \

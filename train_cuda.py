@@ -2,8 +2,8 @@
 """Train a DeepMD-style model (se_e2_a) in PyTorch with CUDA acceleration.
 
 Usage (CUDA版本):
-  source activate cuda_env
-  python3 train_deepmd_pytorch_cuda.py --config se_e2_a/input_torch.json --data-dir ../pj_cuda/collect/O64H128
+    source activate cuda_env
+    python3 train_cuda.py --config se_e2_a/input_torch.json --data-dir ../pj_cuda/collect/O64H128
 
 Loads configuration from input_torch.json and trains on DeepMD format data.
 Outputs checkpoints and exportable .pth models.

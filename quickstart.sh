@@ -47,7 +47,7 @@ echo "" | tee -a "$LOG_FILE"
 
 # Quick training (500步) with timestamped logging
 echo "2. 运行快速训练 (500步)..." | tee -a "$LOG_FILE"
-PYTHONUNBUFFERED=1 /home/ubuntu/miniforge3/envs/ai4m/bin/python -u train_deepmd_pytorch.py \
+PYTHONUNBUFFERED=1 /home/ubuntu/miniforge3/envs/ai4m/bin/python -u train_cpu.py \
     --config se_e2_a/input_torch_test.json \
     --data-dir collect/O64H128 \
     --checkpoint-dir checkpoints_test \

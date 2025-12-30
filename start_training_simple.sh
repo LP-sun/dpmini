@@ -15,7 +15,7 @@ echo "Batch size: 8"
 echo "Workers: 4"
 echo ""
 
-python3 train_deepmd_pytorch_cuda_optimized.py \
+python3 train_cuda_optimized.py \
     --config se_e2_a/input_torch.json \
     --data-dir collect/O64H128 \
     --checkpoint-dir checkpoints_cuda_opt \

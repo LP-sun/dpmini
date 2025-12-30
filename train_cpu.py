@@ -2,7 +2,7 @@
 """Train a DeepMD-style model (se_e2_a) in PyTorch.
 
 Usage:
-  python3 train_deepmd_pytorch.py --config se_e2_a/input_torch.json
+    python3 train_cpu.py --config se_e2_a/input_torch.json
 
 Loads configuration from input_torch.json and trains on DeepMD format data.
 Outputs checkpoints and exportable .pth models.

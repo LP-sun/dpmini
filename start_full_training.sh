@@ -38,7 +38,7 @@ eval "$(conda shell.bash hook)"
 conda activate ai4m
 
 # 使用nohup后台启动，强制刷新输出到文件
-nohup python3 -u train_deepmd_pytorch_cuda.py \
+nohup python3 -u train_cuda.py \
     --config se_e2_a/input_torch.json \
     --checkpoint-dir checkpoints_cuda_opt \
     --export-dir exports_cuda_opt \

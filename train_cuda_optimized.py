@@ -30,12 +30,20 @@ def load_config(config_path: Path) -> dict:
     return config
 
 
-def get_learning_rate(step: int, config: dict) -> float:
-    """Compute learning rate with exponential decay."""
+def get_learning_rate(step: int, config: dict, numb_steps: int) -> float:
+    """Compute learning rate with exponential decay.
+    
+    Fixed: 
+    - decay_steps now defaults to numb_steps to avoid premature lr freeze.
+    - For short training (<= 2e4 steps), stop_lr raised to 1e-6 for better convergence.
+    """
     lr_config = config.get('learning_rate', {})
     start_lr = lr_config.get('start_lr', 1e-3)
-    stop_lr = lr_config.get('stop_lr', 3.51e-8)
-    decay_steps = lr_config.get('decay_steps', 5000)
+    # Short training needs higher stop_lr to keep learning in later stages
+    default_stop_lr = 1e-6 if numb_steps <= 20000 else 3.51e-8
+    stop_lr = lr_config.get('stop_lr', default_stop_lr)
+    # Critical fix: decay_steps should match training duration
+    decay_steps = lr_config.get('decay_steps', numb_steps)
     
     if step >= decay_steps:
         return stop_lr
@@ -45,12 +53,15 @@ def get_learning_rate(step: int, config: dict) -> float:
 
 
 def get_loss_prefactors(step: int, numb_steps: int, config: dict) -> tuple:
-    """Compute loss prefactors with linear schedule."""
+    """Compute loss prefactors with linear schedule.
+    
+    Fixed: limit_pref_f raised from 1 to 20 to maintain force emphasis in later training.
+    """
     loss_config = config.get('loss', {})
     start_pref_e = loss_config.get('start_pref_e', 0.02)
     limit_pref_e = loss_config.get('limit_pref_e', 1.0)
     start_pref_f = loss_config.get('start_pref_f', 1000.0)
-    limit_pref_f = loss_config.get('limit_pref_f', 1.0)
+    limit_pref_f = loss_config.get('limit_pref_f', 20.0)  # Raised from 1.0 to 20.0
     
     progress = min(1.0, step / numb_steps)
     pref_e = start_pref_e + (limit_pref_e - start_pref_e) * progress
@@ -60,12 +71,34 @@ def get_loss_prefactors(step: int, numb_steps: int, config: dict) -> tuple:
 
 
 def compute_loss(pred_energy, target_energy, pred_forces, target_forces, 
-                pref_e, pref_f, natoms):
-    """Compute energy and force loss."""
-    e_loss = torch.nn.functional.mse_loss(pred_energy, target_energy)
-    f_loss = torch.nn.functional.mse_loss(pred_forces, target_forces)
-    total_loss = pref_e * e_loss + pref_f * f_loss / natoms
-    return total_loss, e_loss.item(), f_loss.item()
+                pref_e, pref_f, natoms, force_loss_type='mse'):
+    """Compute energy and force loss.
+    
+    Fixed (2025-12-30):
+    - Energy loss: per-atom MSE to match force scaling
+    - Force loss: MSE over all 3N components (no /natoms, already mean-reduced)
+    - Return rmse values for intuitive error metrics
+    - total_loss = pref_e * e_loss + pref_f * f_loss (canonical form)
+    """
+    # Energy loss: per-atom MSE (normalize by natoms for scale matching)
+    e_err_per_atom = (pred_energy - target_energy) / natoms
+    e_loss = e_err_per_atom ** 2  # scalar MSE
+    
+    # Force loss: MSE over all force components (already mean-reduced by F.mse_loss)
+    if force_loss_type == 'huber':
+        # Huber loss (smooth L1) with beta=0.5 eV/Å to reduce outlier spikes
+        f_loss = torch.nn.functional.smooth_l1_loss(pred_forces, target_forces, beta=0.5)
+    else:  # 'mse'
+        f_loss = torch.nn.functional.mse_loss(pred_forces, target_forces)
+    
+    # Canonical loss combination (force weight NOT divided by natoms)
+    total_loss = pref_e * e_loss + pref_f * f_loss
+    
+    # RMSE for intuitive error metrics
+    e_rmse = torch.sqrt(e_loss)
+    f_rmse = torch.sqrt(f_loss)
+    
+    return total_loss, e_loss, f_loss, e_rmse, f_rmse
 
 
 def check_cuda_info():
@@ -115,10 +148,12 @@ def main():
                        help='Multiply batch_size from config by this factor')
     parser.add_argument('--mixed-precision', action='store_true',
                        help='Use mixed precision training')
-    parser.add_argument('--grad-accumulation-steps', type=int, default=1,
-                       help='Gradient accumulation steps (for larger effective batch)')
+    parser.add_argument('--grad-accumulation-steps', type=int, default=8,
+                       help='Gradient accumulation steps (default: 8 for force stability)')
+    parser.add_argument('--force-loss', type=str, default='mse', choices=['mse', 'huber'],
+                       help='Force loss type: mse (default) or huber (outlier-robust)')
     args = parser.parse_args()
-    
+    print("starting high-performance DeepMD training with CUDA optimizations...")
     # Check CUDA info and enable optimizations
     check_cuda_info()
     
@@ -138,7 +173,8 @@ def main():
     
     training_config = config.get('training', {})
     training_data_config = training_config.get('training_data', {})
-    batch_size = training_data_config.get('batch_size', 1) * args.batch_size_multiplier
+    # Force batch_size=1 to avoid shape ambiguity (use grad_accumulation for larger effective batch)
+    batch_size = 1
     numb_steps = training_config.get('numb_steps', 100000)
     
     # Use the data directory from command line argument
@@ -148,10 +184,12 @@ def main():
     print("TRAINING CONFIGURATION")
     print(f"{'=' * 80}")
     print(f"Training data systems: {system_dirs}")
-    print(f"Batch size: {batch_size} (original: {training_data_config.get('batch_size', 1)})")
+    print(f"Batch size: {batch_size} (FORCED to 1 for shape safety)")
+    print(f"Effective batch size: {batch_size * args.grad_accumulation_steps} (via gradient accumulation)")
     print(f"Number of workers: {args.num_workers}")
     print(f"Gradient accumulation steps: {args.grad_accumulation_steps}")
     print(f"Mixed precision: {args.mixed_precision}")
+    print(f"Force loss type: {args.force_loss} {'(Huber: outlier-robust)' if args.force_loss == 'huber' else '(MSE)'}")
     print(f"Total training steps: {numb_steps}")
     print()
     
@@ -159,21 +197,9 @@ def main():
     dataset = DeepMDDataset(system_dirs, type_map=type_map)
     
     print(f"Loaded {len(dataset)} frames, {dataset[0][0].shape[0]} atoms per frame")
-    print(f"Atom types distribution: {dataset[0][1][0].cpu().numpy()}")
-    
-    dataloader = DataLoader(
-        dataset,
-        batch_size=batch_size,
-        shuffle=True,
-        num_workers=args.num_workers,
-        pin_memory=True,  # Critical for GPU performance
-        persistent_workers=args.num_workers > 0,  # Keep worker processes alive
-        prefetch_factor=2 if args.num_workers > 0 else 0,  # Pre-load batches
-        drop_last=False
-    )
-    
-    print(f"DataLoader configured with {args.num_workers} workers + pin_memory + prefetch")
-    print(f"Effective steps per epoch: {len(dataloader)}")
+    print(f"Atom types distribution: {dataset[0][1].cpu().numpy()}")
+    print(f"Training mode: Direct dataset access (no DataLoader)")
+    print(f"Dataset will be accessed randomly via shuffled indices")
     print()
     
     # Create model
@@ -215,96 +241,153 @@ def main():
     print(f"Starting training for {numb_steps} steps (batch size: {batch_size})...")
     print(f"{'=' * 80}\n")
     
-    step = 0
-    epoch = 0
+    step = 1
+    update_step = 0  # Track actual optimizer.step() calls
     training_start_time = datetime.now()
     
+    # EMA tracking for f_rmse (exponential moving average, alpha=0.01)
+    f_rmse_ema = None
+    ema_alpha = 0.01
+    
+    # Generate shuffled indices for random sampling
+    dataset_size = len(dataset)
+    indices = list(range(dataset_size))
+    np.random.shuffle(indices)
+    idx_position = 0
+    
     try:
-        while step < numb_steps:
-            epoch += 1
-            for batch_idx, batch in enumerate(dataloader):
-                positions, atom_types, box, target_energy, target_forces = batch
+        # Gradient accumulation state
+        accum_step = 0
+        
+        while step <= numb_steps:
+            # Reshuffle when we've gone through all data
+            if idx_position >= dataset_size:
+                np.random.shuffle(indices)
+                idx_position = 0
+            
+            # Get data directly from dataset (no batch dimension)
+            data_idx = indices[idx_position]
+            idx_position += 1
+            
+            data = dataset[data_idx]
+            positions = data[0].to(device).requires_grad_(True)  # (natom, 3)
+            atom_types = data[1].to(device)  # (natom,)
+            box = data[2].to(device)  # (3, 3)
+            target_energy = data[3].to(device)  # scalar
+            target_forces = data[4].to(device)  # (natom, 3)
                 
-                # Move to device
-                positions = positions.to(device).squeeze(0).requires_grad_(True)
-                atom_types = atom_types.to(device).squeeze(0)
-                box = box.to(device).squeeze(0)
-                target_energy = target_energy.to(device).squeeze(0)
-                target_forces = target_forces.to(device).squeeze(0)
+            # Shape assertions (training early-fail beats silent bugs)
+            assert positions.dim() == 2 and positions.shape[1] == 3, \
+                f"positions must be (N, 3), got {positions.shape}"
+            assert target_forces.shape == positions.shape, \
+                f"forces shape {target_forces.shape} != positions shape {positions.shape}"
+            assert target_energy.dim() == 0, \
+                f"target_energy must be scalar, got shape {target_energy.shape}"
                 
-                natoms = positions.shape[0]
+            natoms = positions.shape[0]
                 
-                # Get learning rate and loss prefactors
-                lr = get_learning_rate(step, config)
-                for param_group in optimizer.param_groups:
-                    param_group['lr'] = lr
+            # Get learning rate and loss prefactors
+            lr = get_learning_rate(step, config, numb_steps)
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = lr
                 
-                pref_e, pref_f = get_loss_prefactors(step, numb_steps, config)
+            pref_e, pref_f = get_loss_prefactors(step, numb_steps, config)
                 
-                # Forward pass
+            # Zero grad only at start of accumulation cycle
+            if accum_step == 0:
                 optimizer.zero_grad()
                 
-                if scaler is not None:
-                    with torch.cuda.amp.autocast(dtype=torch.float16):
-                        pred_energy, atomic_energies, pred_forces = model.get_forces(
-                            positions, atom_types, box
-                        )
-                        loss, e_loss, f_loss = compute_loss(
-                            pred_energy, target_energy, pred_forces, target_forces,
-                            pref_e, pref_f, natoms
-                        )
+            # Forward pass
+            if scaler is not None:
+                with torch.cuda.amp.autocast(dtype=torch.float16):
+                    pred_energy, atomic_energies, pred_forces = model.get_forces(
+                        positions, atom_types, box
+                    )
+                    loss, e_loss, f_loss, e_rmse, f_rmse = compute_loss(
+                        pred_energy, target_energy, pred_forces, target_forces,
+                        pref_e, pref_f, natoms, force_loss_type=args.force_loss
+                    )
                     
-                    scaler.scale(loss).backward()
+                # Scale loss by accumulation steps for correct gradient magnitude
+                loss_scaled = loss / args.grad_accumulation_steps
+                scaler.scale(loss_scaled).backward()
+                    
+                # Only step optimizer after accumulating gradients
+                accum_step += 1
+                if accum_step >= args.grad_accumulation_steps:
                     scaler.unscale_(optimizer)
                     torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
                     scaler.step(optimizer)
                     scaler.update()
-                else:
-                    pred_energy, atomic_energies, pred_forces = model.get_forces(
-                        positions, atom_types, box
-                    )
-                    loss, e_loss, f_loss = compute_loss(
-                        pred_energy, target_energy, pred_forces, target_forces,
-                        pref_e, pref_f, natoms
-                    )
-                    
-                    loss.backward()
+                    optimizer.zero_grad()  # Zero for next cycle
+                    accum_step = 0
+                    update_step += 1
+            else:
+                pred_energy, atomic_energies, pred_forces = model.get_forces(
+                    positions, atom_types, box
+                )
+                loss, e_loss, f_loss, e_rmse, f_rmse = compute_loss(
+                    pred_energy, target_energy, pred_forces, target_forces,
+                    pref_e, pref_f, natoms, force_loss_type=args.force_loss
+                )
+                
+                # Scale loss for gradient accumulation
+                loss_scaled = loss / args.grad_accumulation_steps
+                loss_scaled.backward()
+                
+                # Step optimizer after accumulation
+                accum_step += 1
+                if accum_step >= args.grad_accumulation_steps:
                     torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
                     optimizer.step()
+                    optimizer.zero_grad()  # Zero for next cycle
+                    accum_step = 0
+                    update_step += 1
+            
+            # Update EMA for f_rmse
+            f_rmse_val = f_rmse.item()
+            if f_rmse_ema is None:
+                f_rmse_ema = f_rmse_val
+            else:
+                f_rmse_ema = (1 - ema_alpha) * f_rmse_ema + ema_alpha * f_rmse_val
+            
+            # Logging with loss consistency check
+            disp_freq = training_config.get('disp_freq', 100)
+            if step % disp_freq == 0 or step<=5:
+                # Loss consistency verification
+                with torch.no_grad():
+                    recon = pref_e * e_loss + pref_f * f_loss
+                    diff = (loss - recon).abs().item()
                 
-                step += 1
+                elapsed = (datetime.now() - training_start_time).total_seconds()
+                speed = step / elapsed
+                remaining_steps = numb_steps - step
+                eta_seconds = remaining_steps / speed
                 
-                # Logging
-                disp_freq = training_config.get('disp_freq', 100)
-                if step % disp_freq == 0:
-                    elapsed = (datetime.now() - training_start_time).total_seconds()
-                    speed = step / elapsed
-                    remaining_steps = numb_steps - step
-                    eta_seconds = remaining_steps / speed
-                    
-                    eta_time = datetime.now() + torch.tensor(eta_seconds).timedelta if hasattr(torch, 'timedelta') else datetime.now()
-                    
-                    print(f"Step {step:6d} | lr={lr:.2e} | loss={loss.item():.6e} | "
-                          f"e_loss={e_loss:.6e} | f_loss={f_loss:.6e} | "
-                          f"pref_e={pref_e:.3f} pref_f={pref_f:.3f} | "
-                          f"Speed: {speed:.2f} steps/s | ETA: {eta_seconds/3600:.1f}h")
-                    
-                    # Log to file (append mode)
-                    with open('cuda_training_opt.log', 'a') as f:
-                        f.write(f"Step {step:6d} | lr={lr:.2e} | loss={loss.item():.6e} | "
-                               f"e_loss={e_loss:.6e} | f_loss={f_loss:.6e} | "
-                               f"pref_e={pref_e:.3f} pref_f={pref_f:.3f} | "
-                               f"Speed: {speed:.2f} steps/s\n")
+                print(
+                    f"Step {step:6d} (update={update_step:5d}) | lr={lr:.3e} | loss={loss.item():.6g} "
+                    f"| e_rmse={e_rmse.item():.4f} f_rmse={f_rmse.item():.4f} f_ema={f_rmse_ema:.4f} "
+                    f"| pref_e={pref_e:.4g} pref_f={pref_f:.4g} | diff={diff:.3e} "
+                    f"| {speed:.2f} step/s | ETA: {eta_seconds/3600:.1f}h"
+                )
                 
-                # Checkpoint
-                save_freq = training_config.get('save_freq', 10000)
-                if step % save_freq == 0:
-                    checkpoint_path = Path(args.checkpoint_dir) / f'model_step{step}.pt'
-                    torch.save(model.state_dict(), checkpoint_path)
-                    print(f"Saved checkpoint to {checkpoint_path}")
-                
-                if step >= numb_steps:
-                    break
+                # Log to file (append mode)
+                with open('cuda_training_opt.log', 'a') as f:
+                    f.write(
+                        f"Step {step:6d} | update={update_step:5d} | lr={lr:.3e} | loss={loss.item():.6g} | "
+                        f"e_loss={e_loss.item():.6g} | f_loss={f_loss.item():.6g} | "
+                        f"e_rmse={e_rmse.item():.4f} | f_rmse={f_rmse.item():.4f} | f_ema={f_rmse_ema:.4f} | "
+                        f"pref_e={pref_e:.4g} pref_f={pref_f:.4g} | diff={diff:.3e}\n"
+                    )
+            
+            # Checkpoint
+            save_freq = training_config.get('save_freq', 10000)
+            if step % save_freq == 0:
+                checkpoint_path = Path(args.checkpoint_dir) / f'model_step{step}.pt'
+                torch.save(model.state_dict(), checkpoint_path)
+                print(f"Saved checkpoint to {checkpoint_path}")
+            
+            step += 1
     
     except KeyboardInterrupt:
         print("\nTraining interrupted by user")

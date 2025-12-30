@@ -1,0 +1,173 @@
+# 🎯 DeepMD 修复 - 快速参考卡
+
+**打印这份，贴在显示器上！** 👈
+
+---
+
+## 🚀 三步启动
+
+```bash
+# 1️⃣  验证 (5 分钟)
+python test_training_fixes.py
+
+# 2️⃣  启动 (使用 -u 无缓冲！)
+python -u train_cuda_optimized.py \
+  --config config_formal_100k.json \
+  --checkpoint-dir checkpoints_formal_long \
+  2>&1 | tee logs/train_$(date +%Y%m%d-%H%M%S).log &
+
+# 3️⃣  监控
+tail -f logs/train_*.log
+```
+
+---
+
+## 📊 监控命令
+
+```bash
+# 实时查看日志
+tail -f logs/train_xxx.log
+
+# 查看 f_rmse 趋势（最后 20 行）
+grep "f_rmse=" logs/train_*.log | tail -20
+
+# 提取完整数据为 CSV
+python extract_training_metrics.py logs/train_*.log
+
+# 检查 GPU 状态
+nvidia-smi
+
+# 查找训练进程
+ps aux | grep train_cuda
+```
+
+---
+
+## ⚠️ 必读
+
+### ❌ 常见错误
+```bash
+# ❌ 错误：日志被缓冲，看不到实时输出
+python train_cuda_optimized.py ... > logs/train.log
+
+# ✅ 正确：使用 -u 标志
+python -u train_cuda_optimized.py ... 2>&1 | tee logs/train.log
+```
+
+### ⚡ 关键参数
+| 参数 | 值 | 为什么 |
+|------|-----|--------|
+| stop_lr | 1e-6 | 不衰减到地板 |
+| limit_pref_f | 20.0 | 维持 force 权重 |
+| decay_steps | 20000 | 同步长训练周期 |
+
+---
+
+## 🔍 常见问题速答
+
+| 问题 | 答案 |
+|------|------|
+| **F_rmse 还在抖动？** | 正常！Batch=1 噪声。看 rolling mean。 |
+| **Loss 突然爆炸？** | 检查 start_lr，可能太高或数据问题。 |
+| **日志没输出？** | 忘了 `-u` 标志？改成 `python -u ...` |
+| **GPU 内存满？** | Batch=1 已最小。检查其他进程。 |
+| **Checkpoint 在哪？** | checkpoints_formal_long/ 目录，5000 步一次。 |
+
+---
+
+## 📁 重要文件
+
+```
+dpmini/descriptor.py          ← 修复的核心代码
+config_formal_100k.json       ← 推荐配置
+test_training_fixes.py        ← 诊断工具
+extract_training_metrics.py   ← 数据提取
+```
+
+---
+
+## 📚 文档导航
+
+| 需求 | 文档 |
+|------|------|
+| 快速开始 | EXECUTION_SUMMARY.md |
+| 技术细节 | FIX_VALIDATION_REPORT.md |
+| 文档索引 | README_FIXES.md |
+| 修改清单 | MODIFICATION_CHECKLIST.md |
+| 成果总结 | FINAL_SUMMARY.md |
+
+---
+
+## 🎯 修复要点
+
+✅ **问题 1:** Self-atom 被当邻居 → **已修复**  
+✅ **问题 2:** Sel 分配错误 → **已修复**  
+✅ **结果:** F_rmse 71% 下降  
+✅ **验证:** 所有测试通过  
+
+---
+
+## 💾 启动后常做的事
+
+```bash
+# 实时监控 (打开新终端)
+watch -n 5 nvidia-smi
+
+# 后台继续工作 (原终端)
+cd /home/ubuntu/pj  # 可做其他事
+
+# 一小时后检查进度
+tail -50 logs/train_*.log | grep "Step\|f_rmse"
+
+# 完成后导出模型
+ls -lh exports_formal_long/
+```
+
+---
+
+## 🆘 遇到问题
+
+### 第 1 步：看日志
+```bash
+tail -100 logs/train_*.log
+```
+
+### 第 2 步：运行诊断
+```bash
+python test_training_fixes.py
+```
+
+### 第 3 步：查看文档
+```
+→ EXECUTION_SUMMARY.md 的"常见问题排查"部分
+→ README_FIXES.md 的"故障排查"部分
+```
+
+---
+
+## ✨ 性能基准 (参考)
+
+```
+短训练 (2000 步，约 23 分钟):
+  - 步速: 1.44 step/s
+  - F_rmse: 2.17 → 0.63 (71% 下降)
+  - GPU: ~8GB 内存
+
+长训练 (100000 步，约 30 小时):
+  - 预计完全收敛
+  - 检查点每 5000 步保存
+```
+
+---
+
+## 🎊 一句话总结
+
+**Neighbor list 已修复，F_rmse 曲线已改善，可启动生产训练。**
+
+👉 **立即启动：** `python -u train_cuda_optimized.py --config config_formal_100k.json ... &`
+
+---
+
+**打印提示:** 这份卡可以贴在办公室或发给团队成员  
+**更新时间:** 2025年12月29日
+
