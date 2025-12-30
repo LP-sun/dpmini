@@ -1,0 +1,50 @@
+================================================================================
+CUDA Information
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+
+GPU 0: NVIDIA L20-8Q
+  Memory Allocated: 0.00 GB
+  Memory Reserved: 0.00 GB
+  Memory Total: 8.36 GB
+
+CUDA optimizations enabled:
+  - cuDNN auto-tuner: enabled
+  - CUDA mixed precision: ready for use
+================================================================================
+
+Loading config from config_example_test.json
+Loading training data from: ['examples/data/water']
+Loaded 400 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Creating DeepMD model...
+Model Parameters: 514661 (trainable: 514661)
+Using device: cuda
+Starting training for 500 steps...
+Batch size: 8, Dataset size: 400
+Number of workers: 4
+
+Step     50 | batch_size= 8 | lr=9.04e-04 | loss=4.223038e+07 | e_loss=6.578648e+08 | f_loss=6.402833e-01 | pref_e=0.116 pref_f=902.098 | ETA 0.1h | speed 2.29 step/s (window 2.29) | GPU mem 26/182 MiB | util 24% | grad_norm 1.06e+00
+Step    100 | batch_size= 8 | lr=8.16e-04 | loss=7.069180e+07 | e_loss=4.347177e+08 | f_loss=6.641997e-01 | pref_e=0.214 pref_f=802.198 | ETA 0.0h | speed 2.31 step/s (window 2.34) | GPU mem 26/182 MiB | util 24% | grad_norm 1.04e+00
+Step    150 | batch_size= 8 | lr=7.37e-04 | loss=7.256702e+07 | e_loss=2.788996e+08 | f_loss=6.756550e-01 | pref_e=0.312 pref_f=702.298 | ETA 0.0h | speed 2.32 step/s (window 2.34) | GPU mem 26/182 MiB | util 24% | grad_norm 1.03e+00
+Step    200 | batch_size= 8 | lr=6.65e-04 | loss=6.083482e+07 | e_loss=1.700619e+08 | f_loss=6.649614e-01 | pref_e=0.410 pref_f=602.398 | ETA 0.0h | speed 2.31 step/s (window 2.31) | GPU mem 26/182 MiB | util 23% | grad_norm 1.03e+00
+Saved checkpoint to checkpoints_quick_test/model_step200.pt
+Step    250 | batch_size= 8 | lr=6.00e-04 | loss=4.353457e+07 | e_loss=9.570553e+07 | f_loss=6.544122e-01 | pref_e=0.508 pref_f=502.498 | ETA 0.0h | speed 2.31 step/s (window 2.31) | GPU mem 26/182 MiB | util 24% | grad_norm 1.03e+00
+Step    300 | batch_size= 8 | lr=5.42e-04 | loss=2.592367e+07 | e_loss=4.701135e+07 | f_loss=6.820241e-01 | pref_e=0.606 pref_f=402.598 | ETA 0.0h | speed 2.32 step/s (window 2.34) | GPU mem 26/182 MiB | util 25% | grad_norm 1.03e+00
+Step    350 | batch_size= 8 | lr=4.89e-04 | loss=1.156674e+07 | e_loss=1.789230e+07 | f_loss=6.608955e-01 | pref_e=0.704 pref_f=302.698 | ETA 0.0h | speed 2.32 step/s (window 2.33) | GPU mem 26/182 MiB | util 24% | grad_norm 1.03e+00
+Step    400 | batch_size= 8 | lr=4.41e-04 | loss=2.657838e+06 | e_loss=3.612644e+06 | f_loss=6.604196e-01 | pref_e=0.802 pref_f=202.798 | ETA 0.0h | speed 2.32 step/s (window 2.32) | GPU mem 26/182 MiB | util 24% | grad_norm 1.03e+00
+Saved checkpoint to checkpoints_quick_test/model_step400.pt
+Step    450 | batch_size= 8 | lr=3.98e-04 | loss=4.107445e+04 | e_loss=5.053015e+04 | f_loss=6.688001e-01 | pref_e=0.900 pref_f=102.898 | ETA 0.0h | speed 2.31 step/s (window 2.30) | GPU mem 26/182 MiB | util 24% | grad_norm 1.03e+00
+Step    500 | batch_size= 8 | lr=3.59e-04 | loss=1.880836e+01 | e_loss=1.937991e+01 | f_loss=7.072055e-01 | pref_e=0.998 pref_f=2.998 | ETA 0.0h | speed 2.32 step/s (window 2.34) | GPU mem 26/182 MiB | util 23% | grad_norm 1.03e+00
+
+Training complete! Exported model to exports_quick_test/model_cuda_20251228-000447.pth
+
+Training Summary:
+  Total steps: 537
+  Total time: 0.06 hours (3.9 minutes)
+  Average speed: 2.32 steps/second
+  Device used: cuda

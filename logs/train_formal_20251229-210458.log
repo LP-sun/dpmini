@@ -1,0 +1,201 @@
+================================================================================
+DeepMD Training Launch - Full Logging Mode
+================================================================================
+
+[LAUNCH TIME] 2025-12-29 21:04:58 CST
+[WORKING DIR] /home/ubuntu/pj
+[LOG FILE] /home/ubuntu/pj/logs/train_formal_20251229-210458.log
+
+--- STARTUP PARAMETERS ---
+CONFIG: config_formal_100k_stable.json
+CHECKPOINT_DIR: checkpoints_fixed_neighbor
+EXPORT_DIR: exports_fixed_neighbor
+FORCE_LOSS: mse
+GRAD_ACCUM_STEPS: 4
+NUMB_STEPS (override): 2000
+
+--- ENVIRONMENT ---
+Shell: GNU bash，版本 5.1.16(1)-release (x86_64-pc-linux-gnu)
+Python PATH: /home/ubuntu/miniforge3/envs/cuda_env/bin/python
+Conda Env: cuda_env
+Hostname: 2025-rgzn-wh16
+User: ubuntu
+
+--- GPU INFO ---
+0, NVIDIA L20-8Q, 8192 MiB
+
+--- CONFIG FILE CONTENT ---
+File: config_formal_100k_stable.json
+{
+    "_comment": "Formal training - 100000 steps with ENHANCED STABILITY (lower start_lr, stronger prefactors)",
+    "model": {
+        "type_map": [
+            "O",
+            "H"
+        ],
+        "descriptor": {
+            "type": "se_e2_a",
+            "rcut": 6.0,
+            "rcut_smth": 5.5,
+            "sel": [
+                46,
+                92
+            ],
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "axis_neuron": 16,
+            "type_one_side": true,
+            "seed": 1
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "resnet_dt": true,
+            "seed": 1
+        }
+    },
+    "learning_rate": {
+        "type": "exp",
+        "start_lr": 0.0001,
+        "stop_lr": 1e-6,
+        "decay_steps": 20000,
+        "_comment_lr": "Reduced start_lr from 0.001 to 0.0001 for numerical stability"
+    },
+    "loss": {
+        "start_pref_e": 0.1,
+        "limit_pref_e": 1.0,
+        "start_pref_f": 100.0,
+        "limit_pref_f": 20.0,
+        "_comment_loss": "Increased start_pref_e (0.02→0.1), reduced start_pref_f (1000→100) to avoid early loss spikes"
+    },
+    "training": {
+        "systems": [
+            "collect/O64H128"
+        ],
+        "batch_size": 1,
+        "numb_steps": 100000,
+        "seed": 1,
+        "disp_freq": 500,
+        "save_freq": 5000
+    }
+}
+================================================================================
+TRAINING START
+================================================================================
+
+
+[21:04:58] Activating conda environment and launching training...
+
+Python 3.10.19
+[21:04:59] Environment activated successfully
+
+[21:04:59] Executing: python -u train_cuda_optimized.py --config config_formal_100k_stable.json --checkpoint-dir checkpoints_fixed_neighbor --export-dir exports_fixed_neighbor --force-loss mse --grad-accumulation-steps 4
+
+starting high-performance DeepMD training with CUDA optimizations...
+================================================================================
+CUDA OPTIMIZATION CONFIGURATION
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.5.1+cu121
+CUDA Version: 12.1
+cuDNN Version: 90100
+Number of GPUs: 1
+cuDNN benchmark: ENABLED (faster conv/attn kernels)
+TF32 tensor operations: ENABLED (safe for training)
+
+GPU 0: NVIDIA L20-8Q
+  Compute Capability: 8.9
+  Total Memory: 8.36 GB
+
+Loading config from config_formal_100k_stable.json
+
+================================================================================
+TRAINING CONFIGURATION
+================================================================================
+Training data systems: ['collect/O64H128']
+Batch size: 1 (FORCED to 1 for shape safety)
+Effective batch size: 4 (via gradient accumulation)
+Number of workers: 4
+Gradient accumulation steps: 4
+Mixed precision: False
+Force loss type: mse (MSE)
+Total training steps: 100000
+
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1]
+Training mode: Direct dataset access (no DataLoader)
+Dataset will be accessed randomly via shuffled indices
+
+Creating DeepMD model...
+Model Parameters: 514,661 (trainable: 514,661)
+Using device: cuda
+
+================================================================================
+Starting training for 100000 steps (batch size: 1)...
+================================================================================
+
+Step      1 | lr=9.998e-05 | loss=86490 | e_loss=863150 f_loss=1.67287 f_rmse=1.2934 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.10 step/s | ETA: 25.3h
+Step      2 | lr=9.995e-05 | loss=87961 | e_loss=878703 f_loss=0.74839 f_rmse=0.8651 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.42 step/s | ETA: 19.5h
+Step      3 | lr=9.993e-05 | loss=84847 | e_loss=844166 f_loss=4.07563 f_rmse=2.0188 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.60 step/s | ETA: 17.4h
+Step      4 | lr=9.991e-05 | loss=84440 | e_loss=840005 f_loss=4.09231 f_rmse=2.0229 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.64 step/s | ETA: 16.9h
+Step      5 | lr=9.988e-05 | loss=84162.4 | e_loss=836086 f_loss=5.16201 f_rmse=2.2720 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.72 step/s | ETA: 16.1h
+./launch_training_with_full_logging.sh: 第 177 行： 132183 已杀死               python -u train_cuda_optimized.py --config config_formal_100k_stable.json --checkpoint-dir checkpoints_fixed_neighbor --export-dir exports_fixed_neighbor --force-loss mse --grad-accumulation-steps 4
+
+================================================================================
+TRAINING COMPLETION/FAILURE REPORT
+================================================================================
+
+[END TIME] 2025-12-29 21:08:33 CST
+[EXIT CODE] 137
+[STATUS] ✗ Training killed by system (OOM or signal)
+
+--- FINAL OUTPUT FILE SIZES ---
+Checkpoints (checkpoints_fixed_neighbor): 0 files, ~4.0K
+Exports (exports_fixed_neighbor): 0 files, ~4.0K
+
+--- INTERNAL LOSS LOG (if exists) ---
+cuda_training_opt.log: 114 lines, ~16K
+
+Last 10 lines:
+  Step   8500 | lr=1.413e-05 | loss=464.296 | e_loss=246.276 | f_loss=4.51533 | f_rmse=2.1249 | pref_e=0.1765 pref_f=93.2 | diff=0.000e+00
+  Step   9000 | lr=1.259e-05 | loss=57.3197 | e_loss=28.1145 | f_loss=0.562834 | f_rmse=0.7502 | pref_e=0.181 pref_f=92.8 | diff=0.000e+00
+  Step   9500 | lr=1.122e-05 | loss=64.6399 | e_loss=42.3008 | f_loss=0.614644 | f_rmse=0.7840 | pref_e=0.1855 pref_f=92.4 | diff=0.000e+00
+  Step  10000 | lr=1.000e-05 | loss=42.8375 | e_loss=0.992811 | f_loss=0.463575 | f_rmse=0.6809 | pref_e=0.19 pref_f=92 | diff=0.000e+00
+  Step  10500 | lr=8.913e-06 | loss=163.161 | e_loss=60.9532 | f_loss=1.65181 | f_rmse=1.2852 | pref_e=0.1945 pref_f=91.6 | diff=0.000e+00
+  Step      1 | lr=9.998e-05 | loss=86490 | e_loss=863150 | f_loss=1.67287 | f_rmse=1.2934 | pref_e=0.1 pref_f=100 | diff=0.000e+00
+  Step      2 | lr=9.995e-05 | loss=87961 | e_loss=878703 | f_loss=0.74839 | f_rmse=0.8651 | pref_e=0.1 pref_f=100 | diff=0.000e+00
+  Step      3 | lr=9.993e-05 | loss=84847 | e_loss=844166 | f_loss=4.07563 | f_rmse=2.0188 | pref_e=0.1 pref_f=100 | diff=0.000e+00
+  Step      4 | lr=9.991e-05 | loss=84440 | e_loss=840005 | f_loss=4.09231 | f_rmse=2.0229 | pref_e=0.1 pref_f=100 | diff=0.000e+00
+  Step      5 | lr=9.988e-05 | loss=84162.4 | e_loss=836086 | f_loss=5.16201 | f_rmse=2.2720 | pref_e=0.1 pref_f=100 | diff=0.000e+00
+
+--- SYSTEM RESOURCES AT END ---
+GPU Memory:
+  40 MiB, 7552 MiB
+
+--- MONITORING COMMANDS FOR NEXT RUN ---
+
+# Real-time log tail:
+tail -f '/home/ubuntu/pj/logs/train_formal_20251229-210458.log'
+
+# Extract metrics to CSV (when log accumulates):
+python -u extract_training_metrics.py --log '/home/ubuntu/pj/logs/train_formal_20251229-210458.log' --output metrics_20251229-210458.csv
+
+# Watch GPU/checkpoint progress:
+watch -n 10 'date; ls -lh checkpoints_fixed_neighbor; nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader'
+
+================================================================================
+Full log saved to: /home/ubuntu/pj/logs/train_formal_20251229-210458.log
+================================================================================

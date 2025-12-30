@@ -1,0 +1,5 @@
+nohup: 忽略输入
+Traceback (most recent call last):
+  File "/home/ubuntu/pj/md_simulation.py", line 31, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'

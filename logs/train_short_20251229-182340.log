@@ -1,0 +1,50 @@
+starting high-performance DeepMD training with CUDA optimizations...
+================================================================================
+CUDA OPTIMIZATION CONFIGURATION
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.5.1+cu121
+CUDA Version: 12.1
+cuDNN Version: 90100
+Number of GPUs: 1
+cuDNN benchmark: ENABLED (faster conv/attn kernels)
+TF32 tensor operations: ENABLED (safe for training)
+
+GPU 0: NVIDIA L20-8Q
+  Compute Capability: 8.9
+  Total Memory: 8.36 GB
+
+Loading config from config_short_training_fixed.json
+
+================================================================================
+TRAINING CONFIGURATION
+================================================================================
+Training data systems: ['collect/O64H128']
+Batch size: 1 (FORCED to 1 for shape safety)
+Effective batch size: 4 (via gradient accumulation)
+Number of workers: 4
+Gradient accumulation steps: 4
+Mixed precision: False
+Force loss type: mse (MSE)
+Total training steps: 2000
+
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1]
+Training mode: Direct dataset access (no DataLoader)
+Dataset will be accessed randomly via shuffled indices
+
+Creating DeepMD model...
+Model Parameters: 514,661 (trainable: 514,661)
+Using device: cuda
+
+================================================================================
+Starting training for 2000 steps (batch size: 1)...
+================================================================================
+

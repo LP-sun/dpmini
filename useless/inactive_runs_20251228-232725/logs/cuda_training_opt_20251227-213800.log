@@ -1,0 +1,5 @@
+nohup: 忽略输入
+Traceback (most recent call last):
+  File "/home/ubuntu/pj/train_deepmd_pytorch_cuda_optimized.py", line 17, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'

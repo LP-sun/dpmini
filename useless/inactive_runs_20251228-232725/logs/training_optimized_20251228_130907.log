@@ -1,0 +1,32 @@
+================================================================================
+CUDA Information
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+
+GPU 0: NVIDIA L20-8Q
+  Memory Allocated: 0.00 GB
+  Memory Reserved: 0.00 GB
+  Memory Total: 8.36 GB
+
+CUDA optimizations enabled:
+  - cuDNN auto-tuner: enabled
+  - CUDA mixed precision: ready for use
+================================================================================
+
+Loading config from se_e2_a/input_torch_optimized_bs64.json
+Loading training data from: ['se_e2_a/../collect/data0']
+Loaded 1458 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Creating DeepMD model...
+Model Parameters: 514661 (trainable: 514661)
+Using device: cuda
+Starting training for 100000 steps...
+Batch size: 64, Dataset size: 1458
+Number of workers: 0
+
+Step    100 | batch_size=64 | lr=8.16e-04 | loss=4.577514e+02 | e_loss=2.247973e+04 | f_loss=1.366142e+00 | pref_e=0.021 pref_f=999.011 | ETA 12.0h | speed 2.31 step/s (window 2.31) | GPU mem 26/182 MiB | util 24% | grad_norm 1.32e+00
+Step    200 | batch_size=64 | lr=6.65e-04 | loss=1.207606e+01 | e_loss=1.942034e+02 | f_loss=1.522666e+00 | pref_e=0.022 pref_f=998.012 | ETA 11.9h | speed 2.33 step/s (window 2.36) | GPU mem 26/182 MiB | util 25% | grad_norm 1.27e+00

@@ -1,0 +1,42 @@
+================================================================================
+CUDA OPTIMIZATION CONFIGURATION
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+cuDNN benchmark: ENABLED (faster conv/attn kernels)
+TF32 tensor operations: ENABLED (safe for training)
+
+GPU 0: NVIDIA L20-8Q
+  Compute Capability: 8.9
+  Total Memory: 8.36 GB
+
+Loading config from se_e2_a/input_torch.json
+
+================================================================================
+TRAINING CONFIGURATION
+================================================================================
+Training data systems: ['se_e2_a/../data/data_0', 'se_e2_a/../data/data_1', 'se_e2_a/../data/data_2']
+Batch size: 8 (original: 8)
+Number of workers: 4
+Gradient accumulation steps: 1
+Mixed precision: False
+Total training steps: 100000
+
+Traceback (most recent call last):
+  File "/home/ubuntu/pj/train_deepmd_pytorch_cuda_optimized.py", line 333, in <module>
+    main()
+    ~~~~^^
+  File "/home/ubuntu/pj/train_deepmd_pytorch_cuda_optimized.py", line 161, in main
+    dataset = DeepMDDataset(system_dirs, type_map=type_map)
+  File "/home/ubuntu/pj/dpmini/data.py", line 159, in __init__
+    data = load_deepmd_system(Path(sys_dir))
+  File "/home/ubuntu/pj/dpmini/data.py", line 103, in load_deepmd_system
+    set_dirs = sorted([d for d in system_dir.iterdir() if d.is_dir() and d.name.startswith('set.')])
+                                  ~~~~~~~~~~~~~~~~~~^^
+  File "/home/ubuntu/miniforge3/envs/ai4m/lib/python3.13/pathlib/_local.py", line 575, in iterdir
+    with os.scandir(root_dir) as scandir_it:
+         ~~~~~~~~~~^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'se_e2_a/../data/data_0'

@@ -1,0 +1,54 @@
+======================================================================
+DeepMD 优化训练测试 - examples/data/water
+======================================================================
+✓ CUDA优化已启用
+  - cuDNN benchmark: True
+  - TF32: True
+
+======================================================================
+GPU 信息
+======================================================================
+GPU 0: NVIDIA L20-8Q
+  显存: 8.36 GB
+  计算能力: 8.9
+======================================================================
+
+
+训练配置:
+  数据: ['examples/data/water']
+  Batch size: 12
+  Num workers: 4
+  Epochs: 10
+  Learning rate: 0.001
+  Rcut: 6.0
+  Sel: [46, 92]
+
+使用设备: cuda
+
+[1] 加载数据...
+Loaded 400 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+训练集: 320 frames
+测试集: 80 frames
+Batch size: 12
+Num workers: 4
+
+[2] 创建模型...
+Traceback (most recent call last):
+  File "/home/ubuntu/pj/train_example_optimized.py", line 313, in <module>
+    main()
+    ~~~~^^
+  File "/home/ubuntu/pj/train_example_optimized.py", line 309, in main
+    train(config)
+    ~~~~~^^^^^^^^
+  File "/home/ubuntu/pj/train_example_optimized.py", line 108, in train
+    model = DeepMDModel(
+            ~~~~~~~~~~~^
+        ntypes=len(config['type_map']),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        axis_neuron=config['axis_neuron']
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).to(device)
+    ^
+TypeError: DeepMDModel.__init__() got an unexpected keyword argument 'ntypes'

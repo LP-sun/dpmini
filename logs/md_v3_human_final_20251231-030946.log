@@ -1,0 +1,6 @@
+usage: md_simulation.py [-h] --model MODEL [--system SYSTEM] [--steps STEPS]
+                        [--dt DT] [--T T] [--output OUTPUT] [--device DEVICE]
+                        [--traj-stride TRAJ_STRIDE]
+                        [--remove-translation-every REMOVE_TRANSLATION_EVERY]
+                        [--checkpoint-interval CHECKPOINT_INTERVAL]
+md_simulation.py: error: unrecognized arguments: --data collect/data_lammps --timestep 0.0005 --temperature 300 --seed 42

@@ -1,0 +1,40 @@
+================================================================
+  使用 examples/data/water 测试优化配置
+================================================================
+
+PyTorch: 2.4.1
+
+环境配置:
+  OMP_NUM_THREADS: 8
+  MKL_NUM_THREADS: 8
+  NUM_WORKERS: 4
+
+启动训练...
+  配置: config_example_test.json
+  数据: examples/data/water
+  batch_size: 8
+  步数: 500
+
+================================================================================
+CUDA Information
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+
+GPU 0: NVIDIA L20-8Q
+  Memory Allocated: 0.00 GB
+  Memory Reserved: 0.00 GB
+  Memory Total: 8.36 GB
+
+CUDA optimizations enabled:
+  - cuDNN auto-tuner: enabled
+  - CUDA mixed precision: ready for use
+================================================================================
+
+Loading config from config_example_test.json
+Loading training data from: ['examples/data/water']
+Loaded 400 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]

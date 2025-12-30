@@ -1,0 +1,162 @@
+Loading model from exports_cuda_opt/model_cuda_20251228-121805.pth
+✓ Model loaded, using device: cuda
+
+Loading structure from collect/data0
+  Atoms: 192
+  Atom types: ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+  Box (Å):
+[[12.106624  0.        0.      ]
+ [ 0.       12.106624  0.      ]
+ [ 0.        0.       12.106624]]
+
+Running MD simulation:
+  Steps: 300000
+  Time step: 0.0005 ps
+  Total time: 150.000 ps
+  Initial temperature: 300.0 K
+  Trajectory stride: 100
+
+Step     Time (ps)    KE (eV)      PE (eV)      Total (eV)  
+------------------------------------------------------------
+1        0.0005       8.4830       245.6608     254.1438    
+2        0.0010       8.4830       245.6608     254.1438    
+3        0.0015       8.4830       245.6608     254.1438    
+4        0.0020       8.4830       245.6608     254.1438    
+5        0.0025       8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_1000.npz (1000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_2000.npz (2000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_3000.npz (3000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_4000.npz (4000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_5000.npz (5000/300000 steps)
+
+6000     3.0000       8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_6000.npz (6000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_7000.npz (7000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_8000.npz (8000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_9000.npz (9000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_10000.npz (10000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_11000.npz (11000/300000 steps)
+
+12000    6.0000       8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_12000.npz (12000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_13000.npz (13000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_14000.npz (14000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_15000.npz (15000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_16000.npz (16000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_17000.npz (17000/300000 steps)
+
+18000    9.0000       8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_18000.npz (18000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_19000.npz (19000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_20000.npz (20000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_21000.npz (21000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_22000.npz (22000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_23000.npz (23000/300000 steps)
+
+24000    12.0000      8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_24000.npz (24000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_25000.npz (25000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_26000.npz (26000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_27000.npz (27000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_28000.npz (28000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_29000.npz (29000/300000 steps)
+
+30000    15.0000      8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_30000.npz (30000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_31000.npz (31000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_32000.npz (32000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_33000.npz (33000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_34000.npz (34000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_35000.npz (35000/300000 steps)
+
+36000    18.0000      8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_36000.npz (36000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_37000.npz (37000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_38000.npz (38000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_39000.npz (39000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_40000.npz (40000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_41000.npz (41000/300000 steps)
+
+42000    21.0000      8.4830       245.6608     254.1438    
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_42000.npz (42000/300000 steps)
+
+
+✓ Checkpoint saved: md_long_10h_20251229-125623_checkpoint_43000.npz (43000/300000 steps)
+
+已终止

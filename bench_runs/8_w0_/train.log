@@ -1,0 +1,30 @@
+================================================================================
+CUDA Information
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+
+GPU 0: NVIDIA L20-8Q
+  Memory Allocated: 0.00 GB
+  Memory Reserved: 0.00 GB
+  Memory Total: 8.36 GB
+
+CUDA optimizations enabled:
+  - cuDNN auto-tuner: enabled
+  - CUDA mixed precision: ready for use
+================================================================================
+
+Loading config from bench_runs/8_w0_/config.json
+Loading training data from: ['/home/ubuntu/pj/collect/data0']
+Loaded 1458 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Creating DeepMD model...
+Model Parameters: 514661 (trainable: 514661)
+Using device: cuda
+Starting training for 300 steps...
+Batch size: 8, Dataset size: 1458
+Number of workers: 0
+

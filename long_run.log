@@ -1,0 +1,324 @@
+nohup: 忽略输入
+╔════════════════════════════════════════════════════════════════╗
+║         MD Simulation + RDF Analysis Workflow                  ║
+╚════════════════════════════════════════════════════════════════╝
+
+Configuration:
+  Model:  exports_cuda_opt/model_cuda_20251228-121805.pth
+  System: collect/data0
+  Steps:  5000
+  Output: long_run
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 1: Running MD simulation...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Loading model from exports_cuda_opt/model_cuda_20251228-121805.pth
+✓ Model loaded, using device: cuda
+
+Loading structure from collect/data0
+  Atoms: 192
+  Atom types: ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+
+Running MD simulation:
+  Steps: 5000
+  Time step: 0.001 ps
+  Total time: 5.000 ps
+
+Step     Time (ps)    KE (eV)      PE (eV)      Total (eV)  
+------------------------------------------------------------
+1        0.0010       7.0661       -941.5619    -934.4958   
+2        0.0020       7.0661       -941.5619    -934.4958   
+3        0.0030       7.0661       -941.5619    -934.4958   
+4        0.0040       7.0661       -941.5619    -934.4958   
+5        0.0050       7.0661       -941.5619    -934.4958   
+100      0.1000       7.0661       -941.5619    -934.4958   
+200      0.2000       7.0661       -941.5619    -934.4958   
+300      0.3000       7.0661       -941.5619    -934.4958   
+400      0.4000       7.0661       -941.5619    -934.4958   
+500      0.5000       7.0661       -941.5619    -934.4958   
+600      0.6000       7.0661       -941.5619    -934.4958   
+700      0.7000       7.0661       -941.5619    -934.4958   
+800      0.8000       7.0661       -941.5619    -934.4958   
+900      0.9000       7.0661       -941.5619    -934.4958   
+1000     1.0000       7.0661       -941.5619    -934.4958   
+1100     1.1000       7.0661       -941.5619    -934.4958   
+1200     1.2000       7.0661       -941.5619    -934.4958   
+1300     1.3000       7.0661       -941.5619    -934.4958   
+1400     1.4000       7.0661       -941.5619    -934.4958   
+1500     1.5000       7.0661       -941.5619    -934.4958   
+1600     1.6000       7.0661       -941.5619    -934.4958   
+1700     1.7000       7.0661       -941.5619    -934.4958   
+1800     1.8000       7.0661       -941.5619    -934.4958   
+1900     1.9000       7.0661       -941.5619    -934.4958   
+2000     2.0000       7.0661       -941.5619    -934.4958   
+2100     2.1000       7.0661       -941.5619    -934.4958   
+2200     2.2000       7.0661       -941.5619    -934.4958   
+2300     2.3000       7.0661       -941.5619    -934.4958   
+2400     2.4000       7.0661       -941.5619    -934.4958   
+2500     2.5000       7.0661       -941.5619    -934.4958   
+2600     2.6000       7.0661       -941.5619    -934.4958   
+2700     2.7000       7.0661       -941.5619    -934.4958   
+2800     2.8000       7.0661       -941.5619    -934.4958   
+2900     2.9000       7.0661       -941.5619    -934.4958   
+3000     3.0000       7.0661       -941.5619    -934.4958   
+3100     3.1000       7.0661       -941.5619    -934.4958   
+3200     3.2000       7.0661       -941.5619    -934.4958   
+3300     3.3000       7.0661       -941.5619    -934.4958   
+3400     3.4000       7.0661       -941.5619    -934.4958   
+3500     3.5000       7.0661       -941.5619    -934.4958   
+3600     3.6000       7.0661       -941.5619    -934.4958   
+3700     3.7000       7.0661       -941.5619    -934.4958   
+3800     3.8000       7.0661       -941.5619    -934.4958   
+3900     3.9000       7.0661       -941.5619    -934.4958   
+4000     4.0000       7.0661       -941.5619    -934.4958   
+4100     4.1000       7.0661       -941.5619    -934.4958   
+4200     4.2000       7.0661       -941.5619    -934.4958   
+4300     4.3000       7.0661       -941.5619    -934.4958   
+4400     4.4000       7.0661       -941.5619    -934.4958   
+4500     4.5000       7.0661       -941.5619    -934.4958   
+4600     4.6000       7.0661       -941.5619    -934.4958   
+4700     4.7000       7.0661       -941.5619    -934.4958   
+4800     4.8000       7.0661       -941.5619    -934.4958   
+4900     4.9000       7.0661       -941.5619    -934.4958   
+5000     5.0000       7.0661       -941.5619    -934.4958   
+------------------------------------------------------------
+✓ MD simulation completed: 5000 steps, 5.000 ps
+
+Energy Statistics:
+  Potential Energy: -941.5619 ± 0.0000 eV
+  Kinetic Energy:   7.0661 ± 0.0000 eV
+  Total Energy:     -934.4958 ± 0.0000 eV
+  Energy drift:     -0.00%
+
+✓ Trajectory saved to: long_run_md.npz
+  Frames: 5001
+  Time range: 0 - 5.0000 ps
+
+
+✓ MD simulation completed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 2: Computing RDF...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Loading trajectory: long_run_md.npz
+
+✓ Trajectory loaded:
+  Total frames: 5001
+  Using frames: 5001 (every 1)
+  Atoms: 192
+  Atom types: O(64), H(128)
+  Box (diagonal): [18.06744 18.03378 18.00069]
+
+📊 Computing RDF:
+  Pairs: O-O, O-H, H-H
+  r_max: 8.0 Å
+  bins: 200
+  Computing O-O RDF...
+  Computing O-H RDF...
+  Computing H-H RDF...
+
+🔍 Peak Analysis:
+
+  O-O:
+    Peak 1: r = 2.700 Å, g(r) = 5.828
+    Peak 2: r = 2.860 Å, g(r) = 4.946
+    Peak 3: r = 3.020 Å, g(r) = 2.524
+    First minimum: r = 0.420 Å
+
+  O-H:
+    Peak 1: r = 0.180 Å, g(r) = 3.587
+    Peak 2: r = 0.300 Å, g(r) = 6.503
+    Peak 3: r = 0.700 Å, g(r) = 6.180
+    First minimum: r = 0.500 Å
+
+  H-H:
+    Peak 1: r = 0.140 Å, g(r) = 6.298
+    Peak 2: r = 0.980 Å, g(r) = 1.464
+    Peak 3: r = 1.100 Å, g(r) = 1.217
+    First minimum: r = 0.500 Å
+
+✓ RDF plot saved to: long_run_rdf_plot.png
+✓ RDF data saved to: long_run_rdf_data.txt
+
+✅ RDF analysis completed!
+   Plot: long_run_rdf_plot.png
+   Data: long_run_rdf_data.txt
+
+
+✓ RDF computation completed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 3: Interpreting RDF...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Loading RDF data: long_run_rdf_data.txt
+✓ Loaded 3 RDF curves
+  Distance range: 0.02 - 7.98 Å
+  Number of bins: 200
+
+======================================================================
+  RDF Analysis for Water System
+======================================================================
+
+📊 O-O RDF Analysis:
+----------------------------------------------------------------------
+
+  First Peak:
+    Position:  2.700 Å
+    Height:    g(r) = 5.83
+    Expected:  ~2.80 Å
+    Deviation: 0.100 Å (3.6%)
+    ✅ Good agreement!
+
+  Second Peak:
+    Position:  2.860 Å
+    Height:    g(r) = 4.95
+
+  First Minimum (coordination shell boundary):
+    Position:  0.820 Å
+    Value:     g(r) = 0.000
+
+  Coordination Number (up to 0.82 Å):
+    N = 0.0
+    Expected: ~4-5 (tetrahedral water structure)
+    ⚠️  Unusual coordination number
+
+  💡 Physical Interpretation:
+    Nearest neighbor oxygen-oxygen distance
+
+📊 O-H RDF Analysis:
+----------------------------------------------------------------------
+
+  First Peak:
+    Position:  0.180 Å
+    Height:    g(r) = 3.59
+    Expected:  ~0.97 Å
+    Deviation: 0.790 Å (81.4%)
+    ❌ Large deviation
+
+  Second Peak:
+    Position:  0.300 Å
+    Height:    g(r) = 6.50
+    Expected:  ~1.80 Å
+    Deviation: 1.500 Å
+
+  First Minimum (coordination shell boundary):
+    Position:  2.220 Å
+    Value:     g(r) = 0.929
+
+  💡 Physical Interpretation:
+    O-H covalent bond and hydrogen bond
+
+📊 H-H RDF Analysis:
+----------------------------------------------------------------------
+
+  First Peak:
+    Position:  0.140 Å
+    Height:    g(r) = 6.30
+    Expected:  ~1.55 Å
+    Deviation: 1.410 Å (91.0%)
+    ❌ Large deviation
+
+  Second Peak:
+    Position:  0.980 Å
+    Height:    g(r) = 1.46
+
+  First Minimum (coordination shell boundary):
+    Position:  0.820 Å
+    Value:     g(r) = 0.790
+
+  💡 Physical Interpretation:
+    Intra-molecular H-H distance
+
+======================================================================
+  Overall Assessment
+======================================================================
+  ⚠️  O-H bond length unusual
+  ✅ O-O neighbor distance: Normal water structure
+  ⚠️  H-H distance unusual
+
+======================================================================
+
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 4: Analyzing trajectory...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Loading trajectory: long_run_md.npz
+
+✓ Trajectory loaded:
+  Frames: 5001
+  Atoms: 192
+  Time range: 0 - 5.0000 ps
+  Atom types: O(64), H(128)
+
+📊 Energy Analysis:
+
+  Potential Energy (eV):
+    Mean:    -941.561890
+    Std:     0.000000
+    Min:     -941.561890
+    Max:     -941.561890
+
+  Kinetic Energy (eV):
+    Mean:    7.066114
+    Std:     0.000000
+    Min:     7.066114
+    Max:     7.066114
+
+  Total Energy (eV):
+    Mean:    -934.495776
+    Std:     0.000000
+    Drift:   0.0000%
+
+  Temperature (K, from KE):
+    Mean:    284.7
+    Std:     0.0
+    Min:     284.7
+    Max:     284.7
+
+🏗️  Structure Analysis:
+
+  RMSD from initial structure (Å):
+    Mean:    0.3265
+    Max:     0.6530
+
+  Atomic displacements (Å):
+    Mean:    0.9347
+    Min:     0.0654
+    Max:     3.2117
+
+  Gyration radius (Å):
+    Frame 0 (0.0000 ps): 6.0758
+    Frame 2500 (2.5010 ps): 6.1267
+    Frame -1 (0.0000 ps): 6.2285
+
+📈 Summary Statistics:
+  System size:        192 atoms
+  Simulation time:    5.0000 ps
+  Energy conserved:   0.0000% (relative std)
+  Temperature avg:    284.7 K
+  Structure changed:  0.6530 Å (RMSD)
+
+✓ Summary saved to: long_run_summary.json
+
+
+╔════════════════════════════════════════════════════════════════╗
+║                    ✅ Analysis Complete!                       ║
+╚════════════════════════════════════════════════════════════════╝
+
+Generated files:
+  📊 MD Trajectory:   long_run_md.npz
+  📈 RDF Plot:        long_run_rdf_plot.png
+  📝 RDF Data:        long_run_rdf_data.txt
+  📋 MD Summary:      long_run_summary.json
+
+View results:
+  🖼️  RDF plot:        xdg-open long_run_rdf_plot.png
+  📄 RDF data:        cat long_run_rdf_data.txt | head -30
+  📊 Summary:         cat long_run_summary.json
+
+Next steps:
+  - Examine RDF peaks for structural features
+  - Check energy conservation in summary
+  - Run longer simulation for better statistics
+

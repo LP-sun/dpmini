@@ -1,0 +1,95 @@
+nohup: 忽略输入
+================================================================================
+CUDA Information
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+
+GPU 0: NVIDIA L20-8Q
+  Memory Allocated: 0.00 GB
+  Memory Reserved: 0.00 GB
+  Memory Total: 8.36 GB
+
+CUDA optimizations enabled:
+  - cuDNN auto-tuner: enabled
+  - CUDA mixed precision: ready for use
+================================================================================
+
+Loading config from se_e2_a/input_torch_optimized_bs64.json
+Loading training data from: ['se_e2_a/../collect/data0']
+Loaded 1458 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Creating DeepMD model...
+Model Parameters: 514661 (trainable: 514661)
+Using device: cuda
+Starting training for 100000 steps...
+Batch size: 64, Dataset size: 1458
+Number of workers: 0
+
+Step    100 | batch_size=64 | lr=8.16e-04 | loss=2.159650e+02 | e_loss=1.042716e+04 | f_loss=1.359396e+00 | pref_e=0.021 pref_f=999.011 | ETA 12.0h | speed 2.32 step/s (window 2.32) | GPU mem 25/182 MiB | util 24% | grad_norm 1.40e+00
+Step    200 | batch_size=64 | lr=6.65e-04 | loss=1.340656e+01 | e_loss=3.267553e+02 | f_loss=1.233863e+00 | pref_e=0.022 pref_f=998.012 | ETA 12.0h | speed 2.32 step/s (window 2.32) | GPU mem 25/182 MiB | util 23% | grad_norm 1.32e+00
+Step    300 | batch_size=64 | lr=5.42e-04 | loss=1.392688e+01 | e_loss=2.631231e+02 | f_loss=1.546586e+00 | pref_e=0.023 pref_f=997.013 | ETA 11.9h | speed 2.32 step/s (window 2.33) | GPU mem 25/182 MiB | util 24% | grad_norm 1.28e+00
+Step    400 | batch_size=64 | lr=4.41e-04 | loss=1.360047e+01 | e_loss=2.255772e+02 | f_loss=1.599739e+00 | pref_e=0.024 pref_f=996.014 | ETA 11.9h | speed 2.32 step/s (window 2.33) | GPU mem 26/182 MiB | util 24% | grad_norm 1.25e+00
+Step    500 | batch_size=64 | lr=3.59e-04 | loss=1.250280e+01 | e_loss=1.439994e+02 | f_loss=1.733752e+00 | pref_e=0.025 pref_f=995.015 | ETA 11.9h | speed 2.32 step/s (window 2.30) | GPU mem 26/182 MiB | util 24% | grad_norm 1.24e+00
+Step    600 | batch_size=64 | lr=2.93e-04 | loss=1.010238e+01 | e_loss=1.021426e+02 | f_loss=1.453346e+00 | pref_e=0.026 pref_f=994.016 | ETA 11.9h | speed 2.32 step/s (window 2.32) | GPU mem 25/182 MiB | util 24% | grad_norm 1.23e+00
+Step    700 | batch_size=64 | lr=2.38e-04 | loss=9.204523e+00 | e_loss=7.574413e+01 | f_loss=1.392075e+00 | pref_e=0.027 pref_f=993.017 | ETA 11.9h | speed 2.31 step/s (window 2.30) | GPU mem 26/182 MiB | util 23% | grad_norm 1.22e+00
+Step    800 | batch_size=64 | lr=1.94e-04 | loss=1.274766e+01 | e_loss=1.319966e+02 | f_loss=1.767071e+00 | pref_e=0.028 pref_f=992.018 | ETA 11.9h | speed 2.31 step/s (window 2.31) | GPU mem 25/182 MiB | util 24% | grad_norm 1.22e+00
+Step    900 | batch_size=64 | lr=1.58e-04 | loss=9.107932e+00 | e_loss=5.672145e+01 | f_loss=1.451981e+00 | pref_e=0.029 pref_f=991.019 | ETA 11.9h | speed 2.31 step/s (window 2.32) | GPU mem 26/182 MiB | util 24% | grad_norm 1.21e+00
+Step   1000 | batch_size=64 | lr=1.29e-04 | loss=9.612999e+00 | e_loss=8.302816e+01 | f_loss=1.392903e+00 | pref_e=0.030 pref_f=990.020 | ETA 11.9h | speed 2.31 step/s (window 2.30) | GPU mem 26/182 MiB | util 24% | grad_norm 1.21e+00
+Step   1100 | batch_size=64 | lr=1.05e-04 | loss=1.051709e+01 | e_loss=6.582830e+01 | f_loss=1.654280e+00 | pref_e=0.031 pref_f=989.021 | ETA 11.9h | speed 2.31 step/s (window 2.31) | GPU mem 25/182 MiB | util 23% | grad_norm 1.21e+00
+Step   1200 | batch_size=64 | lr=8.55e-05 | loss=8.747493e+00 | e_loss=4.520824e+01 | f_loss=1.424666e+00 | pref_e=0.032 pref_f=988.022 | ETA 11.9h | speed 2.31 step/s (window 2.32) | GPU mem 26/182 MiB | util 24% | grad_norm 1.21e+00
+Step   1300 | batch_size=64 | lr=6.96e-05 | loss=9.402976e+00 | e_loss=5.573653e+01 | f_loss=1.478841e+00 | pref_e=0.033 pref_f=987.023 | ETA 11.9h | speed 2.31 step/s (window 2.32) | GPU mem 25/184 MiB | util 23% | grad_norm 1.21e+00
+Step   1400 | batch_size=64 | lr=5.67e-05 | loss=1.154501e+01 | e_loss=7.337502e+01 | f_loss=1.773196e+00 | pref_e=0.034 pref_f=986.024 | ETA 11.9h | speed 2.31 step/s (window 2.29) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   1500 | batch_size=64 | lr=4.62e-05 | loss=1.003885e+01 | e_loss=5.627677e+01 | f_loss=1.580092e+00 | pref_e=0.035 pref_f=985.025 | ETA 11.8h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   1600 | batch_size=64 | lr=3.76e-05 | loss=9.731717e+00 | e_loss=4.441018e+01 | f_loss=1.592468e+00 | pref_e=0.036 pref_f=984.026 | ETA 11.8h | speed 2.31 step/s (window 2.30) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   1700 | batch_size=64 | lr=3.06e-05 | loss=9.564357e+00 | e_loss=4.059316e+01 | f_loss=1.581123e+00 | pref_e=0.037 pref_f=983.027 | ETA 11.8h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   1800 | batch_size=64 | lr=2.50e-05 | loss=9.480475e+00 | e_loss=4.943952e+01 | f_loss=1.493539e+00 | pref_e=0.038 pref_f=982.028 | ETA 11.8h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   1900 | batch_size=64 | lr=2.03e-05 | loss=9.787065e+00 | e_loss=4.849450e+01 | f_loss=1.552784e+00 | pref_e=0.039 pref_f=981.029 | ETA 11.8h | speed 2.31 step/s (window 2.32) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   2000 | batch_size=64 | lr=1.66e-05 | loss=1.049695e+01 | e_loss=5.751219e+01 | f_loss=1.615035e+00 | pref_e=0.040 pref_f=980.030 | ETA 11.8h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   2100 | batch_size=64 | lr=1.35e-05 | loss=8.216901e+00 | e_loss=3.257079e+01 | f_loss=1.354420e+00 | pref_e=0.041 pref_f=979.031 | ETA 11.8h | speed 2.31 step/s (window 2.33) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   2200 | batch_size=64 | lr=1.10e-05 | loss=8.757280e+00 | e_loss=4.307025e+01 | f_loss=1.371451e+00 | pref_e=0.042 pref_f=978.032 | ETA 11.7h | speed 2.31 step/s (window 2.33) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   2300 | batch_size=64 | lr=8.95e-06 | loss=1.044139e+01 | e_loss=4.616508e+01 | f_loss=1.669530e+00 | pref_e=0.043 pref_f=977.033 | ETA 11.7h | speed 2.31 step/s (window 2.30) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   2400 | batch_size=64 | lr=7.29e-06 | loss=8.087048e+00 | e_loss=2.741502e+01 | f_loss=1.357845e+00 | pref_e=0.044 pref_f=976.034 | ETA 11.7h | speed 2.31 step/s (window 2.30) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   2500 | batch_size=64 | lr=5.94e-06 | loss=8.648963e+00 | e_loss=3.730267e+01 | f_loss=1.379222e+00 | pref_e=0.044 pref_f=975.035 | ETA 11.7h | speed 2.31 step/s (window 2.31) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   2600 | batch_size=64 | lr=4.84e-06 | loss=9.459798e+00 | e_loss=4.335383e+01 | f_loss=1.479570e+00 | pref_e=0.045 pref_f=974.036 | ETA 11.7h | speed 2.31 step/s (window 2.29) | GPU mem 25/184 MiB | util 23% | grad_norm 1.20e+00
+Step   2700 | batch_size=64 | lr=3.94e-06 | loss=8.207939e+00 | e_loss=3.314396e+01 | f_loss=1.318322e+00 | pref_e=0.046 pref_f=973.037 | ETA 11.7h | speed 2.31 step/s (window 2.31) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   2800 | batch_size=64 | lr=3.21e-06 | loss=9.102925e+00 | e_loss=3.235407e+01 | f_loss=1.497219e+00 | pref_e=0.047 pref_f=972.038 | ETA 11.7h | speed 2.31 step/s (window 2.31) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   2900 | batch_size=50 | lr=2.61e-06 | loss=1.016708e+01 | e_loss=4.327747e+01 | f_loss=1.599931e+00 | pref_e=0.048 pref_f=971.039 | ETA 11.7h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3000 | batch_size=64 | lr=2.13e-06 | loss=9.422525e+00 | e_loss=4.249747e+01 | f_loss=1.453417e+00 | pref_e=0.049 pref_f=970.040 | ETA 11.7h | speed 2.31 step/s (window 2.33) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3100 | batch_size=64 | lr=1.73e-06 | loss=9.884654e+00 | e_loss=4.529028e+01 | f_loss=1.510063e+00 | pref_e=0.050 pref_f=969.041 | ETA 11.6h | speed 2.31 step/s (window 2.33) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3200 | batch_size=64 | lr=1.41e-06 | loss=7.962093e+00 | e_loss=2.644644e+01 | f_loss=1.311717e+00 | pref_e=0.051 pref_f=968.042 | ETA 11.6h | speed 2.31 step/s (window 2.32) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3300 | batch_size=64 | lr=1.15e-06 | loss=1.164493e+01 | e_loss=5.365862e+01 | f_loss=1.759734e+00 | pref_e=0.052 pref_f=967.043 | ETA 11.6h | speed 2.31 step/s (window 2.33) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3400 | batch_size=64 | lr=9.37e-07 | loss=9.483274e+00 | e_loss=3.961330e+01 | f_loss=1.467307e+00 | pref_e=0.053 pref_f=966.044 | ETA 11.6h | speed 2.31 step/s (window 2.30) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3500 | batch_size=64 | lr=7.63e-07 | loss=9.356051e+00 | e_loss=4.002229e+01 | f_loss=1.432140e+00 | pref_e=0.054 pref_f=965.045 | ETA 11.6h | speed 2.31 step/s (window 2.30) | GPU mem 25/184 MiB | util 23% | grad_norm 1.20e+00
+Step   3600 | batch_size=64 | lr=6.22e-07 | loss=7.976308e+00 | e_loss=2.602804e+01 | f_loss=1.303997e+00 | pref_e=0.055 pref_f=964.046 | ETA 11.6h | speed 2.31 step/s (window 2.32) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3700 | batch_size=64 | lr=5.06e-07 | loss=8.560587e+00 | e_loss=3.201019e+01 | f_loss=1.349832e+00 | pref_e=0.056 pref_f=963.047 | ETA 11.6h | speed 2.31 step/s (window 2.30) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   3800 | batch_size=64 | lr=4.12e-07 | loss=1.242291e+01 | e_loss=5.594397e+01 | f_loss=1.844384e+00 | pref_e=0.057 pref_f=962.048 | ETA 11.6h | speed 2.31 step/s (window 2.28) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   3900 | batch_size=64 | lr=3.36e-07 | loss=1.228386e+01 | e_loss=5.620174e+01 | f_loss=1.804538e+00 | pref_e=0.058 pref_f=961.049 | ETA 11.6h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4000 | batch_size=64 | lr=2.74e-07 | loss=9.601564e+00 | e_loss=3.659435e+01 | f_loss=1.489633e+00 | pref_e=0.059 pref_f=960.050 | ETA 11.5h | speed 2.31 step/s (window 2.31) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4100 | batch_size=64 | lr=2.23e-07 | loss=9.801855e+00 | e_loss=3.999575e+01 | f_loss=1.483516e+00 | pref_e=0.060 pref_f=959.051 | ETA 11.5h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4200 | batch_size=64 | lr=1.82e-07 | loss=9.450649e+00 | e_loss=3.570387e+01 | f_loss=1.459080e+00 | pref_e=0.061 pref_f=958.052 | ETA 11.5h | speed 2.31 step/s (window 2.32) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4300 | batch_size=64 | lr=1.48e-07 | loss=1.036438e+01 | e_loss=4.099704e+01 | f_loss=1.571186e+00 | pref_e=0.062 pref_f=957.053 | ETA 11.5h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4400 | batch_size=64 | lr=1.20e-07 | loss=1.000416e+01 | e_loss=3.969713e+01 | f_loss=1.509360e+00 | pref_e=0.063 pref_f=956.054 | ETA 11.5h | speed 2.31 step/s (window 2.30) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   4500 | batch_size=64 | lr=9.81e-08 | loss=9.803821e+00 | e_loss=3.874823e+01 | f_loss=1.475088e+00 | pref_e=0.064 pref_f=955.055 | ETA 11.5h | speed 2.31 step/s (window 2.31) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4600 | batch_size=64 | lr=7.99e-08 | loss=1.028096e+01 | e_loss=3.972513e+01 | f_loss=1.551114e+00 | pref_e=0.065 pref_f=954.056 | ETA 11.5h | speed 2.31 step/s (window 2.28) | GPU mem 25/184 MiB | util 23% | grad_norm 1.20e+00
+Step   4700 | batch_size=64 | lr=6.51e-08 | loss=1.056015e+01 | e_loss=4.424445e+01 | f_loss=1.542636e+00 | pref_e=0.066 pref_f=953.057 | ETA 11.5h | speed 2.31 step/s (window 2.28) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4800 | batch_size=64 | lr=5.30e-08 | loss=1.066022e+01 | e_loss=4.475485e+01 | f_loss=1.548513e+00 | pref_e=0.067 pref_f=952.058 | ETA 11.5h | speed 2.31 step/s (window 2.31) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   4900 | batch_size=64 | lr=4.32e-08 | loss=9.983432e+00 | e_loss=3.918014e+01 | f_loss=1.480210e+00 | pref_e=0.068 pref_f=951.059 | ETA 11.4h | speed 2.31 step/s (window 2.33) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   5000 | batch_size=64 | lr=3.52e-08 | loss=1.088815e+01 | e_loss=4.156565e+01 | f_loss=1.623673e+00 | pref_e=0.069 pref_f=950.060 | ETA 11.4h | speed 2.31 step/s (window 2.28) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   5100 | batch_size=64 | lr=3.51e-08 | loss=1.095695e+01 | e_loss=4.813834e+01 | f_loss=1.539152e+00 | pref_e=0.070 pref_f=949.061 | ETA 11.4h | speed 2.31 step/s (window 2.30) | GPU mem 25/184 MiB | util 23% | grad_norm 1.20e+00
+Step   5200 | batch_size=64 | lr=3.51e-08 | loss=9.479237e+00 | e_loss=3.708280e+01 | f_loss=1.389720e+00 | pref_e=0.071 pref_f=948.062 | ETA 11.4h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   5300 | batch_size=64 | lr=3.51e-08 | loss=9.336244e+00 | e_loss=3.249577e+01 | f_loss=1.420967e+00 | pref_e=0.072 pref_f=947.063 | ETA 11.4h | speed 2.31 step/s (window 2.32) | GPU mem 25/184 MiB | util 23% | grad_norm 1.20e+00
+Step   5400 | batch_size=64 | lr=3.51e-08 | loss=1.013780e+01 | e_loss=3.894748e+01 | f_loss=1.484123e+00 | pref_e=0.073 pref_f=946.064 | ETA 11.4h | speed 2.31 step/s (window 2.33) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   5500 | batch_size=64 | lr=3.51e-08 | loss=8.901667e+00 | e_loss=2.970107e+01 | f_loss=1.364143e+00 | pref_e=0.074 pref_f=945.065 | ETA 11.4h | speed 2.31 step/s (window 2.30) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   5600 | batch_size=64 | lr=3.51e-08 | loss=1.007208e+01 | e_loss=3.461875e+01 | f_loss=1.524087e+00 | pref_e=0.075 pref_f=944.066 | ETA 11.4h | speed 2.31 step/s (window 2.29) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   5700 | batch_size=64 | lr=3.51e-08 | loss=1.229259e+01 | e_loss=5.542853e+01 | f_loss=1.651349e+00 | pref_e=0.076 pref_f=943.067 | ETA 11.3h | speed 2.31 step/s (window 2.30) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   5800 | batch_size=50 | lr=3.51e-08 | loss=1.121732e+01 | e_loss=4.701413e+01 | f_loss=1.553377e+00 | pref_e=0.077 pref_f=942.068 | ETA 11.3h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   5900 | batch_size=64 | lr=3.51e-08 | loss=1.062446e+01 | e_loss=3.874318e+01 | f_loss=1.555704e+00 | pref_e=0.078 pref_f=941.069 | ETA 11.3h | speed 2.31 step/s (window 2.31) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   6000 | batch_size=64 | lr=3.51e-08 | loss=9.377126e+00 | e_loss=3.498150e+01 | f_loss=1.355084e+00 | pref_e=0.079 pref_f=940.070 | ETA 11.3h | speed 2.31 step/s (window 2.33) | GPU mem 25/184 MiB | util 24% | grad_norm 1.20e+00
+Step   6100 | batch_size=64 | lr=3.51e-08 | loss=1.309175e+01 | e_loss=5.791266e+01 | f_loss=1.736668e+00 | pref_e=0.080 pref_f=939.071 | ETA 11.3h | speed 2.31 step/s (window 2.31) | GPU mem 26/184 MiB | util 23% | grad_norm 1.20e+00
+Step   6200 | batch_size=64 | lr=3.51e-08 | loss=1.052813e+01 | e_loss=3.812056e+01 | f_loss=1.527086e+00 | pref_e=0.081 pref_f=938.072 | ETA 11.3h | speed 2.31 step/s (window 2.33) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   6300 | batch_size=64 | lr=3.51e-08 | loss=1.190300e+01 | e_loss=4.724147e+01 | f_loss=1.651633e+00 | pref_e=0.082 pref_f=937.073 | ETA 11.3h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00
+Step   6400 | batch_size=64 | lr=3.51e-08 | loss=1.121531e+01 | e_loss=4.299334e+01 | f_loss=1.574943e+00 | pref_e=0.083 pref_f=936.074 | ETA 11.3h | speed 2.31 step/s (window 2.32) | GPU mem 26/184 MiB | util 24% | grad_norm 1.20e+00

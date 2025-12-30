@@ -1,0 +1,38 @@
+================================================================================
+CUDA Information
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+
+GPU 0: NVIDIA L20-8Q
+  Memory Allocated: 0.00 GB
+  Memory Reserved: 0.00 GB
+  Memory Total: 8.36 GB
+
+CUDA optimizations enabled:
+  - cuDNN auto-tuner: enabled
+  - CUDA mixed precision: ready for use
+================================================================================
+
+Loading config from se_e2_a/input_torch_optimized_bs64.json
+Loading training data from: ['se_e2_a/../collect/data0']
+Loaded 1458 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Creating DeepMD model...
+Model Parameters: 514661 (trainable: 514661)
+Using device: cuda
+Using mixed precision training (torch.cuda.amp)
+/home/ubuntu/pj/train_deepmd_pytorch_cuda.py:218: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Starting training for 100000 steps...
+Batch size: 64, Dataset size: 1458
+Number of workers: 0
+
+/home/ubuntu/pj/train_deepmd_pytorch_cuda.py:290: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+Step    100 | batch_size=64 | lr=8.16e-04 | loss=nan | e_loss=nan | f_loss=nan | pref_e=0.021 pref_f=999.011 | ETA 13.2h | speed 2.11 step/s (window 2.11) | GPU mem 22/132 MiB | util 22% | grad_norm nan
+/home/ubuntu/pj/train_deepmd_pytorch_cuda.py:290: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():

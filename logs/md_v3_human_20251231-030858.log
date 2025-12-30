@@ -1,0 +1,4 @@
+nohup: 忽略输入
+
+CondaError: Run 'conda init' before 'conda activate'
+

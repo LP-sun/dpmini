@@ -1,0 +1,85 @@
+/home/ubuntu/pj/md_simulation.py:233: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(args.model, map_location='cpu')
+
+Loading model from exports_cuda_opt/model_cuda_20251228-121805.pth
+✓ Model loaded, using device: cuda
+
+Loading structure from collect/data0
+  Atoms: 192
+  Atom types: ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+
+Running MD simulation:
+  Steps: 500
+  Time step: 0.001 ps
+  Total time: 0.500 ps
+
+Step     Time (ps)    KE (eV)      PE (eV)      Total (eV)  
+------------------------------------------------------------
+1        0.0010       6.8223       245.6608     252.4832    
+2        0.0020       6.8223       245.6608     252.4832    
+3        0.0030       6.8223       245.6608     252.4832    
+4        0.0040       6.8223       245.6608     252.4832    
+5        0.0050       6.8223       245.6608     252.4832    
+10       0.0100       6.8223       245.6608     252.4832    
+20       0.0200       6.8223       245.6608     252.4832    
+30       0.0300       6.8223       245.6608     252.4832    
+40       0.0400       6.8223       245.6608     252.4832    
+50       0.0500       6.8223       245.6608     252.4832    
+60       0.0600       6.8223       245.6608     252.4832    
+70       0.0700       6.8223       245.6608     252.4832    
+80       0.0800       6.8223       245.6608     252.4832    
+90       0.0900       6.8223       245.6608     252.4832    
+100      0.1000       6.8223       245.6608     252.4832    
+110      0.1100       6.8223       245.6608     252.4832    
+120      0.1200       6.8223       245.6608     252.4832    
+130      0.1300       6.8223       245.6608     252.4832    
+140      0.1400       6.8223       245.6608     252.4832    
+150      0.1500       6.8223       245.6608     252.4832    
+160      0.1600       6.8223       245.6608     252.4832    
+170      0.1700       6.8223       245.6608     252.4832    
+180      0.1800       6.8223       245.6608     252.4832    
+190      0.1900       6.8223       245.6608     252.4832    
+200      0.2000       6.8223       245.6608     252.4832    
+210      0.2100       6.8223       245.6608     252.4832    
+220      0.2200       6.8223       245.6608     252.4832    
+230      0.2300       6.8223       245.6608     252.4832    
+240      0.2400       6.8223       245.6608     252.4832    
+250      0.2500       6.8223       245.6608     252.4832    
+260      0.2600       6.8223       245.6608     252.4832    
+270      0.2700       6.8223       245.6608     252.4832    
+280      0.2800       6.8223       245.6608     252.4832    
+290      0.2900       6.8223       245.6608     252.4832    
+300      0.3000       6.8223       245.6608     252.4832    
+310      0.3100       6.8223       245.6608     252.4832    
+320      0.3200       6.8223       245.6608     252.4832    
+330      0.3300       6.8223       245.6608     252.4832    
+340      0.3400       6.8223       245.6608     252.4832    
+350      0.3500       6.8223       245.6608     252.4832    
+360      0.3600       6.8223       245.6608     252.4832    
+370      0.3700       6.8223       245.6608     252.4832    
+380      0.3800       6.8223       245.6608     252.4832    
+390      0.3900       6.8223       245.6608     252.4832    
+400      0.4000       6.8223       245.6608     252.4832    
+410      0.4100       6.8223       245.6608     252.4832    
+420      0.4200       6.8223       245.6608     252.4832    
+430      0.4300       6.8223       245.6608     252.4832    
+440      0.4400       6.8223       245.6608     252.4832    
+450      0.4500       6.8223       245.6608     252.4832    
+460      0.4600       6.8223       245.6608     252.4832    
+470      0.4700       6.8223       245.6608     252.4832    
+480      0.4800       6.8223       245.6608     252.4832    
+490      0.4900       6.8223       245.6608     252.4832    
+500      0.5000       6.8223       245.6608     252.4832    
+------------------------------------------------------------
+✓ MD simulation completed: 500 steps, 0.500 ps
+
+Energy Statistics:
+  Potential Energy: 245.6608 ± 0.0000 eV
+  Kinetic Energy:   6.8223 ± 0.0000 eV
+  Total Energy:     252.4832 ± 0.0000 eV
+  Energy drift:     0.00%
+
+✓ Trajectory saved to: md_simulation_formal.npz
+  Frames: 501
+  Time range: 0 - 0.5000 ps
+

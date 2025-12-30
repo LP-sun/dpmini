@@ -1,0 +1,224 @@
+================================================================================
+DeepMD Training Launch - Full Logging Mode
+================================================================================
+
+[LAUNCH TIME] 2025-12-29 19:38:18 CST
+[WORKING DIR] /home/ubuntu/pj
+[LOG FILE] /home/ubuntu/pj/logs/train_formal_20251229-193818.log
+
+--- STARTUP PARAMETERS ---
+CONFIG: config_formal_100k_stable.json
+CHECKPOINT_DIR: checkpoints_stability_test
+EXPORT_DIR: exports_stability_test
+FORCE_LOSS: mse
+GRAD_ACCUM_STEPS: 4
+NUMB_STEPS (override): 500
+
+--- ENVIRONMENT ---
+Shell: GNU bash，版本 5.1.16(1)-release (x86_64-pc-linux-gnu)
+Python PATH: /home/ubuntu/miniforge3/bin/python
+Conda Env: base
+Hostname: 2025-rgzn-wh16
+User: ubuntu
+
+--- GPU INFO ---
+0, NVIDIA L20-8Q, 8192 MiB
+
+--- CONFIG FILE CONTENT ---
+File: config_formal_100k_stable.json
+{
+    "_comment": "Formal training - 100000 steps with ENHANCED STABILITY (lower start_lr, stronger prefactors)",
+    "model": {
+        "type_map": [
+            "O",
+            "H"
+        ],
+        "descriptor": {
+            "type": "se_e2_a",
+            "rcut": 6.0,
+            "rcut_smth": 5.5,
+            "sel": [
+                46,
+                92
+            ],
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "axis_neuron": 16,
+            "type_one_side": true,
+            "seed": 1
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "resnet_dt": true,
+            "seed": 1
+        }
+    },
+    "learning_rate": {
+        "type": "exp",
+        "start_lr": 0.0001,
+        "stop_lr": 1e-6,
+        "decay_steps": 20000,
+        "_comment_lr": "Reduced start_lr from 0.001 to 0.0001 for numerical stability"
+    },
+    "loss": {
+        "start_pref_e": 0.1,
+        "limit_pref_e": 1.0,
+        "start_pref_f": 100.0,
+        "limit_pref_f": 20.0,
+        "_comment_loss": "Increased start_pref_e (0.02→0.1), reduced start_pref_f (1000→100) to avoid early loss spikes"
+    },
+    "training": {
+        "systems": [
+            "collect/O64H128"
+        ],
+        "batch_size": 1,
+        "numb_steps": 100000,
+        "seed": 1,
+        "disp_freq": 500,
+        "save_freq": 5000
+    }
+}
+================================================================================
+TRAINING START
+================================================================================
+
+
+[19:38:18] Activating conda environment and launching training...
+
+Python 3.10.19
+[19:38:19] Environment activated successfully
+
+[19:38:19] Executing: python -u train_cuda_optimized.py --config config_formal_100k_stable.json --checkpoint-dir checkpoints_stability_test --export-dir exports_stability_test --force-loss mse --grad-accumulation-steps 4
+
+starting high-performance DeepMD training with CUDA optimizations...
+================================================================================
+CUDA OPTIMIZATION CONFIGURATION
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.5.1+cu121
+CUDA Version: 12.1
+cuDNN Version: 90100
+Number of GPUs: 1
+cuDNN benchmark: ENABLED (faster conv/attn kernels)
+TF32 tensor operations: ENABLED (safe for training)
+
+GPU 0: NVIDIA L20-8Q
+  Compute Capability: 8.9
+  Total Memory: 8.36 GB
+
+Loading config from config_formal_100k_stable.json
+
+================================================================================
+TRAINING CONFIGURATION
+================================================================================
+Training data systems: ['collect/O64H128']
+Batch size: 1 (FORCED to 1 for shape safety)
+Effective batch size: 4 (via gradient accumulation)
+Number of workers: 4
+Gradient accumulation steps: 4
+Mixed precision: False
+Force loss type: mse (MSE)
+Total training steps: 100000
+
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1]
+Training mode: Direct dataset access (no DataLoader)
+Dataset will be accessed randomly via shuffled indices
+
+Creating DeepMD model...
+Model Parameters: 514,661 (trainable: 514,661)
+Using device: cuda
+
+================================================================================
+Starting training for 100000 steps (batch size: 1)...
+================================================================================
+
+Step      1 | lr=9.998e-05 | loss=89813.6 | e_loss=896805 f_loss=1.25054 f_rmse=1.1183 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.14 step/s | ETA: 24.4h
+Step      2 | lr=9.995e-05 | loss=89732.8 | e_loss=896598 f_loss=0.568015 f_rmse=0.7537 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.50 step/s | ETA: 18.6h
+Step      3 | lr=9.993e-05 | loss=90593.5 | e_loss=905198 f_loss=0.492673 f_rmse=0.7019 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.66 step/s | ETA: 16.7h
+Step      4 | lr=9.991e-05 | loss=89726.9 | e_loss=895562 f_loss=1.38496 f_rmse=1.1768 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.71 step/s | ETA: 16.2h
+Step      5 | lr=9.988e-05 | loss=88972.5 | e_loss=887869 f_loss=1.45646 f_rmse=1.2068 | pref_e=0.1 pref_f=100 | diff=0.000e+00 | 1.78 step/s | ETA: 15.6h
+Step    500 | lr=8.913e-05 | loss=448.082 | e_loss=343.552 f_loss=4.13836 f_rmse=2.0343 | pref_e=0.1045 pref_f=99.6 | diff=0.000e+00 | 2.13 step/s | ETA: 12.9h
+Step   1000 | lr=7.943e-05 | loss=216.081 | e_loss=623.573 f_loss=1.49306 f_rmse=1.2219 | pref_e=0.109 pref_f=99.2 | diff=0.000e+00 | 2.13 step/s | ETA: 12.9h
+Step   1500 | lr=7.079e-05 | loss=160.22 | e_loss=764.47 f_loss=0.743453 f_rmse=0.8622 | pref_e=0.1135 pref_f=98.8 | diff=0.000e+00 | 2.12 step/s | ETA: 12.9h
+Step   2000 | lr=6.310e-05 | loss=102.498 | e_loss=300.086 f_loss=0.681784 f_rmse=0.8257 | pref_e=0.118 pref_f=98.4 | diff=0.000e+00 | 2.12 step/s | ETA: 12.8h
+Step   2500 | lr=5.623e-05 | loss=162.592 | e_loss=27.8613 f_loss=1.62428 f_rmse=1.2745 | pref_e=0.1225 pref_f=98 | diff=0.000e+00 | 2.12 step/s | ETA: 12.8h
+Step   3000 | lr=5.012e-05 | loss=61.4535 | e_loss=27.2041 f_loss=0.594247 f_rmse=0.7709 | pref_e=0.127 pref_f=97.6 | diff=0.000e+00 | 2.12 step/s | ETA: 12.7h
+Step   3500 | lr=4.467e-05 | loss=60.9692 | e_loss=36.4253 f_loss=0.577976 f_rmse=0.7602 | pref_e=0.1315 pref_f=97.2 | diff=0.000e+00 | 2.12 step/s | ETA: 12.7h
+Step   4000 | lr=3.981e-05 | loss=123.653 | e_loss=11.3556 f_loss=1.26146 f_rmse=1.1231 | pref_e=0.136 pref_f=96.8 | diff=0.000e+00 | 2.12 step/s | ETA: 12.6h
+Step   4500 | lr=3.548e-05 | loss=52.1219 | e_loss=79.4594 f_loss=0.424874 f_rmse=0.6518 | pref_e=0.1405 pref_f=96.4 | diff=0.000e+00 | 2.12 step/s | ETA: 12.5h
+Step   5000 | lr=3.162e-05 | loss=74.0923 | e_loss=2.44599 f_loss=0.768101 f_rmse=0.8764 | pref_e=0.145 pref_f=96 | diff=0.000e+00 | 2.12 step/s | ETA: 12.5h
+Saved checkpoint to checkpoints_stability_test/model_step5000.pt
+Step   5500 | lr=2.818e-05 | loss=122.966 | e_loss=0.316818 f_loss=1.28576 f_rmse=1.1339 | pref_e=0.1495 pref_f=95.6 | diff=0.000e+00 | 2.12 step/s | ETA: 12.4h
+Step   6000 | lr=2.512e-05 | loss=89.962 | e_loss=210.124 f_loss=0.605072 f_rmse=0.7779 | pref_e=0.154 pref_f=95.2 | diff=0.000e+00 | 2.12 step/s | ETA: 12.3h
+Step   6500 | lr=2.239e-05 | loss=155.184 | e_loss=6.60745 f_loss=1.62591 f_rmse=1.2751 | pref_e=0.1585 pref_f=94.8 | diff=0.000e+00 | 2.12 step/s | ETA: 12.3h
+Step   7000 | lr=1.995e-05 | loss=102.639 | e_loss=2.67905 f_loss=1.08265 f_rmse=1.0405 | pref_e=0.163 pref_f=94.4 | diff=0.000e+00 | 2.12 step/s | ETA: 12.2h
+Step   7500 | lr=1.778e-05 | loss=73.4881 | e_loss=101.341 f_loss=0.601206 f_rmse=0.7754 | pref_e=0.1675 pref_f=94 | diff=0.000e+00 | 2.12 step/s | ETA: 12.1h
+Step   8000 | lr=1.585e-05 | loss=67.7493 | e_loss=32.447 f_loss=0.664193 f_rmse=0.8150 | pref_e=0.172 pref_f=93.6 | diff=0.000e+00 | 2.12 step/s | ETA: 12.1h
+Step   8500 | lr=1.413e-05 | loss=464.296 | e_loss=246.276 f_loss=4.51533 f_rmse=2.1249 | pref_e=0.1765 pref_f=93.2 | diff=0.000e+00 | 2.12 step/s | ETA: 12.0h
+Step   9000 | lr=1.259e-05 | loss=57.3197 | e_loss=28.1145 f_loss=0.562834 f_rmse=0.7502 | pref_e=0.181 pref_f=92.8 | diff=0.000e+00 | 2.12 step/s | ETA: 11.9h
+Step   9500 | lr=1.122e-05 | loss=64.6399 | e_loss=42.3008 f_loss=0.614644 f_rmse=0.7840 | pref_e=0.1855 pref_f=92.4 | diff=0.000e+00 | 2.12 step/s | ETA: 11.9h
+Step  10000 | lr=1.000e-05 | loss=42.8375 | e_loss=0.992811 f_loss=0.463575 f_rmse=0.6809 | pref_e=0.19 pref_f=92 | diff=0.000e+00 | 2.12 step/s | ETA: 11.8h
+Saved checkpoint to checkpoints_stability_test/model_step10000.pt
+Step  10500 | lr=8.913e-06 | loss=163.161 | e_loss=60.9532 f_loss=1.65181 f_rmse=1.2852 | pref_e=0.1945 pref_f=91.6 | diff=0.000e+00 | 2.12 step/s | ETA: 11.8h
+已终止
+
+================================================================================
+TRAINING COMPLETION/FAILURE REPORT
+================================================================================
+
+[END TIME] 2025-12-29 21:02:51 CST
+[EXIT CODE] 143
+[STATUS] ✗ Training failed with exit code 143
+
+--- FINAL OUTPUT FILE SIZES ---
+Checkpoints (checkpoints_stability_test): 2 files, ~4.0M
+Exports (exports_stability_test): 0 files, ~4.0K
+
+--- INTERNAL LOSS LOG (if exists) ---
+cuda_training_opt.log: 109 lines, ~16K
+
+Last 10 lines:
+  Step   6000 | lr=2.512e-05 | loss=89.962 | e_loss=210.124 | f_loss=0.605072 | f_rmse=0.7779 | pref_e=0.154 pref_f=95.2 | diff=0.000e+00
+  Step   6500 | lr=2.239e-05 | loss=155.184 | e_loss=6.60745 | f_loss=1.62591 | f_rmse=1.2751 | pref_e=0.1585 pref_f=94.8 | diff=0.000e+00
+  Step   7000 | lr=1.995e-05 | loss=102.639 | e_loss=2.67905 | f_loss=1.08265 | f_rmse=1.0405 | pref_e=0.163 pref_f=94.4 | diff=0.000e+00
+  Step   7500 | lr=1.778e-05 | loss=73.4881 | e_loss=101.341 | f_loss=0.601206 | f_rmse=0.7754 | pref_e=0.1675 pref_f=94 | diff=0.000e+00
+  Step   8000 | lr=1.585e-05 | loss=67.7493 | e_loss=32.447 | f_loss=0.664193 | f_rmse=0.8150 | pref_e=0.172 pref_f=93.6 | diff=0.000e+00
+  Step   8500 | lr=1.413e-05 | loss=464.296 | e_loss=246.276 | f_loss=4.51533 | f_rmse=2.1249 | pref_e=0.1765 pref_f=93.2 | diff=0.000e+00
+  Step   9000 | lr=1.259e-05 | loss=57.3197 | e_loss=28.1145 | f_loss=0.562834 | f_rmse=0.7502 | pref_e=0.181 pref_f=92.8 | diff=0.000e+00
+  Step   9500 | lr=1.122e-05 | loss=64.6399 | e_loss=42.3008 | f_loss=0.614644 | f_rmse=0.7840 | pref_e=0.1855 pref_f=92.4 | diff=0.000e+00
+  Step  10000 | lr=1.000e-05 | loss=42.8375 | e_loss=0.992811 | f_loss=0.463575 | f_rmse=0.6809 | pref_e=0.19 pref_f=92 | diff=0.000e+00
+  Step  10500 | lr=8.913e-06 | loss=163.161 | e_loss=60.9532 | f_loss=1.65181 | f_rmse=1.2852 | pref_e=0.1945 pref_f=91.6 | diff=0.000e+00
+
+--- SYSTEM RESOURCES AT END ---
+GPU Memory:
+  40 MiB, 7552 MiB
+
+--- MONITORING COMMANDS FOR NEXT RUN ---
+
+# Real-time log tail:
+tail -f '/home/ubuntu/pj/logs/train_formal_20251229-193818.log'
+
+# Extract metrics to CSV (when log accumulates):
+python -u extract_training_metrics.py --log '/home/ubuntu/pj/logs/train_formal_20251229-193818.log' --output metrics_20251229-193818.csv
+
+# Watch GPU/checkpoint progress:
+watch -n 10 'date; ls -lh checkpoints_stability_test; nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader'
+
+================================================================================
+Full log saved to: /home/ubuntu/pj/logs/train_formal_20251229-193818.log
+================================================================================

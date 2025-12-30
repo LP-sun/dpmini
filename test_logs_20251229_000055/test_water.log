@@ -1,0 +1,33 @@
+Loading model from exports_cuda_opt/model_cuda_20251228-121805.pth
+Creating model with type_map: ['O', 'H']
+Using device: cuda
+
+Loading test data from collect/water
+Loaded 400 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Dataset size: 400 frames
+
+Testing on 100 frames...
+  Processed 100/100 frames
+
+============================================================
+Test Results
+============================================================
+
+Energy:
+  MAE:  29001.986060 eV
+  RMSE: 29001.986068 eV
+
+Force:
+  MAE:  0.612253 eV/Å
+  RMSE: 0.824435 eV/Å
+
+Energy per atom (192 atoms):
+  MAE:  151.052011 eV/atom
+  RMSE: 151.052011 eV/atom
+
+============================================================
+Tested 100 frames from collect/water
+============================================================
+
+

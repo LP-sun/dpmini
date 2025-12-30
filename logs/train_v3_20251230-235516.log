@@ -1,0 +1,362 @@
+nohup: 忽略输入
+Starting optimized DeepMD training v3...
+================================================================================
+CUDA OPTIMIZATION CONFIGURATION
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+cuDNN benchmark: ENABLED (faster conv/attn kernels)
+TF32 tensor operations: ENABLED (safe for training)
+
+GPU 0: NVIDIA L20-8Q
+  Compute Capability: 8.9
+  Total Memory: 8.36 GB
+
+================================================================================
+TRAINING CONFIGURATION (V3)
+================================================================================
+Training data: ['collect/O64H128']
+Batch size: 4
+Num workers: 4
+Grad accumulation steps: 1
+Total steps: 100000
+pin_memory: True, persistent_workers: True, non_blocking: True
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Dataset: 1823 frames, 192 atoms per frame
+DataLoader: 456 batches per epoch
+
+Creating model...
+Model parameters: 514,661
+Device: cuda
+
+================================================================================
+Training for 100000 steps...
+================================================================================
+
+[Epoch 1]
+Step      1 (update=     1) | lr=9.980e-04 | loss=1269.2733 | e_rmse=4.8801 f_rmse=1.1264 f_ema=1.1264 | 1.22 step/s | ETA: 22.8h
+Step      2 (update=     2) | lr=9.959e-04 | loss=4620.7520 | e_rmse=4.8099 f_rmse=2.1495 f_ema=1.1366 | 1.64 step/s | ETA: 16.9h
+Step      3 (update=     3) | lr=9.939e-04 | loss=737.5378 | e_rmse=4.9791 f_rmse=0.8585 f_ema=1.1339 | 1.85 step/s | ETA: 15.0h
+Step      4 (update=     4) | lr=9.918e-04 | loss=718.7760 | e_rmse=5.0107 f_rmse=0.8475 f_ema=1.1310 | 1.99 step/s | ETA: 14.0h
+Step      5 (update=     5) | lr=9.898e-04 | loss=647.1144 | e_rmse=5.3100 f_rmse=0.8041 f_ema=1.1277 | 2.09 step/s | ETA: 13.3h
+Step    100 (update=   100) | lr=8.145e-04 | loss=889.0484 | e_rmse=3.7475 f_rmse=0.9432 f_ema=1.1249 | 2.46 step/s | ETA: 11.3h
+Step    200 (update=   200) | lr=6.635e-04 | loss=641.3826 | e_rmse=5.3041 f_rmse=0.8013 f_ema=1.1371 | 2.47 step/s | ETA: 11.2h
+Step    300 (update=   300) | lr=5.404e-04 | loss=744.3656 | e_rmse=5.2822 f_rmse=0.8637 f_ema=1.1259 | 2.48 step/s | ETA: 11.2h
+Step    400 (update=   400) | lr=4.402e-04 | loss=588.0963 | e_rmse=6.5590 f_rmse=0.7677 f_ema=1.0947 | 2.46 step/s | ETA: 11.2h
+Step    500 (update=   500) | lr=3.585e-04 | loss=1162.3652 | e_rmse=7.5213 f_rmse=1.0802 f_ema=1.0643 | 2.46 step/s | ETA: 11.3h
+Step    600 (update=   600) | lr=2.920e-04 | loss=717.0857 | e_rmse=7.8229 f_rmse=0.8484 f_ema=1.0441 | 2.46 step/s | ETA: 11.2h
+Step    700 (update=   700) | lr=2.379e-04 | loss=1176.8193 | e_rmse=7.6465 f_rmse=1.0879 f_ema=0.9870 | 2.47 step/s | ETA: 11.2h
+Step    800 (update=   800) | lr=1.938e-04 | loss=929.5270 | e_rmse=7.4245 f_rmse=0.9672 f_ema=0.9726 | 2.46 step/s | ETA: 11.2h
+Step    900 (update=   900) | lr=1.578e-04 | loss=687.6161 | e_rmse=7.5899 f_rmse=0.8320 f_ema=0.9728 | 2.47 step/s | ETA: 11.2h
+Step   1000 (update=  1000) | lr=1.285e-04 | loss=555.6096 | e_rmse=7.2760 f_rmse=0.7481 f_ema=0.9529 | 2.47 step/s | ETA: 11.1h
+Step   1100 (update=  1100) | lr=1.047e-04 | loss=2657.1738 | e_rmse=7.4007 f_rmse=1.6386 f_ema=0.9616 | 2.47 step/s | ETA: 11.1h
+Step   1200 (update=  1200) | lr=8.529e-05 | loss=356.4591 | e_rmse=7.5122 f_rmse=0.5991 f_ema=0.9415 | 2.47 step/s | ETA: 11.1h
+Step   1300 (update=  1300) | lr=6.947e-05 | loss=1418.3853 | e_rmse=7.2544 f_rmse=1.1980 f_ema=0.9120 | 2.47 step/s | ETA: 11.1h
+Step   1400 (update=  1400) | lr=5.658e-05 | loss=421.8498 | e_rmse=7.2201 f_rmse=0.6527 f_ema=0.9196 | 2.47 step/s | ETA: 11.1h
+Step   1500 (update=  1500) | lr=4.609e-05 | loss=2475.0334 | e_rmse=7.1946 f_rmse=1.5846 f_ema=0.9271 | 2.47 step/s | ETA: 11.1h
+Step   1600 (update=  1600) | lr=3.754e-05 | loss=618.6718 | e_rmse=7.1413 f_rmse=0.7918 f_ema=0.9283 | 2.47 step/s | ETA: 11.1h
+Step   1700 (update=  1700) | lr=3.058e-05 | loss=547.1982 | e_rmse=7.2740 f_rmse=0.7448 f_ema=0.8922 | 2.47 step/s | ETA: 11.1h
+Step   1800 (update=  1800) | lr=2.491e-05 | loss=2133.4624 | e_rmse=7.1528 f_rmse=1.4733 f_ema=0.8995 | 2.47 step/s | ETA: 11.0h
+
+[Epoch 2]
+Step   1900 (update=  1900) | lr=2.029e-05 | loss=740.9499 | e_rmse=7.2696 f_rmse=0.8679 f_ema=0.8889 | 2.47 step/s | ETA: 11.0h
+Step   2000 (update=  2000) | lr=1.652e-05 | loss=383.5051 | e_rmse=7.2265 f_rmse=0.6239 f_ema=0.8995 | 2.47 step/s | ETA: 11.0h
+Step   2100 (update=  2100) | lr=1.346e-05 | loss=526.4116 | e_rmse=7.2963 f_rmse=0.7318 f_ema=0.8974 | 2.47 step/s | ETA: 11.0h
+Step   2200 (update=  2200) | lr=1.096e-05 | loss=416.2192 | e_rmse=7.2448 f_rmse=0.6506 f_ema=0.8929 | 2.47 step/s | ETA: 11.0h
+Step   2300 (update=  2300) | lr=8.930e-06 | loss=705.3363 | e_rmse=7.1568 f_rmse=0.8483 f_ema=0.9032 | 2.47 step/s | ETA: 11.0h
+Step   2400 (update=  2400) | lr=7.274e-06 | loss=667.3961 | e_rmse=7.1724 f_rmse=0.8255 f_ema=0.9257 | 2.47 step/s | ETA: 11.0h
+Step   2500 (update=  2500) | lr=5.925e-06 | loss=1249.1265 | e_rmse=7.2429 f_rmse=1.1308 f_ema=0.9000 | 2.47 step/s | ETA: 11.0h
+Step   2600 (update=  2600) | lr=4.826e-06 | loss=2451.8298 | e_rmse=7.2218 f_rmse=1.5858 f_ema=0.9090 | 2.47 step/s | ETA: 11.0h
+Step   2700 (update=  2700) | lr=3.931e-06 | loss=2217.1841 | e_rmse=7.2144 f_rmse=1.5087 f_ema=0.8930 | 2.47 step/s | ETA: 10.9h
+Step   2800 (update=  2800) | lr=3.202e-06 | loss=438.9531 | e_rmse=7.2396 f_rmse=0.6701 f_ema=0.8911 | 2.47 step/s | ETA: 10.9h
+Step   2900 (update=  2900) | lr=2.608e-06 | loss=456.5082 | e_rmse=7.2195 f_rmse=0.6838 f_ema=0.8912 | 2.47 step/s | ETA: 10.9h
+Step   3000 (update=  3000) | lr=2.124e-06 | loss=573.8454 | e_rmse=7.2304 f_rmse=0.7674 f_ema=0.8896 | 2.47 step/s | ETA: 10.9h
+Step   3100 (update=  3100) | lr=1.730e-06 | loss=464.3560 | e_rmse=7.2206 f_rmse=0.6903 f_ema=0.8848 | 2.47 step/s | ETA: 10.9h
+Step   3200 (update=  3200) | lr=1.409e-06 | loss=426.8295 | e_rmse=7.2158 f_rmse=0.6619 f_ema=0.8837 | 2.47 step/s | ETA: 10.9h
+Step   3300 (update=  3300) | lr=1.148e-06 | loss=770.8833 | e_rmse=7.1774 f_rmse=0.8913 f_ema=0.8888 | 2.47 step/s | ETA: 10.9h
+Step   3400 (update=  3400) | lr=9.350e-07 | loss=404.3417 | e_rmse=7.2348 f_rmse=0.6447 f_ema=0.8812 | 2.47 step/s | ETA: 10.9h
+Step   3500 (update=  3500) | lr=7.616e-07 | loss=417.6898 | e_rmse=7.2122 f_rmse=0.6557 f_ema=0.8852 | 2.47 step/s | ETA: 10.9h
+Step   3600 (update=  3600) | lr=6.203e-07 | loss=508.5355 | e_rmse=7.2490 f_rmse=0.7242 f_ema=0.8728 | 2.47 step/s | ETA: 10.8h
+
+[Epoch 3]
+Step   3700 (update=  3700) | lr=5.053e-07 | loss=462.2894 | e_rmse=7.2231 f_rmse=0.6906 f_ema=0.8822 | 2.47 step/s | ETA: 10.8h
+Step   3800 (update=  3800) | lr=4.116e-07 | loss=417.5935 | e_rmse=7.2114 f_rmse=0.6565 f_ema=0.8813 | 2.47 step/s | ETA: 10.8h
+Step   3900 (update=  3900) | lr=3.352e-07 | loss=934.5554 | e_rmse=7.2299 f_rmse=0.9845 f_ema=0.8866 | 2.47 step/s | ETA: 10.8h
+Step   4000 (update=  4000) | lr=2.731e-07 | loss=443.0222 | e_rmse=7.2121 f_rmse=0.6769 f_ema=0.8627 | 2.47 step/s | ETA: 10.8h
+Step   4100 (update=  4100) | lr=2.224e-07 | loss=665.5659 | e_rmse=7.2205 f_rmse=0.8311 f_ema=0.8885 | 2.47 step/s | ETA: 10.8h
+Step   4200 (update=  4200) | lr=1.812e-07 | loss=426.7680 | e_rmse=7.2168 f_rmse=0.6649 f_ema=0.8977 | 2.47 step/s | ETA: 10.8h
+Step   4300 (update=  4300) | lr=1.476e-07 | loss=563.4499 | e_rmse=7.1963 f_rmse=0.7651 f_ema=0.9190 | 2.47 step/s | ETA: 10.8h
+Step   4400 (update=  4400) | lr=1.202e-07 | loss=976.4342 | e_rmse=7.2319 f_rmse=1.0089 f_ema=0.8865 | 2.47 step/s | ETA: 10.8h
+Step   4500 (update=  4500) | lr=9.790e-08 | loss=451.6198 | e_rmse=7.2296 f_rmse=0.6851 f_ema=0.8682 | 2.47 step/s | ETA: 10.7h
+Step   4600 (update=  4600) | lr=7.974e-08 | loss=762.5159 | e_rmse=7.2118 f_rmse=0.8920 f_ema=0.8952 | 2.47 step/s | ETA: 10.7h
+Step   4700 (update=  4700) | lr=6.495e-08 | loss=665.8651 | e_rmse=7.2026 f_rmse=0.8337 f_ema=0.9169 | 2.47 step/s | ETA: 10.7h
+Step   4800 (update=  4800) | lr=5.290e-08 | loss=449.3238 | e_rmse=7.2084 f_rmse=0.6843 f_ema=0.8983 | 2.47 step/s | ETA: 10.7h
+Step   4900 (update=  4900) | lr=4.309e-08 | loss=441.3557 | e_rmse=7.2394 f_rmse=0.6785 f_ema=0.8738 | 2.47 step/s | ETA: 10.7h
+Step   5000 (update=  5000) | lr=3.510e-08 | loss=754.9617 | e_rmse=7.1700 f_rmse=0.8893 f_ema=0.8874 | 2.47 step/s | ETA: 10.7h
+Step   5100 (update=  5100) | lr=3.510e-08 | loss=363.0132 | e_rmse=7.2319 f_rmse=0.6153 f_ema=0.8869 | 2.47 step/s | ETA: 10.7h
+Step   5200 (update=  5200) | lr=3.510e-08 | loss=555.5135 | e_rmse=7.2240 f_rmse=0.7629 f_ema=0.8693 | 2.47 step/s | ETA: 10.7h
+Step   5300 (update=  5300) | lr=3.510e-08 | loss=439.8264 | e_rmse=7.2213 f_rmse=0.6786 f_ema=0.8746 | 2.47 step/s | ETA: 10.7h
+Step   5400 (update=  5400) | lr=3.510e-08 | loss=684.8734 | e_rmse=7.2336 f_rmse=0.8485 f_ema=0.8813 | 2.47 step/s | ETA: 10.6h
+
+[Epoch 4]
+Step   5500 (update=  5500) | lr=3.510e-08 | loss=442.0476 | e_rmse=7.2196 f_rmse=0.6809 f_ema=0.8890 | 2.47 step/s | ETA: 10.6h
+Step   5600 (update=  5600) | lr=3.510e-08 | loss=1011.7045 | e_rmse=7.2531 f_rmse=1.0332 f_ema=0.8740 | 2.47 step/s | ETA: 10.6h
+Step   5700 (update=  5700) | lr=3.510e-08 | loss=470.9020 | e_rmse=7.2088 f_rmse=0.7037 f_ema=0.8830 | 2.47 step/s | ETA: 10.6h
+Step   5800 (update=  5800) | lr=3.510e-08 | loss=495.0536 | e_rmse=7.1970 f_rmse=0.7220 f_ema=0.8804 | 2.47 step/s | ETA: 10.6h
+Step   5900 (update=  5900) | lr=3.510e-08 | loss=516.7003 | e_rmse=7.2317 f_rmse=0.7381 f_ema=0.8845 | 2.47 step/s | ETA: 10.6h
+Step   6000 (update=  6000) | lr=3.510e-08 | loss=530.9843 | e_rmse=7.2155 f_rmse=0.7486 f_ema=0.8678 | 2.47 step/s | ETA: 10.6h
+Step   6100 (update=  6100) | lr=3.510e-08 | loss=449.6570 | e_rmse=7.2136 f_rmse=0.6888 f_ema=0.8816 | 2.47 step/s | ETA: 10.6h
+Step   6200 (update=  6200) | lr=3.510e-08 | loss=2211.5374 | e_rmse=7.1720 f_rmse=1.5340 f_ema=0.9022 | 2.47 step/s | ETA: 10.6h
+Step   6300 (update=  6300) | lr=3.510e-08 | loss=1212.2604 | e_rmse=7.2021 f_rmse=1.1354 f_ema=0.8933 | 2.47 step/s | ETA: 10.5h
+Step   6400 (update=  6400) | lr=3.510e-08 | loss=1002.1019 | e_rmse=7.1861 f_rmse=1.0325 f_ema=0.8836 | 2.47 step/s | ETA: 10.5h
+Step   6500 (update=  6500) | lr=3.510e-08 | loss=381.0268 | e_rmse=7.2232 f_rmse=0.6347 f_ema=0.8687 | 2.47 step/s | ETA: 10.5h
+Step   6600 (update=  6600) | lr=3.510e-08 | loss=1292.4703 | e_rmse=7.1933 f_rmse=1.1743 f_ema=0.8705 | 2.47 step/s | ETA: 10.5h
+Step   6700 (update=  6700) | lr=3.510e-08 | loss=2196.8428 | e_rmse=7.1709 f_rmse=1.5329 f_ema=0.9092 | 2.47 step/s | ETA: 10.5h
+Step   6800 (update=  6800) | lr=3.510e-08 | loss=547.2130 | e_rmse=7.2129 f_rmse=0.7631 f_ema=0.8941 | 2.47 step/s | ETA: 10.5h
+Step   6900 (update=  6900) | lr=3.510e-08 | loss=902.6222 | e_rmse=7.2033 f_rmse=0.9821 f_ema=0.8858 | 2.47 step/s | ETA: 10.5h
+Step   7000 (update=  7000) | lr=3.510e-08 | loss=982.8678 | e_rmse=7.2078 f_rmse=1.0256 f_ema=0.9430 | 2.47 step/s | ETA: 10.5h
+Step   7100 (update=  7100) | lr=3.510e-08 | loss=445.8461 | e_rmse=7.2250 f_rmse=0.6891 f_ema=0.9250 | 2.47 step/s | ETA: 10.5h
+Step   7200 (update=  7200) | lr=3.510e-08 | loss=539.2498 | e_rmse=7.2027 f_rmse=0.7589 f_ema=0.8831 | 2.47 step/s | ETA: 10.5h
+
+[Epoch 5]
+Step   7300 (update=  7300) | lr=3.510e-08 | loss=552.3439 | e_rmse=7.2144 f_rmse=0.7685 f_ema=0.8614 | 2.47 step/s | ETA: 10.4h
+Step   7400 (update=  7400) | lr=3.510e-08 | loss=427.8134 | e_rmse=7.2221 f_rmse=0.6758 f_ema=0.8626 | 2.47 step/s | ETA: 10.4h
+Step   7500 (update=  7500) | lr=3.510e-08 | loss=497.3940 | e_rmse=7.2144 f_rmse=0.7297 f_ema=0.8527 | 2.47 step/s | ETA: 10.4h
+Step   7600 (update=  7600) | lr=3.510e-08 | loss=1852.2804 | e_rmse=7.1867 f_rmse=1.4139 f_ema=0.8853 | 2.47 step/s | ETA: 10.4h
+Step   7700 (update=  7700) | lr=3.510e-08 | loss=456.0522 | e_rmse=7.2129 f_rmse=0.6991 f_ema=0.8740 | 2.47 step/s | ETA: 10.4h
+Step   7800 (update=  7800) | lr=3.510e-08 | loss=1450.9840 | e_rmse=7.1828 f_rmse=1.2523 f_ema=0.8758 | 2.47 step/s | ETA: 10.4h
+Step   7900 (update=  7900) | lr=3.510e-08 | loss=491.4377 | e_rmse=7.2058 f_rmse=0.7267 f_ema=0.8901 | 2.47 step/s | ETA: 10.4h
+Step   8000 (update=  8000) | lr=3.510e-08 | loss=626.7432 | e_rmse=7.2386 f_rmse=0.8219 f_ema=0.8885 | 2.47 step/s | ETA: 10.4h
+Step   8100 (update=  8100) | lr=3.510e-08 | loss=937.5207 | e_rmse=7.2014 f_rmse=1.0072 f_ema=0.8977 | 2.47 step/s | ETA: 10.4h
+Step   8200 (update=  8200) | lr=3.510e-08 | loss=704.8920 | e_rmse=7.2353 f_rmse=0.8730 f_ema=0.8901 | 2.47 step/s | ETA: 10.3h
+Step   8300 (update=  8300) | lr=3.510e-08 | loss=507.5229 | e_rmse=7.2138 f_rmse=0.7400 f_ema=0.8986 | 2.47 step/s | ETA: 10.3h
+Step   8400 (update=  8400) | lr=3.510e-08 | loss=333.4703 | e_rmse=7.2182 f_rmse=0.5985 f_ema=0.8929 | 2.46 step/s | ETA: 10.3h
+Step   8500 (update=  8500) | lr=3.510e-08 | loss=674.4376 | e_rmse=7.2041 f_rmse=0.8551 f_ema=0.8826 | 2.46 step/s | ETA: 10.3h
+Step   8600 (update=  8600) | lr=3.510e-08 | loss=964.9186 | e_rmse=7.1894 f_rmse=1.0246 f_ema=0.8761 | 2.46 step/s | ETA: 10.3h
+Step   8700 (update=  8700) | lr=3.510e-08 | loss=419.9355 | e_rmse=7.2206 f_rmse=0.6737 f_ema=0.8880 | 2.46 step/s | ETA: 10.3h
+Step   8800 (update=  8800) | lr=3.510e-08 | loss=432.6110 | e_rmse=7.2178 f_rmse=0.6843 f_ema=0.9172 | 2.46 step/s | ETA: 10.3h
+Step   8900 (update=  8900) | lr=3.510e-08 | loss=995.7036 | e_rmse=7.2059 f_rmse=1.0425 f_ema=0.9098 | 2.46 step/s | ETA: 10.3h
+Step   9000 (update=  9000) | lr=3.510e-08 | loss=470.4257 | e_rmse=7.2137 f_rmse=0.7146 f_ema=0.8953 | 2.46 step/s | ETA: 10.3h
+Step   9100 (update=  9100) | lr=3.510e-08 | loss=820.9579 | e_rmse=7.2490 f_rmse=0.9470 f_ema=0.8751 | 2.46 step/s | ETA: 10.2h
+
+[Epoch 6]
+Step   9200 (update=  9200) | lr=3.510e-08 | loss=448.6233 | e_rmse=7.2134 f_rmse=0.6984 f_ema=0.8558 | 2.46 step/s | ETA: 10.2h
+Step   9300 (update=  9300) | lr=3.510e-08 | loss=458.8261 | e_rmse=7.1966 f_rmse=0.7067 f_ema=0.8916 | 2.46 step/s | ETA: 10.2h
+Step   9400 (update=  9400) | lr=3.510e-08 | loss=586.8198 | e_rmse=7.2110 f_rmse=0.8008 f_ema=0.8585 | 2.46 step/s | ETA: 10.2h
+Step   9500 (update=  9500) | lr=3.510e-08 | loss=518.4064 | e_rmse=7.2145 f_rmse=0.7525 f_ema=0.8942 | 2.46 step/s | ETA: 10.2h
+Step   9600 (update=  9600) | lr=3.510e-08 | loss=317.1503 | e_rmse=7.2149 f_rmse=0.5867 f_ema=0.9113 | 2.46 step/s | ETA: 10.2h
+Step   9700 (update=  9700) | lr=3.510e-08 | loss=459.1408 | e_rmse=7.2063 f_rmse=0.7084 f_ema=0.8651 | 2.46 step/s | ETA: 10.2h
+Step   9800 (update=  9800) | lr=3.510e-08 | loss=605.6664 | e_rmse=7.1979 f_rmse=0.8153 f_ema=0.8699 | 2.46 step/s | ETA: 10.2h
+Step   9900 (update=  9900) | lr=3.510e-08 | loss=612.9907 | e_rmse=7.1903 f_rmse=0.8207 f_ema=0.8876 | 2.46 step/s | ETA: 10.2h
+Step  10000 (update= 10000) | lr=3.510e-08 | loss=421.4722 | e_rmse=7.2004 f_rmse=0.6793 f_ema=0.8948 | 2.46 step/s | ETA: 10.1h
+  Checkpoint saved: checkpoints_optimized_v3_human/model_step10000.pt
+Step  10100 (update= 10100) | lr=3.510e-08 | loss=488.5135 | e_rmse=7.1891 f_rmse=0.7325 f_ema=0.8836 | 2.46 step/s | ETA: 10.1h
+Step  10200 (update= 10200) | lr=3.510e-08 | loss=726.4209 | e_rmse=7.1885 f_rmse=0.8955 f_ema=0.8735 | 2.46 step/s | ETA: 10.1h
+Step  10300 (update= 10300) | lr=3.510e-08 | loss=371.1978 | e_rmse=7.2215 f_rmse=0.6378 f_ema=0.8759 | 2.46 step/s | ETA: 10.1h
+Step  10400 (update= 10400) | lr=3.510e-08 | loss=1577.2008 | e_rmse=7.1913 f_rmse=1.3240 f_ema=0.8989 | 2.46 step/s | ETA: 10.1h
+Step  10500 (update= 10500) | lr=3.510e-08 | loss=1514.6672 | e_rmse=7.1854 f_rmse=1.2981 f_ema=0.9161 | 2.46 step/s | ETA: 10.1h
+Step  10600 (update= 10600) | lr=3.510e-08 | loss=647.9889 | e_rmse=7.1992 f_rmse=0.8471 f_ema=0.9223 | 2.46 step/s | ETA: 10.1h
+Step  10700 (update= 10700) | lr=3.510e-08 | loss=436.9081 | e_rmse=7.2006 f_rmse=0.6942 f_ema=0.9029 | 2.46 step/s | ETA: 10.1h
+Step  10800 (update= 10800) | lr=3.510e-08 | loss=628.4092 | e_rmse=7.2132 f_rmse=0.8349 f_ema=0.8832 | 2.46 step/s | ETA: 10.1h
+Step  10900 (update= 10900) | lr=3.510e-08 | loss=1184.5688 | e_rmse=7.1891 f_rmse=1.1498 f_ema=0.8967 | 2.46 step/s | ETA: 10.0h
+
+[Epoch 7]
+Step  11000 (update= 11000) | lr=3.510e-08 | loss=1523.6781 | e_rmse=7.1760 f_rmse=1.3055 f_ema=0.9033 | 2.46 step/s | ETA: 10.0h
+Step  11100 (update= 11100) | lr=3.510e-08 | loss=637.2467 | e_rmse=7.2098 f_rmse=0.8421 f_ema=0.8984 | 2.46 step/s | ETA: 10.0h
+Step  11200 (update= 11200) | lr=3.510e-08 | loss=883.0355 | e_rmse=7.2000 f_rmse=0.9933 f_ema=0.8980 | 2.46 step/s | ETA: 10.0h
+Step  11300 (update= 11300) | lr=3.510e-08 | loss=2079.9609 | e_rmse=7.1669 f_rmse=1.5287 f_ema=0.8789 | 2.46 step/s | ETA: 10.0h
+Step  11400 (update= 11400) | lr=3.510e-08 | loss=432.6561 | e_rmse=7.2251 f_rmse=0.6932 f_ema=0.9008 | 2.46 step/s | ETA: 10.0h
+Step  11500 (update= 11500) | lr=3.510e-08 | loss=2002.2787 | e_rmse=7.1867 f_rmse=1.5015 f_ema=0.8989 | 2.46 step/s | ETA: 10.0h
+Step  11600 (update= 11600) | lr=3.510e-08 | loss=977.2778 | e_rmse=7.1951 f_rmse=1.0476 f_ema=0.9309 | 2.46 step/s | ETA: 10.0h
+Step  11700 (update= 11700) | lr=3.510e-08 | loss=844.5858 | e_rmse=7.1844 f_rmse=0.9739 f_ema=0.8907 | 2.46 step/s | ETA: 10.0h
+Step  11800 (update= 11800) | lr=3.510e-08 | loss=843.7299 | e_rmse=7.2449 f_rmse=0.9739 f_ema=0.8806 | 2.46 step/s | ETA: 9.9h
+Step  11900 (update= 11900) | lr=3.510e-08 | loss=838.6310 | e_rmse=7.2381 f_rmse=0.9714 f_ema=0.9074 | 2.46 step/s | ETA: 9.9h
+Step  12000 (update= 12000) | lr=3.510e-08 | loss=758.9473 | e_rmse=7.2110 f_rmse=0.9242 f_ema=0.8928 | 2.46 step/s | ETA: 9.9h
+Step  12100 (update= 12100) | lr=3.510e-08 | loss=387.2980 | e_rmse=7.2217 f_rmse=0.6575 f_ema=0.8927 | 2.46 step/s | ETA: 9.9h
+Step  12200 (update= 12200) | lr=3.510e-08 | loss=991.9777 | e_rmse=7.2160 f_rmse=1.0590 f_ema=0.8699 | 2.46 step/s | ETA: 9.9h
+Step  12300 (update= 12300) | lr=3.510e-08 | loss=445.1328 | e_rmse=7.2306 f_rmse=0.7065 f_ema=0.8804 | 2.46 step/s | ETA: 9.9h
+Step  12400 (update= 12400) | lr=3.510e-08 | loss=409.2831 | e_rmse=7.2142 f_rmse=0.6773 f_ema=0.8750 | 2.46 step/s | ETA: 9.9h
+Step  12500 (update= 12500) | lr=3.510e-08 | loss=1280.3461 | e_rmse=7.1859 f_rmse=1.2061 f_ema=0.8638 | 2.46 step/s | ETA: 9.9h
+Step  12600 (update= 12600) | lr=3.510e-08 | loss=446.4574 | e_rmse=7.2263 f_rmse=0.7086 f_ema=0.8589 | 2.46 step/s | ETA: 9.9h
+Step  12700 (update= 12700) | lr=3.510e-08 | loss=1077.7693 | e_rmse=7.2138 f_rmse=1.1071 f_ema=0.8946 | 2.46 step/s | ETA: 9.8h
+
+[Epoch 8]
+Step  12800 (update= 12800) | lr=3.510e-08 | loss=412.4697 | e_rmse=7.2143 f_rmse=0.6814 f_ema=0.9209 | 2.46 step/s | ETA: 9.8h
+Step  12900 (update= 12900) | lr=3.510e-08 | loss=1609.6257 | e_rmse=7.1934 f_rmse=1.3561 f_ema=0.8996 | 2.46 step/s | ETA: 9.8h
+Step  13000 (update= 13000) | lr=3.510e-08 | loss=570.7106 | e_rmse=7.2051 f_rmse=0.8044 f_ema=0.8955 | 2.46 step/s | ETA: 9.8h
+Step  13100 (update= 13100) | lr=3.510e-08 | loss=343.4969 | e_rmse=7.2135 f_rmse=0.6216 f_ema=0.8816 | 2.46 step/s | ETA: 9.8h
+Step  13200 (update= 13200) | lr=3.510e-08 | loss=506.2581 | e_rmse=7.2107 f_rmse=0.7578 f_ema=0.8984 | 2.46 step/s | ETA: 9.8h
+Step  13300 (update= 13300) | lr=3.510e-08 | loss=818.8654 | e_rmse=7.1987 f_rmse=0.9671 f_ema=0.8827 | 2.46 step/s | ETA: 9.8h
+Step  13400 (update= 13400) | lr=3.510e-08 | loss=407.2231 | e_rmse=7.2357 f_rmse=0.6790 f_ema=0.8876 | 2.46 step/s | ETA: 9.8h
+Step  13500 (update= 13500) | lr=3.510e-08 | loss=762.3318 | e_rmse=7.2098 f_rmse=0.9338 f_ema=0.8993 | 2.46 step/s | ETA: 9.8h
+Step  13600 (update= 13600) | lr=3.510e-08 | loss=368.5154 | e_rmse=7.2058 f_rmse=0.6459 f_ema=0.9123 | 2.46 step/s | ETA: 9.7h
+Step  13700 (update= 13700) | lr=3.510e-08 | loss=404.0001 | e_rmse=7.2375 f_rmse=0.6773 f_ema=0.8930 | 2.46 step/s | ETA: 9.7h
+Step  13800 (update= 13800) | lr=3.510e-08 | loss=418.0245 | e_rmse=7.1954 f_rmse=0.6896 f_ema=0.8961 | 2.46 step/s | ETA: 9.7h
+Step  13900 (update= 13900) | lr=3.510e-08 | loss=1963.7472 | e_rmse=7.1780 f_rmse=1.5070 f_ema=0.8968 | 2.46 step/s | ETA: 9.7h
+Step  14000 (update= 14000) | lr=3.510e-08 | loss=436.1872 | e_rmse=7.2124 f_rmse=0.7054 f_ema=0.8742 | 2.46 step/s | ETA: 9.7h
+Step  14100 (update= 14100) | lr=3.510e-08 | loss=568.1642 | e_rmse=7.2434 f_rmse=0.8073 f_ema=0.8668 | 2.46 step/s | ETA: 9.7h
+Step  14200 (update= 14200) | lr=3.510e-08 | loss=603.3408 | e_rmse=7.2188 f_rmse=0.8327 f_ema=0.9032 | 2.46 step/s | ETA: 9.7h
+Step  14300 (update= 14300) | lr=3.510e-08 | loss=605.2745 | e_rmse=7.2246 f_rmse=0.8345 f_ema=0.8903 | 2.46 step/s | ETA: 9.7h
+Step  14400 (update= 14400) | lr=3.510e-08 | loss=360.1621 | e_rmse=7.2163 f_rmse=0.6410 f_ema=0.9007 | 2.46 step/s | ETA: 9.7h
+Step  14500 (update= 14500) | lr=3.510e-08 | loss=452.1095 | e_rmse=7.2064 f_rmse=0.7203 f_ema=0.8813 | 2.46 step/s | ETA: 9.6h
+
+[Epoch 9]
+Step  14600 (update= 14600) | lr=3.510e-08 | loss=397.6347 | e_rmse=7.2051 f_rmse=0.6750 f_ema=0.8621 | 2.46 step/s | ETA: 9.6h
+Step  14700 (update= 14700) | lr=3.510e-08 | loss=440.4409 | e_rmse=7.2039 f_rmse=0.7115 f_ema=0.8872 | 2.46 step/s | ETA: 9.6h
+Step  14800 (update= 14800) | lr=3.510e-08 | loss=1017.4357 | e_rmse=7.1965 f_rmse=1.0881 f_ema=0.8990 | 2.46 step/s | ETA: 9.6h
+Step  14900 (update= 14900) | lr=3.510e-08 | loss=383.3842 | e_rmse=7.2130 f_rmse=0.6635 f_ema=0.8978 | 2.46 step/s | ETA: 9.6h
+Step  15000 (update= 15000) | lr=3.510e-08 | loss=415.8809 | e_rmse=7.2027 f_rmse=0.6921 f_ema=0.9000 | 2.46 step/s | ETA: 9.6h
+Step  15100 (update= 15100) | lr=3.510e-08 | loss=344.9107 | e_rmse=7.2100 f_rmse=0.6292 f_ema=0.8665 | 2.46 step/s | ETA: 9.6h
+Step  15200 (update= 15200) | lr=3.510e-08 | loss=841.5471 | e_rmse=7.1916 f_rmse=0.9909 f_ema=0.8895 | 2.46 step/s | ETA: 9.6h
+Step  15300 (update= 15300) | lr=3.510e-08 | loss=851.3799 | e_rmse=7.1964 f_rmse=0.9973 f_ema=0.8742 | 2.46 step/s | ETA: 9.6h
+Step  15400 (update= 15400) | lr=3.510e-08 | loss=551.6962 | e_rmse=7.1941 f_rmse=0.8010 f_ema=0.8897 | 2.46 step/s | ETA: 9.5h
+Step  15500 (update= 15500) | lr=3.510e-08 | loss=413.1632 | e_rmse=7.2042 f_rmse=0.6916 f_ema=0.8652 | 2.46 step/s | ETA: 9.5h
+Step  15600 (update= 15600) | lr=3.510e-08 | loss=291.5708 | e_rmse=7.2135 f_rmse=0.5786 f_ema=0.8718 | 2.46 step/s | ETA: 9.5h
+Step  15700 (update= 15700) | lr=3.510e-08 | loss=553.8417 | e_rmse=7.1982 f_rmse=0.8039 f_ema=0.8851 | 2.46 step/s | ETA: 9.5h
+Step  15800 (update= 15800) | lr=3.510e-08 | loss=586.9686 | e_rmse=7.2174 f_rmse=0.8284 f_ema=0.8893 | 2.46 step/s | ETA: 9.5h
+Step  15900 (update= 15900) | lr=3.510e-08 | loss=1686.7877 | e_rmse=7.1820 f_rmse=1.4123 f_ema=0.8998 | 2.46 step/s | ETA: 9.5h
+Step  16000 (update= 16000) | lr=3.510e-08 | loss=1088.6372 | e_rmse=7.1956 f_rmse=1.1335 f_ema=0.8979 | 2.46 step/s | ETA: 9.5h
+Step  16100 (update= 16100) | lr=3.510e-08 | loss=391.5343 | e_rmse=7.2153 f_rmse=0.6749 f_ema=0.8888 | 2.46 step/s | ETA: 9.5h
+Step  16200 (update= 16200) | lr=3.510e-08 | loss=325.9249 | e_rmse=7.2261 f_rmse=0.6146 f_ema=0.8660 | 2.46 step/s | ETA: 9.5h
+Step  16300 (update= 16300) | lr=3.510e-08 | loss=386.8984 | e_rmse=7.2217 f_rmse=0.6715 f_ema=0.8739 | 2.46 step/s | ETA: 9.4h
+Step  16400 (update= 16400) | lr=3.510e-08 | loss=1113.3699 | e_rmse=7.1751 f_rmse=1.1491 f_ema=0.8787 | 2.46 step/s | ETA: 9.4h
+
+[Epoch 10]
+Step  16500 (update= 16500) | lr=3.510e-08 | loss=1082.3640 | e_rmse=7.1963 f_rmse=1.1335 f_ema=0.8789 | 2.46 step/s | ETA: 9.4h
+Step  16600 (update= 16600) | lr=3.510e-08 | loss=1010.7936 | e_rmse=7.1952 f_rmse=1.0956 f_ema=0.8975 | 2.46 step/s | ETA: 9.4h
+Step  16700 (update= 16700) | lr=3.510e-08 | loss=675.4391 | e_rmse=7.2093 f_rmse=0.8940 f_ema=0.8885 | 2.46 step/s | ETA: 9.4h
+Step  16800 (update= 16800) | lr=3.510e-08 | loss=699.6738 | e_rmse=7.2111 f_rmse=0.9106 f_ema=0.9074 | 2.46 step/s | ETA: 9.4h
+Step  16900 (update= 16900) | lr=3.510e-08 | loss=445.6317 | e_rmse=7.2159 f_rmse=0.7242 f_ema=0.8818 | 2.46 step/s | ETA: 9.4h
+Step  17000 (update= 17000) | lr=3.510e-08 | loss=328.1909 | e_rmse=7.2137 f_rmse=0.6194 f_ema=0.8550 | 2.46 step/s | ETA: 9.4h
+Step  17100 (update= 17100) | lr=3.510e-08 | loss=723.4868 | e_rmse=7.1986 f_rmse=0.9278 f_ema=0.8631 | 2.46 step/s | ETA: 9.4h
+Step  17200 (update= 17200) | lr=3.510e-08 | loss=659.7963 | e_rmse=7.2008 f_rmse=0.8859 f_ema=0.8676 | 2.46 step/s | ETA: 9.3h
+Step  17300 (update= 17300) | lr=3.510e-08 | loss=441.5175 | e_rmse=7.2155 f_rmse=0.7224 f_ema=0.8819 | 2.46 step/s | ETA: 9.3h
+Step  17400 (update= 17400) | lr=3.510e-08 | loss=387.1966 | e_rmse=7.2003 f_rmse=0.6758 f_ema=0.8976 | 2.46 step/s | ETA: 9.3h
+Step  17500 (update= 17500) | lr=3.510e-08 | loss=828.3478 | e_rmse=7.2276 f_rmse=0.9959 f_ema=0.8877 | 2.46 step/s | ETA: 9.3h
+Step  17600 (update= 17600) | lr=3.510e-08 | loss=807.2206 | e_rmse=7.2150 f_rmse=0.9835 f_ema=0.8937 | 2.46 step/s | ETA: 9.3h
+Step  17700 (update= 17700) | lr=3.510e-08 | loss=429.4151 | e_rmse=7.2203 f_rmse=0.7137 f_ema=0.8913 | 2.46 step/s | ETA: 9.3h
+Step  17800 (update= 17800) | lr=3.510e-08 | loss=523.5386 | e_rmse=7.2285 f_rmse=0.7902 f_ema=0.9186 | 2.46 step/s | ETA: 9.3h
+Step  17900 (update= 17900) | lr=3.510e-08 | loss=375.9635 | e_rmse=7.2070 f_rmse=0.6674 f_ema=0.9179 | 2.46 step/s | ETA: 9.3h
+Step  18000 (update= 18000) | lr=3.510e-08 | loss=429.6073 | e_rmse=7.2081 f_rmse=0.7151 f_ema=0.8865 | 2.46 step/s | ETA: 9.3h
+Step  18100 (update= 18100) | lr=3.510e-08 | loss=1851.9287 | e_rmse=7.1825 f_rmse=1.4994 f_ema=0.8731 | 2.46 step/s | ETA: 9.2h
+Step  18200 (update= 18200) | lr=3.510e-08 | loss=433.9356 | e_rmse=7.2266 f_rmse=0.7195 f_ema=0.8959 | 2.46 step/s | ETA: 9.2h
+
+[Epoch 11]
+Step  18300 (update= 18300) | lr=3.510e-08 | loss=1507.2725 | e_rmse=7.1885 f_rmse=1.3535 f_ema=0.8947 | 2.46 step/s | ETA: 9.2h
+Step  18400 (update= 18400) | lr=3.510e-08 | loss=486.2795 | e_rmse=7.2397 f_rmse=0.7635 f_ema=0.8754 | 2.46 step/s | ETA: 9.2h
+Step  18500 (update= 18500) | lr=3.510e-08 | loss=394.5199 | e_rmse=7.2197 f_rmse=0.6864 f_ema=0.8769 | 2.46 step/s | ETA: 9.2h
+Step  18600 (update= 18600) | lr=3.510e-08 | loss=349.0548 | e_rmse=7.1997 f_rmse=0.6449 f_ema=0.8572 | 2.46 step/s | ETA: 9.2h
+Step  18700 (update= 18700) | lr=3.510e-08 | loss=589.3054 | e_rmse=7.2198 f_rmse=0.8436 f_ema=0.8914 | 2.46 step/s | ETA: 9.2h
+Step  18800 (update= 18800) | lr=3.510e-08 | loss=347.0585 | e_rmse=7.2177 f_rmse=0.6436 f_ema=0.8917 | 2.46 step/s | ETA: 9.2h
+Step  18900 (update= 18900) | lr=3.510e-08 | loss=1899.6624 | e_rmse=7.1621 f_rmse=1.5261 f_ema=0.9300 | 2.46 step/s | ETA: 9.2h
+Step  19000 (update= 19000) | lr=3.510e-08 | loss=341.0877 | e_rmse=7.2289 f_rmse=0.6385 f_ema=0.8910 | 2.46 step/s | ETA: 9.1h
+Step  19100 (update= 19100) | lr=3.510e-08 | loss=462.0819 | e_rmse=7.2104 f_rmse=0.7468 f_ema=0.9109 | 2.46 step/s | ETA: 9.1h
+Step  19200 (update= 19200) | lr=3.510e-08 | loss=386.9835 | e_rmse=7.2026 f_rmse=0.6822 f_ema=0.8911 | 2.46 step/s | ETA: 9.1h
+Step  19300 (update= 19300) | lr=3.510e-08 | loss=872.8190 | e_rmse=7.1937 f_rmse=1.0334 f_ema=0.8761 | 2.46 step/s | ETA: 9.1h
+Step  19400 (update= 19400) | lr=3.510e-08 | loss=482.0270 | e_rmse=7.2101 f_rmse=0.7644 f_ema=0.8837 | 2.46 step/s | ETA: 9.1h
+Step  19500 (update= 19500) | lr=3.510e-08 | loss=1008.2426 | e_rmse=7.1779 f_rmse=1.1130 f_ema=0.9065 | 2.46 step/s | ETA: 9.1h
+Step  19600 (update= 19600) | lr=3.510e-08 | loss=874.5810 | e_rmse=7.1888 f_rmse=1.0363 f_ema=0.9030 | 2.46 step/s | ETA: 9.1h
+Step  19700 (update= 19700) | lr=3.510e-08 | loss=1775.2437 | e_rmse=7.1722 f_rmse=1.4821 f_ema=0.9034 | 2.46 step/s | ETA: 9.1h
+Step  19800 (update= 19800) | lr=3.510e-08 | loss=465.1827 | e_rmse=7.2051 f_rmse=0.7524 f_ema=0.8915 | 2.46 step/s | ETA: 9.1h
+Step  19900 (update= 19900) | lr=3.510e-08 | loss=809.2062 | e_rmse=7.1845 f_rmse=0.9981 f_ema=0.8991 | 2.46 step/s | ETA: 9.0h
+Step  20000 (update= 20000) | lr=3.510e-08 | loss=555.3386 | e_rmse=7.2286 f_rmse=0.8246 f_ema=0.8732 | 2.46 step/s | ETA: 9.0h
+  Checkpoint saved: checkpoints_optimized_v3_human/model_step20000.pt
+
+[Epoch 12]
+Step  20100 (update= 20100) | lr=3.510e-08 | loss=346.5320 | e_rmse=7.2191 f_rmse=0.6476 f_ema=0.8763 | 2.46 step/s | ETA: 9.0h
+Step  20200 (update= 20200) | lr=3.510e-08 | loss=317.6116 | e_rmse=7.2137 f_rmse=0.6194 f_ema=0.8857 | 2.46 step/s | ETA: 9.0h
+Step  20300 (update= 20300) | lr=3.510e-08 | loss=385.2331 | e_rmse=7.2098 f_rmse=0.6848 f_ema=0.8624 | 2.46 step/s | ETA: 9.0h
+Step  20400 (update= 20400) | lr=3.510e-08 | loss=1165.1630 | e_rmse=7.1797 f_rmse=1.2038 f_ema=0.8756 | 2.46 step/s | ETA: 9.0h
+Step  20500 (update= 20500) | lr=3.510e-08 | loss=470.9694 | e_rmse=7.2166 f_rmse=0.7601 f_ema=0.8706 | 2.46 step/s | ETA: 9.0h
+Step  20600 (update= 20600) | lr=3.510e-08 | loss=769.4681 | e_rmse=7.1976 f_rmse=0.9769 f_ema=0.8843 | 2.46 step/s | ETA: 9.0h
+Step  20700 (update= 20700) | lr=3.510e-08 | loss=1793.8077 | e_rmse=7.1805 f_rmse=1.4990 f_ema=0.8708 | 2.46 step/s | ETA: 9.0h
+Step  20800 (update= 20800) | lr=3.510e-08 | loss=1792.4961 | e_rmse=7.1807 f_rmse=1.4994 f_ema=0.8589 | 2.46 step/s | ETA: 8.9h
+Step  20900 (update= 20900) | lr=3.510e-08 | loss=859.4230 | e_rmse=7.1908 f_rmse=1.0351 f_ema=0.8865 | 2.46 step/s | ETA: 8.9h
+Step  21000 (update= 21000) | lr=3.510e-08 | loss=1379.6390 | e_rmse=7.1885 f_rmse=1.3157 f_ema=0.8773 | 2.46 step/s | ETA: 8.9h
+Step  21100 (update= 21100) | lr=3.510e-08 | loss=679.5300 | e_rmse=7.2126 f_rmse=0.9198 f_ema=0.9077 | 2.46 step/s | ETA: 8.9h
+Step  21200 (update= 21200) | lr=3.510e-08 | loss=1528.9508 | e_rmse=7.1667 f_rmse=1.3874 f_ema=0.8987 | 2.46 step/s | ETA: 8.9h
+Step  21300 (update= 21300) | lr=3.510e-08 | loss=468.8234 | e_rmse=7.1798 f_rmse=0.7620 f_ema=0.9167 | 2.46 step/s | ETA: 8.9h
+Step  21400 (update= 21400) | lr=3.510e-08 | loss=304.8004 | e_rmse=7.2154 f_rmse=0.6103 f_ema=0.8967 | 2.46 step/s | ETA: 8.9h
+Step  21500 (update= 21500) | lr=3.510e-08 | loss=476.8609 | e_rmse=7.2040 f_rmse=0.7694 f_ema=0.9028 | 2.46 step/s | ETA: 8.9h
+Step  21600 (update= 21600) | lr=3.510e-08 | loss=290.5424 | e_rmse=7.2198 f_rmse=0.5959 f_ema=0.9035 | 2.46 step/s | ETA: 8.9h
+Step  21700 (update= 21700) | lr=3.510e-08 | loss=1866.1980 | e_rmse=7.1555 f_rmse=1.5387 f_ema=0.8948 | 2.46 step/s | ETA: 8.8h
+Step  21800 (update= 21800) | lr=3.510e-08 | loss=564.8366 | e_rmse=7.1972 f_rmse=0.8406 f_ema=0.8798 | 2.46 step/s | ETA: 8.8h
+
+[Epoch 13]
+Step  21900 (update= 21900) | lr=3.510e-08 | loss=1856.5750 | e_rmse=7.1536 f_rmse=1.5366 f_ema=0.8851 | 2.46 step/s | ETA: 8.8h
+Step  22000 (update= 22000) | lr=3.510e-08 | loss=312.9417 | e_rmse=7.2038 f_rmse=0.6208 f_ema=0.9137 | 2.46 step/s | ETA: 8.8h
+Step  22100 (update= 22100) | lr=3.510e-08 | loss=542.5555 | e_rmse=7.2002 f_rmse=0.8249 f_ema=0.9065 | 2.46 step/s | ETA: 8.8h
+Step  22200 (update= 22200) | lr=3.510e-08 | loss=416.1495 | e_rmse=7.1882 f_rmse=0.7204 f_ema=0.9057 | 2.46 step/s | ETA: 8.8h
+Step  22300 (update= 22300) | lr=3.510e-08 | loss=830.3663 | e_rmse=7.1900 f_rmse=1.0259 f_ema=0.8593 | 2.46 step/s | ETA: 8.8h
+Step  22400 (update= 22400) | lr=3.510e-08 | loss=1501.8273 | e_rmse=7.1902 f_rmse=1.3852 f_ema=0.8942 | 2.46 step/s | ETA: 8.8h
+Step  22500 (update= 22500) | lr=3.510e-08 | loss=577.0620 | e_rmse=7.2064 f_rmse=0.8534 f_ema=0.8573 | 2.46 step/s | ETA: 8.8h
+Step  22600 (update= 22600) | lr=3.510e-08 | loss=1133.4545 | e_rmse=7.1774 f_rmse=1.2033 f_ema=0.8877 | 2.46 step/s | ETA: 8.7h
+Step  22700 (update= 22700) | lr=3.510e-08 | loss=368.7650 | e_rmse=7.1955 f_rmse=0.6787 f_ema=0.8817 | 2.46 step/s | ETA: 8.7h
+Step  22800 (update= 22800) | lr=3.510e-08 | loss=1548.7157 | e_rmse=7.1752 f_rmse=1.4104 f_ema=0.8877 | 2.46 step/s | ETA: 8.7h
+Step  22900 (update= 22900) | lr=3.510e-08 | loss=376.7524 | e_rmse=7.2013 f_rmse=0.6871 f_ema=0.8908 | 2.46 step/s | ETA: 8.7h
+Step  23000 (update= 23000) | lr=3.510e-08 | loss=1752.7552 | e_rmse=7.1697 f_rmse=1.5031 f_ema=0.8993 | 2.46 step/s | ETA: 8.7h
+Step  23100 (update= 23100) | lr=3.510e-08 | loss=370.0381 | e_rmse=7.2116 f_rmse=0.6815 f_ema=0.8651 | 2.46 step/s | ETA: 8.7h
+Step  23200 (update= 23200) | lr=3.510e-08 | loss=1046.2382 | e_rmse=7.1650 f_rmse=1.1599 f_ema=0.8823 | 2.46 step/s | ETA: 8.7h
+Step  23300 (update= 23300) | lr=3.510e-08 | loss=347.1515 | e_rmse=7.2142 f_rmse=0.6600 f_ema=0.8772 | 2.46 step/s | ETA: 8.7h
+Step  23400 (update= 23400) | lr=3.510e-08 | loss=629.9397 | e_rmse=7.1806 f_rmse=0.8974 f_ema=0.9139 | 2.46 step/s | ETA: 8.6h
+Step  23500 (update= 23500) | lr=3.510e-08 | loss=678.3561 | e_rmse=7.2290 f_rmse=0.9324 f_ema=0.9008 | 2.46 step/s | ETA: 8.6h
+Step  23600 (update= 23600) | lr=3.510e-08 | loss=361.9579 | e_rmse=7.2051 f_rmse=0.6757 f_ema=0.8735 | 2.46 step/s | ETA: 8.6h
+
+[Epoch 14]
+Step  23700 (update= 23700) | lr=3.510e-08 | loss=1786.0917 | e_rmse=7.1574 f_rmse=1.5242 f_ema=0.9224 | 2.46 step/s | ETA: 8.6h
+Step  23800 (update= 23800) | lr=3.510e-08 | loss=349.5497 | e_rmse=7.2066 f_rmse=0.6643 f_ema=0.8860 | 2.46 step/s | ETA: 8.6h
+Step  23900 (update= 23900) | lr=3.510e-08 | loss=484.1215 | e_rmse=7.2443 f_rmse=0.7864 f_ema=0.8956 | 2.46 step/s | ETA: 8.6h
+Step  24000 (update= 24000) | lr=3.510e-08 | loss=305.2692 | e_rmse=7.1929 f_rmse=0.6198 f_ema=0.8721 | 2.46 step/s | ETA: 8.6h
+Step  24100 (update= 24100) | lr=3.510e-08 | loss=425.9469 | e_rmse=7.1939 f_rmse=0.7373 f_ema=0.8852 | 2.46 step/s | ETA: 8.6h
+Step  24200 (update= 24200) | lr=3.510e-08 | loss=338.4595 | e_rmse=7.1963 f_rmse=0.6548 f_ema=0.8721 | 2.46 step/s | ETA: 8.6h
+Step  24300 (update= 24300) | lr=3.510e-08 | loss=1516.2595 | e_rmse=7.1684 f_rmse=1.4088 f_ema=0.8932 | 2.46 step/s | ETA: 8.5h
+Step  24400 (update= 24400) | lr=3.510e-08 | loss=337.7857 | e_rmse=7.1944 f_rmse=0.6549 f_ema=0.8862 | 2.46 step/s | ETA: 8.5h
+Step  24500 (update= 24500) | lr=3.510e-08 | loss=366.4793 | e_rmse=7.2000 f_rmse=0.6837 f_ema=0.9292 | 2.46 step/s | ETA: 8.5h
+Step  24600 (update= 24600) | lr=3.510e-08 | loss=743.7711 | e_rmse=7.1813 f_rmse=0.9840 f_ema=0.9073 | 2.46 step/s | ETA: 8.5h
+Step  24700 (update= 24700) | lr=3.510e-08 | loss=458.3029 | e_rmse=7.1873 f_rmse=0.7684 f_ema=0.8755 | 2.46 step/s | ETA: 8.5h
+Step  24800 (update= 24800) | lr=3.510e-08 | loss=718.5991 | e_rmse=7.1875 f_rmse=0.9681 f_ema=0.8685 | 2.46 step/s | ETA: 8.5h
+Step  24900 (update= 24900) | lr=3.510e-08 | loss=337.1087 | e_rmse=7.1975 f_rmse=0.6561 f_ema=0.8925 | 2.46 step/s | ETA: 8.5h
+Step  25000 (update= 25000) | lr=3.510e-08 | loss=340.4152 | e_rmse=7.2159 f_rmse=0.6598 f_ema=0.8936 | 2.46 step/s | ETA: 8.5h
+Step  25100 (update= 25100) | lr=3.510e-08 | loss=770.0010 | e_rmse=7.1991 f_rmse=1.0046 f_ema=0.8829 | 2.46 step/s | ETA: 8.5h
+Step  25200 (update= 25200) | lr=3.510e-08 | loss=477.7397 | e_rmse=7.1875 f_rmse=0.7874 f_ema=0.8774 | 2.46 step/s | ETA: 8.4h
+Step  25300 (update= 25300) | lr=3.510e-08 | loss=970.9705 | e_rmse=7.1860 f_rmse=1.1318 f_ema=0.8870 | 2.46 step/s | ETA: 8.4h
+Step  25400 (update= 25400) | lr=3.510e-08 | loss=343.5691 | e_rmse=7.1778 f_rmse=0.6647 f_ema=0.9033 | 2.46 step/s | ETA: 8.4h
+Step  25500 (update= 25500) | lr=3.510e-08 | loss=375.3857 | e_rmse=7.1907 f_rmse=0.6964 f_ema=0.8781 | 2.46 step/s | ETA: 8.4h
+
+[Epoch 15]
+Step  25600 (update= 25600) | lr=3.510e-08 | loss=341.1017 | e_rmse=7.1896 f_rmse=0.6629 f_ema=0.8667 | 2.46 step/s | ETA: 8.4h
+Step  25700 (update= 25700) | lr=3.510e-08 | loss=629.3303 | e_rmse=7.1980 f_rmse=0.9098 f_ema=0.9063 | 2.46 step/s | ETA: 8.4h
+Step  25800 (update= 25800) | lr=3.510e-08 | loss=352.5405 | e_rmse=7.2113 f_rmse=0.6752 f_ema=0.8744 | 2.46 step/s | ETA: 8.4h
+Step  25900 (update= 25900) | lr=3.510e-08 | loss=407.2297 | e_rmse=7.2142 f_rmse=0.7281 f_ema=0.8974 | 2.46 step/s | ETA: 8.4h
+Step  26000 (update= 26000) | lr=3.510e-08 | loss=268.7839 | e_rmse=7.2068 f_rmse=0.5864 f_ema=0.9078 | 2.46 step/s | ETA: 8.4h
+Step  26100 (update= 26100) | lr=3.510e-08 | loss=356.4756 | e_rmse=7.2109 f_rmse=0.6803 f_ema=0.8827 | 2.46 step/s | ETA: 8.3h
+Step  26200 (update= 26200) | lr=3.510e-08 | loss=343.5035 | e_rmse=7.1968 f_rmse=0.6677 f_ema=0.8952 | 2.46 step/s | ETA: 8.3h
+Step  26300 (update= 26300) | lr=3.510e-08 | loss=453.9167 | e_rmse=7.2149 f_rmse=0.7721 f_ema=0.9048 | 2.46 step/s | ETA: 8.3h
+Step  26400 (update= 26400) | lr=3.510e-08 | loss=957.4002 | e_rmse=7.1873 f_rmse=1.1317 f_ema=0.8867 | 2.46 step/s | ETA: 8.3h
+Step  26500 (update= 26500) | lr=3.510e-08 | loss=1628.1788 | e_rmse=7.1667 f_rmse=1.4815 f_ema=0.8947 | 2.46 step/s | ETA: 8.3h
+Step  26600 (update= 26600) | lr=3.510e-08 | loss=549.6279 | e_rmse=7.1895 f_rmse=0.8537 f_ema=0.8833 | 2.46 step/s | ETA: 8.3h
+Step  26700 (update= 26700) | lr=3.510e-08 | loss=411.7866 | e_rmse=7.1794 f_rmse=0.7361 f_ema=0.8731 | 2.46 step/s | ETA: 8.3h
+Step  26800 (update= 26800) | lr=3.510e-08 | loss=1657.0042 | e_rmse=7.1746 f_rmse=1.4977 f_ema=0.9232 | 2.46 step/s | ETA: 8.3h
+Step  26900 (update= 26900) | lr=3.510e-08 | loss=367.7676 | e_rmse=7.2074 f_rmse=0.6948 f_ema=0.8802 | 2.46 step/s | ETA: 8.3h
+Step  27000 (update= 27000) | lr=3.510e-08 | loss=338.5189 | e_rmse=7.2213 f_rmse=0.6658 f_ema=0.8666 | 2.46 step/s | ETA: 8.2h
+Step  27100 (update= 27100) | lr=3.510e-08 | loss=491.0256 | e_rmse=7.1800 f_rmse=0.8082 f_ema=0.8945 | 2.46 step/s | ETA: 8.2h
+Step  27200 (update= 27200) | lr=3.510e-08 | loss=662.2889 | e_rmse=7.1869 f_rmse=0.9429 f_ema=0.8644 | 2.46 step/s | ETA: 8.2h
+Step  27300 (update= 27300) | lr=3.510e-08 | loss=360.8972 | e_rmse=7.1970 f_rmse=0.6897 f_ema=0.8840 | 2.46 step/s | ETA: 8.2h
+
+[Epoch 16]
+Step  27400 (update= 27400) | lr=3.510e-08 | loss=617.4592 | e_rmse=7.1782 f_rmse=0.9109 f_ema=0.8504 | 2.46 step/s | ETA: 8.2h
+Step  27500 (update= 27500) | lr=3.510e-08 | loss=629.6002 | e_rmse=7.1925 f_rmse=0.9206 f_ema=0.8821 | 2.46 step/s | ETA: 8.2h
+Step  27600 (update= 27600) | lr=3.510e-08 | loss=284.1544 | e_rmse=7.2007 f_rmse=0.6095 f_ema=0.8492 | 2.46 step/s | ETA: 8.2h
+Step  27700 (update= 27700) | lr=3.510e-08 | loss=1449.0651 | e_rmse=7.1648 f_rmse=1.4081 f_ema=0.8761 | 2.46 step/s | ETA: 8.2h
+Step  27800 (update= 27800) | lr=3.510e-08 | loss=451.5645 | e_rmse=7.2123 f_rmse=0.7773 f_ema=0.9075 | 2.46 step/s | ETA: 8.2h
+Step  27900 (update= 27900) | lr=3.510e-08 | loss=1457.9171 | e_rmse=7.1636 f_rmse=1.4144 f_ema=0.9182 | 2.46 step/s | ETA: 8.1h
+Step  28000 (update= 28000) | lr=3.510e-08 | loss=358.7834 | e_rmse=7.2064 f_rmse=0.6906 f_ema=0.8852 | 2.46 step/s | ETA: 8.1h
+Step  28100 (update= 28100) | lr=3.510e-08 | loss=760.4929 | e_rmse=7.1818 f_rmse=1.0179 f_ema=0.8662 | 2.46 step/s | ETA: 8.1h
+Step  28200 (update= 28200) | lr=3.510e-08 | loss=333.4676 | e_rmse=7.1906 f_rmse=0.6655 f_ema=0.8967 | 2.46 step/s | ETA: 8.1h
+Step  28300 (update= 28300) | lr=3.510e-08 | loss=337.9632 | e_rmse=7.2028 f_rmse=0.6706 f_ema=0.9063 | 2.46 step/s | ETA: 8.1h
+Step  28400 (update= 28400) | lr=3.510e-08 | loss=298.1955 | e_rmse=7.1923 f_rmse=0.6283 f_ema=0.9006 | 2.46 step/s | ETA: 8.1h
+Step  28500 (update= 28500) | lr=3.510e-08 | loss=413.0650 | e_rmse=7.2082 f_rmse=0.7455 f_ema=0.9104 | 2.46 step/s | ETA: 8.1h

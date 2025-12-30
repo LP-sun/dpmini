@@ -1,0 +1,86 @@
+starting high-performance DeepMD training with CUDA optimizations...
+================================================================================
+CUDA OPTIMIZATION CONFIGURATION
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+cuDNN benchmark: ENABLED (faster conv/attn kernels)
+TF32 tensor operations: ENABLED (safe for training)
+
+GPU 0: NVIDIA L20-8Q
+  Compute Capability: 8.9
+  Total Memory: 8.36 GB
+
+Loading config from config_quick_fix_test.json
+
+================================================================================
+TRAINING CONFIGURATION
+================================================================================
+Training data systems: ['collect/O64H128']
+Batch size: 1 (FORCED to 1 for shape safety)
+Effective batch size: 4 (via gradient accumulation)
+Number of workers: 4
+Gradient accumulation steps: 4
+Mixed precision: False
+Force loss type: mse (MSE)
+Total training steps: 2000
+
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1]
+Training mode: Direct dataset access (no DataLoader)
+Dataset will be accessed randomly via shuffled indices
+
+Creating DeepMD model...
+Model Parameters: 514,661 (trainable: 514,661)
+Using device: cuda
+
+================================================================================
+Starting training for 2000 steps (batch size: 1)...
+================================================================================
+
+Step      1 (update=    0) | lr=9.977e-05 | loss=327.014 | e_rmse=4.8598 f_rmse=1.2764 f_ema=1.2764 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 1.44 step/s | ETA: 0.4h
+Step      2 (update=    0) | lr=9.954e-05 | loss=1088.14 | e_rmse=4.8076 f_rmse=2.3313 f_ema=1.2869 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 1.84 step/s | ETA: 0.3h
+Step      3 (update=    0) | lr=9.931e-05 | loss=139.913 | e_rmse=4.8902 f_rmse=0.8328 f_ema=1.2824 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.03 step/s | ETA: 0.3h
+Step      4 (update=    1) | lr=9.908e-05 | loss=89.5645 | e_rmse=4.9023 f_rmse=0.6647 f_ema=1.2762 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.05 step/s | ETA: 0.3h
+Step      5 (update=    1) | lr=9.886e-05 | loss=425.122 | e_rmse=4.8610 f_rmse=1.4559 f_ema=1.2780 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.12 step/s | ETA: 0.3h
+Step    100 (update=   25) | lr=7.943e-05 | loss=139.01 | e_rmse=4.8974 f_rmse=0.8301 f_ema=1.1676 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.49 step/s | ETA: 0.2h
+Step    200 (update=   50) | lr=6.310e-05 | loss=1042.57 | e_rmse=4.7809 f_rmse=2.2819 f_ema=1.1493 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.2h
+Step    300 (update=   75) | lr=5.012e-05 | loss=139.926 | e_rmse=4.6485 f_rmse=0.8332 f_ema=1.1033 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.2h
+Step    400 (update=  100) | lr=3.981e-05 | loss=228.304 | e_rmse=4.5447 f_rmse=1.0660 f_ema=1.1542 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.51 step/s | ETA: 0.2h
+Step    500 (update=  125) | lr=3.162e-05 | loss=140.593 | e_rmse=4.6078 f_rmse=0.8353 f_ema=1.1542 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.51 step/s | ETA: 0.2h
+Step    600 (update=  150) | lr=2.512e-05 | loss=145.424 | e_rmse=4.5265 f_rmse=0.8497 f_ema=1.0842 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.51 step/s | ETA: 0.2h
+Step    700 (update=  175) | lr=1.995e-05 | loss=795.129 | e_rmse=4.4900 f_rmse=1.9926 f_ema=1.0935 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.51 step/s | ETA: 0.1h
+Step    800 (update=  200) | lr=1.585e-05 | loss=296.188 | e_rmse=4.5573 f_rmse=1.2148 f_ema=1.0974 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.51 step/s | ETA: 0.1h
+Step    900 (update=  225) | lr=1.259e-05 | loss=394.009 | e_rmse=4.4361 f_rmse=1.4018 f_ema=1.0982 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.1h
+Step   1000 (update=  250) | lr=1.000e-05 | loss=293.851 | e_rmse=4.4421 f_rmse=1.2101 f_ema=1.0772 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.1h
+Saved checkpoint to ckpt_test_fix/model_step1000.pt
+Step   1100 (update=  275) | lr=7.943e-06 | loss=677.52 | e_rmse=4.3577 f_rmse=1.8393 f_ema=1.1145 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.1h
+Step   1200 (update=  300) | lr=6.310e-06 | loss=143.339 | e_rmse=4.4450 f_rmse=0.8437 f_ema=1.1125 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.1h
+Step   1300 (update=  325) | lr=5.012e-06 | loss=538.834 | e_rmse=4.3686 f_rmse=1.6399 f_ema=1.1241 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.1h
+Step   1400 (update=  350) | lr=3.981e-06 | loss=110.266 | e_rmse=4.4161 f_rmse=0.7392 f_ema=1.1385 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.1h
+Step   1500 (update=  375) | lr=3.162e-06 | loss=239.762 | e_rmse=4.4041 f_rmse=1.0927 f_ema=1.1205 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.1h
+Step   1600 (update=  400) | lr=2.512e-06 | loss=111.256 | e_rmse=4.4293 f_rmse=0.7425 f_ema=1.1087 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.0h
+Step   1700 (update=  425) | lr=1.995e-06 | loss=303.689 | e_rmse=4.3900 f_rmse=1.2303 f_ema=1.1527 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.50 step/s | ETA: 0.0h
+Step   1800 (update=  450) | lr=1.585e-06 | loss=80.8632 | e_rmse=4.4342 f_rmse=0.6320 f_ema=1.1197 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.49 step/s | ETA: 0.0h
+Step   1900 (update=  475) | lr=1.259e-06 | loss=139.562 | e_rmse=4.4276 f_rmse=0.8324 f_ema=1.1332 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.49 step/s | ETA: 0.0h
+Step   2000 (update=  500) | lr=1.000e-06 | loss=207.769 | e_rmse=4.4212 f_rmse=1.0168 f_ema=1.1392 | pref_e=0.05 pref_f=200 | diff=0.000e+00 | 2.49 step/s | ETA: 0.0h
+Saved checkpoint to ckpt_test_fix/model_step2000.pt
+
+Training completed or interrupted at step 2001
+Total time: 0.22 hours
+
+Exporting final model...
+Exported model to exp_test_fix/model_final.pth
+
+All checkpoints saved in: ckpt_test_fix
+Exported models in: exp_test_fix

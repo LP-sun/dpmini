@@ -1,0 +1,114 @@
+========================================================================
+1. Hardware Information
+========================================================================
+
+CPU Information:
+lscpu not available
+
+Memory:
+               total        used        free      shared  buff/cache   available
+内存：       31Gi       4.6Gi        23Gi        56Mi       2.9Gi        26Gi
+交换：      2.0Gi          0B       2.0Gi
+
+GPU Information:
+index, name, driver_version, memory.total [MiB], memory.free [MiB], compute_cap
+0, NVIDIA L20-8Q, 550.90.07, 8192 MiB, 7020 MiB, 8.9
+
+GPU Utilization (current):
+utilization.gpu [%], utilization.memory [%], memory.used [MiB]
+23 %, 0 %, 572 MiB
+
+========================================================================
+2. Python Environment
+========================================================================
+
+Python executable: python3
+Python 3.12.11
+
+Checking critical packages...
+Python path: /home/ubuntu/miniforge3/bin/python3
+
+✗ torch: NOT INSTALLED
+
+✗ numpy: NOT INSTALLED
+
+✗ Error checking CUDA: No module named 'torch'
+
+========================================================================
+3. Current Training Status
+========================================================================
+
+No training process found (no PID file)
+
+========================================================================
+4. Running Quick Performance Test
+========================================================================
+
+Running performance test...
+Traceback (most recent call last):
+  File "/home/ubuntu/pj/quick_bottleneck_test.py", line 6, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+⚠️  Performance test failed
+
+========================================================================
+5. Data Integrity Check
+========================================================================
+
+Checking data directories...
+✓ collect/data0 exists
+  Contents:
+总计 21M
+-rwxrwxr-x 1 ubuntu ubuntu 323K  3月  5  2025 box.raw
+-rwxrwxr-x 1 ubuntu ubuntu  21M  3月  5  2025 coord.raw
+drwxrwxr-x 2 ubuntu ubuntu 4.0K 12月 27 22:04 set.000
+-rwxrwxr-x 1 ubuntu ubuntu    6  3月  5  2025 type_map.raw
+-rwxrwxr-x 1 ubuntu ubuntu  576  3月  5  2025 type.raw
+
+  set.000 files:
+-rwxrwxr-x 1 ubuntu ubuntu 103K  3月  5  2025 box.npy
+-rwxrwxr-x 1 ubuntu ubuntu 6.5M  3月  5  2025 coord.npy
+-rwxrwxr-x 1 ubuntu ubuntu  12K  3月  5  2025 energy.npy
+-rwxrwxr-x 1 ubuntu ubuntu 6.5M  3月  5  2025 force.npy
+
+========================================================================
+6. Configuration File
+========================================================================
+
+✓ Configuration file exists
+
+Current batch_size setting:
+      "batch_size": 8,
+      "_comment": "that's all"
+    },
+--
+      "batch_size": 8,
+      "numb_btch": 1,
+      "_comment": "that's all"
+
+
+========================================================================
+7. DIAGNOSIS SUMMARY
+========================================================================
+
+Critical Issues Found:
+  ❌ CUDA is not available - This is the PRIMARY issue!
+     Training on CPU is 100x+ slower than GPU
+     Fix: Ensure CUDA-enabled PyTorch is installed
+          pip install torch --index-url https://download.pytorch.org/whl/cu118
+
+Recommendations:
+
+1. Install CUDA-enabled PyTorch (CRITICAL):
+   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
+2. Verify CUDA installation:
+   nvidia-smi
+   python -c 'import torch; print(torch.cuda.is_available())'
+
+To re-run diagnosis:
+  ./diagnose_training_performance.sh
+
+Full diagnosis saved to: diagnosis_20251228_022607.log
+
+========================================================================

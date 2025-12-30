@@ -1,0 +1,110 @@
+nohup: 忽略输入
+================================================================================
+CUDA OPTIMIZATION CONFIGURATION
+================================================================================
+CUDA Available: True
+PyTorch Version: 2.4.1
+CUDA Version: 11.8
+cuDNN Version: 91001
+Number of GPUs: 1
+cuDNN benchmark: ENABLED (faster conv/attn kernels)
+TF32 tensor operations: ENABLED (safe for training)
+
+GPU 0: NVIDIA L20-8Q
+  Compute Capability: 8.9
+  Total Memory: 8.36 GB
+
+Loading config from config_short_test.json
+
+================================================================================
+TRAINING CONFIGURATION
+================================================================================
+Training data systems: ['collect/O64H128']
+Batch size: 1 (FORCED to 1 for shape safety)
+Effective batch size: 8 (via gradient accumulation)
+Number of workers: 4
+Gradient accumulation steps: 8
+Mixed precision: False
+Force loss type: mse (MSE)
+Total training steps: 2000
+
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1]
+Training mode: Direct dataset access (no DataLoader)
+Dataset will be accessed randomly via shuffled indices
+
+Creating DeepMD model...
+Model Parameters: 514,661 (trainable: 514,661)
+Using device: cuda
+
+================================================================================
+Starting training for 2000 steps (batch size: 1)...
+================================================================================
+
+Step     50 | lr=7.499e-04 | loss=1715.59 | e_loss=380.71 f_loss=1.74216 f_rmse=1.3199 | pref_e=0.0445 pref_f=975 | diff=0.000e+00 | 1.54 step/s | ETA: 0.4h
+Step    100 | lr=5.623e-04 | loss=2479.6 | e_loss=4267.44 f_loss=2.30003 f_rmse=1.5166 | pref_e=0.069 pref_f=950 | diff=0.000e+00 | 1.55 step/s | ETA: 0.3h
+Step    150 | lr=4.217e-04 | loss=617.788 | e_loss=109.856 f_loss=0.656721 f_rmse=0.8104 | pref_e=0.0935 pref_f=925.1 | diff=0.000e+00 | 1.55 step/s | ETA: 0.3h
+Step    200 | lr=3.162e-04 | loss=404.621 | e_loss=363.574 f_loss=0.401865 f_rmse=0.6339 | pref_e=0.118 pref_f=900.1 | diff=0.000e+00 | 1.56 step/s | ETA: 0.3h
+Saved checkpoint to checkpoints_cuda/model_step200.pt
+Step    250 | lr=2.371e-04 | loss=543.943 | e_loss=5.37196 f_loss=0.620685 f_rmse=0.7878 | pref_e=0.1425 pref_f=875.1 | diff=0.000e+00 | 1.56 step/s | ETA: 0.3h
+Step    300 | lr=1.778e-04 | loss=3565.05 | e_loss=514.548 f_loss=4.09236 f_rmse=2.0230 | pref_e=0.167 pref_f=850.1 | diff=0.000e+00 | 1.55 step/s | ETA: 0.3h
+Step    350 | lr=1.334e-04 | loss=445.863 | e_loss=12.6132 f_loss=0.537398 f_rmse=0.7331 | pref_e=0.1915 pref_f=825.2 | diff=0.000e+00 | 1.55 step/s | ETA: 0.3h
+Step    400 | lr=1.000e-04 | loss=1686.63 | e_loss=22.0959 f_loss=2.10179 f_rmse=1.4498 | pref_e=0.216 pref_f=800.2 | diff=0.000e+00 | 1.56 step/s | ETA: 0.3h
+Saved checkpoint to checkpoints_cuda/model_step400.pt
+Step    450 | lr=7.499e-05 | loss=618.545 | e_loss=3.30044 f_loss=0.796867 f_rmse=0.8927 | pref_e=0.2405 pref_f=775.2 | diff=0.000e+00 | 1.56 step/s | ETA: 0.3h
+Step    500 | lr=5.623e-05 | loss=644.234 | e_loss=62.7706 f_loss=0.836521 f_rmse=0.9146 | pref_e=0.265 pref_f=750.2 | diff=0.000e+00 | 1.60 step/s | ETA: 0.3h
+Step    550 | lr=4.217e-05 | loss=460.722 | e_loss=0.830052 f_loss=0.634907 f_rmse=0.7968 | pref_e=0.2895 pref_f=725.3 | diff=0.000e+00 | 1.66 step/s | ETA: 0.2h
+Step    600 | lr=3.162e-05 | loss=525.543 | e_loss=48.6826 f_loss=0.728626 f_rmse=0.8536 | pref_e=0.314 pref_f=700.3 | diff=0.000e+00 | 1.71 step/s | ETA: 0.2h
+Saved checkpoint to checkpoints_cuda/model_step600.pt
+Step    650 | lr=2.371e-05 | loss=1512.3 | e_loss=2.49723 f_loss=2.23812 f_rmse=1.4960 | pref_e=0.3385 pref_f=675.3 | diff=0.000e+00 | 1.75 step/s | ETA: 0.2h
+Step    700 | lr=1.778e-05 | loss=1229.16 | e_loss=3.22394 f_loss=1.8882 f_rmse=1.3741 | pref_e=0.363 pref_f=650.4 | diff=0.000e+00 | 1.79 step/s | ETA: 0.2h
+Step    750 | lr=1.334e-05 | loss=946.168 | e_loss=0.231026 f_loss=1.51282 f_rmse=1.2300 | pref_e=0.3875 pref_f=625.4 | diff=0.000e+00 | 1.82 step/s | ETA: 0.2h
+Step    800 | lr=1.000e-05 | loss=317.589 | e_loss=38.4243 f_loss=0.502596 f_rmse=0.7089 | pref_e=0.412 pref_f=600.4 | diff=0.000e+00 | 1.85 step/s | ETA: 0.2h
+Saved checkpoint to checkpoints_cuda/model_step800.pt
+Step    850 | lr=7.499e-06 | loss=356.546 | e_loss=3.96808 f_loss=0.616612 f_rmse=0.7852 | pref_e=0.4365 pref_f=575.4 | diff=0.000e+00 | 1.88 step/s | ETA: 0.2h
+Step    900 | lr=5.623e-06 | loss=1339.35 | e_loss=8.41262 f_loss=2.42614 f_rmse=1.5576 | pref_e=0.461 pref_f=550.5 | diff=0.000e+00 | 1.91 step/s | ETA: 0.2h
+Step    950 | lr=4.217e-06 | loss=373.677 | e_loss=16.1301 f_loss=0.69622 f_rmse=0.8344 | pref_e=0.4855 pref_f=525.5 | diff=0.000e+00 | 1.93 step/s | ETA: 0.2h
+Step   1000 | lr=3.162e-06 | loss=303.545 | e_loss=9.60834 f_loss=0.596693 f_rmse=0.7725 | pref_e=0.51 pref_f=500.5 | diff=0.000e+00 | 1.96 step/s | ETA: 0.1h
+Saved checkpoint to checkpoints_cuda/model_step1000.pt
+Step   1050 | lr=2.371e-06 | loss=363.769 | e_loss=0.983588 f_loss=0.763878 f_rmse=0.8740 | pref_e=0.5345 pref_f=475.5 | diff=0.000e+00 | 1.98 step/s | ETA: 0.1h
+Step   1100 | lr=1.778e-06 | loss=713.252 | e_loss=0.101547 f_loss=1.58294 f_rmse=1.2582 | pref_e=0.559 pref_f=450.5 | diff=0.000e+00 | 2.00 step/s | ETA: 0.1h
+Step   1150 | lr=1.334e-06 | loss=1730.06 | e_loss=92.6348 f_loss=3.93823 f_rmse=1.9845 | pref_e=0.5835 pref_f=425.6 | diff=0.000e+00 | 2.01 step/s | ETA: 0.1h
+Step   1200 | lr=1.000e-06 | loss=535.234 | e_loss=5.61514 f_loss=1.32756 f_rmse=1.1522 | pref_e=0.608 pref_f=400.6 | diff=0.000e+00 | 2.03 step/s | ETA: 0.1h
+Saved checkpoint to checkpoints_cuda/model_step1200.pt
+Step   1250 | lr=7.499e-07 | loss=234.393 | e_loss=5.31102 f_loss=0.615065 f_rmse=0.7843 | pref_e=0.6325 pref_f=375.6 | diff=0.000e+00 | 2.04 step/s | ETA: 0.1h
+Step   1300 | lr=5.623e-07 | loss=277.646 | e_loss=22.3519 f_loss=0.749923 f_rmse=0.8660 | pref_e=0.657 pref_f=350.6 | diff=0.000e+00 | 2.06 step/s | ETA: 0.1h
+Step   1350 | lr=4.217e-07 | loss=209.753 | e_loss=2.32961 f_loss=0.63918 f_rmse=0.7995 | pref_e=0.6815 pref_f=325.7 | diff=0.000e+00 | 2.07 step/s | ETA: 0.1h
+Step   1400 | lr=3.162e-07 | loss=267.871 | e_loss=31.4268 f_loss=0.81704 f_rmse=0.9039 | pref_e=0.706 pref_f=300.7 | diff=0.000e+00 | 2.08 step/s | ETA: 0.1h
+Saved checkpoint to checkpoints_cuda/model_step1400.pt
+Step   1450 | lr=2.371e-07 | loss=202.954 | e_loss=14.6457 f_loss=0.697271 f_rmse=0.8350 | pref_e=0.7305 pref_f=275.7 | diff=0.000e+00 | 2.10 step/s | ETA: 0.1h
+Step   1500 | lr=1.778e-07 | loss=158.783 | e_loss=9.54185 f_loss=0.604502 f_rmse=0.7775 | pref_e=0.755 pref_f=250.8 | diff=0.000e+00 | 2.11 step/s | ETA: 0.1h
+Step   1550 | lr=1.334e-07 | loss=239.552 | e_loss=9.14634 f_loss=1.02944 f_rmse=1.0146 | pref_e=0.7795 pref_f=225.8 | diff=0.000e+00 | 2.12 step/s | ETA: 0.1h
+Step   1600 | lr=1.000e-07 | loss=272.484 | e_loss=4.76275 f_loss=1.33792 f_rmse=1.1567 | pref_e=0.804 pref_f=200.8 | diff=0.000e+00 | 2.13 step/s | ETA: 0.1h
+Saved checkpoint to checkpoints_cuda/model_step1600.pt
+Step   1650 | lr=7.499e-08 | loss=168.659 | e_loss=10.1403 f_loss=0.91146 f_rmse=0.9547 | pref_e=0.8285 pref_f=175.8 | diff=0.000e+00 | 2.14 step/s | ETA: 0.0h
+Step   1700 | lr=5.623e-08 | loss=681.507 | e_loss=102.492 f_loss=3.93823 f_rmse=1.9845 | pref_e=0.853 pref_f=150.9 | diff=0.000e+00 | 2.15 step/s | ETA: 0.0h
+Step   1750 | lr=4.217e-08 | loss=846.766 | e_loss=185.461 f_loss=5.43415 f_rmse=2.3311 | pref_e=0.8775 pref_f=125.9 | diff=0.000e+00 | 2.16 step/s | ETA: 0.0h
+Step   1800 | lr=3.162e-08 | loss=113.352 | e_loss=2.18114 f_loss=1.10391 f_rmse=1.0507 | pref_e=0.902 pref_f=100.9 | diff=0.000e+00 | 2.16 step/s | ETA: 0.0h
+Saved checkpoint to checkpoints_cuda/model_step1800.pt
+Step   1850 | lr=2.371e-08 | loss=88.1665 | e_loss=16.4702 f_loss=0.960248 f_rmse=0.9799 | pref_e=0.9265 pref_f=75.92 | diff=0.000e+00 | 2.17 step/s | ETA: 0.0h
+Step   1900 | lr=1.778e-08 | loss=107.412 | e_loss=8.50244 f_loss=1.94949 f_rmse=1.3962 | pref_e=0.951 pref_f=50.95 | diff=0.000e+00 | 2.18 step/s | ETA: 0.0h
+Step   1950 | lr=1.334e-08 | loss=350.666 | e_loss=220.883 f_loss=5.2048 f_rmse=2.2814 | pref_e=0.9755 pref_f=25.98 | diff=0.000e+00 | 2.19 step/s | ETA: 0.0h
+Step   2000 | lr=1.000e-08 | loss=16.0595 | e_loss=15.4276 f_loss=0.631929 f_rmse=0.7949 | pref_e=1 pref_f=1 | diff=0.000e+00 | 2.20 step/s | ETA: 0.0h
+Saved checkpoint to checkpoints_cuda/model_step2000.pt
+
+Training completed or interrupted at step 2001
+Total time: 0.25 hours
+
+Exporting final model...
+Exported model to exports_cuda/model_final.pth
+
+All checkpoints saved in: checkpoints_cuda
+Exported models in: exports_cuda
+

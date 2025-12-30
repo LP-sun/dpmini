@@ -1,0 +1,33 @@
+/home/ubuntu/pj/evaluate_fixed_valset_v2.py:73: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_path, map_location=device)
+Traceback (most recent call last):
+  File "/home/ubuntu/pj/evaluate_fixed_valset_v2.py", line 194, in main
+    metrics = evaluate_on_valset(
+        args.checkpoint,
+    ...<3 lines>...
+        device=args.device
+    )
+  File "/home/ubuntu/pj/evaluate_fixed_valset_v2.py", line 106, in evaluate_on_valset
+    pred_energy = model.forward_energy(positions, atom_types, box)
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniforge3/envs/ai4m/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1729, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'DeepMDModel' object has no attribute 'forward_energy'
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+
+📊 数据系统: collect/O64H128
+   总帧数: 1823
+   提取帧数: 200
+✓ 验证集索引已保存: val_idx.npy
+  索引范围: 23 - 1812
+  前 10 个: [ 23  29  49  65  69  70  73  76  78 109]
+
+🔄 加载模型: checkpoints_optimized_v3/model_step80000.pt
+✓ 模型加载成功 (设备: cuda)
+Loaded 1823 frames, 192 atoms per frame
+Atom types distribution: [ 64 128]
+✓ 数据集加载: 1823 帧
+
+📈 在 200 帧验证集上评估...
+❌ 评估失败: 'DeepMDModel' object has no attribute 'forward_energy'
