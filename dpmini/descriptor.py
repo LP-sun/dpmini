@@ -72,6 +72,35 @@ class SmoothCutoffFunction(nn.Module):
         return s
 
 
+def minimum_image_displacements(displacements: torch.Tensor, box: Optional[torch.Tensor] = None) -> torch.Tensor:
+    """Apply the minimum-image convention to displacement vectors.
+
+    Supports both diagonal boxes (``(3,)`` or diagonal ``(3, 3)``) and general
+    triclinic ``(3, 3)`` boxes whose rows are lattice vectors, matching the
+    flattened DeepMD box convention used by :mod:`dpmini.data`.
+    """
+    if box is None:
+        return displacements
+
+    if box.shape == (3,):
+        box_diag = box.to(device=displacements.device, dtype=displacements.dtype)
+        return displacements - torch.round(displacements / box_diag) * box_diag
+
+    if box.shape != (3, 3):
+        raise ValueError(f"box must have shape (3,) or (3, 3), got {tuple(box.shape)}")
+
+    box = box.to(device=displacements.device, dtype=displacements.dtype)
+    off_diag = box - torch.diag(torch.diagonal(box))
+    if torch.allclose(off_diag, torch.zeros_like(off_diag)):
+        box_diag = torch.diagonal(box)
+        return displacements - torch.round(displacements / box_diag) * box_diag
+
+    # Row-vector convention: Cartesian = fractional @ box.
+    frac = torch.matmul(displacements, torch.linalg.inv(box))
+    frac = frac - torch.round(frac)
+    return torch.matmul(frac, box)
+
+
 def build_neighbor_list(
     positions: torch.Tensor,
     atom_types: torch.Tensor,
@@ -112,13 +141,8 @@ def build_neighbor_list(
     # r_ij = r_j - r_i
     r_ij = pos.unsqueeze(1) - pos.unsqueeze(0)  # (natom, natom, 3)
 
-    # PBC: minimum image convention for diagonal box
-    if box is not None:
-        if box.shape == (3,):
-            box_diag = box
-        else:  # (3,3)
-            box_diag = torch.diagonal(box)
-        r_ij = r_ij - torch.round(r_ij / box_diag.view(1, 1, 3)) * box_diag.view(1, 1, 3)
+    # PBC: minimum image convention for orthogonal and triclinic boxes
+    r_ij = minimum_image_displacements(r_ij, box)
 
     dist2 = (r_ij * r_ij).sum(dim=-1)  # (natom, natom)
     dist2.fill_diagonal_(float("inf"))  # CRITICAL:永远排除 self
@@ -307,6 +331,30 @@ class SEe2aDescriptor(nn.Module):
         Returns:
             descriptor: (natom, M * axis_neuron) descriptor per atom
         """
+        if positions.dim() == 3:
+            if atom_types.dim() == 1:
+                atom_type_frames = atom_types.unsqueeze(0).expand(positions.shape[0], -1)
+            elif atom_types.dim() == 2:
+                atom_type_frames = atom_types
+            else:
+                raise ValueError(f"atom_types must have shape (natom,) or (batch, natom), got {tuple(atom_types.shape)}")
+
+            if box is None or box.dim() <= 2:
+                box_frames = [box] * positions.shape[0]
+            elif box.dim() == 3:
+                box_frames = [box[i] for i in range(box.shape[0])]
+            else:
+                raise ValueError(f"box must have shape (3,), (3, 3), or (batch, 3, 3), got {tuple(box.shape)}")
+
+            frame_descriptors = [
+                self.forward(positions[i], atom_type_frames[i], box_frames[i])
+                for i in range(positions.shape[0])
+            ]
+            return torch.stack(frame_descriptors, dim=0)
+
+        if positions.dim() != 2:
+            raise ValueError(f"positions must have shape (natom, 3) or (batch, natom, 3), got {tuple(positions.shape)}")
+
         natom = positions.shape[0]
         device = positions.device
         
@@ -333,13 +381,7 @@ class SEe2aDescriptor(nn.Module):
         r_ij = neighbor_positions - positions.unsqueeze(1)  # (natom, Nc, 3)
         
         # Apply PBC
-        if box is not None:
-            if box.shape == (3,):
-                box_diag = box
-                r_ij = r_ij - torch.round(r_ij / box_diag.unsqueeze(0).unsqueeze(0)) * box_diag.unsqueeze(0).unsqueeze(0)
-            elif box.shape == (3, 3):
-                box_diag = torch.diagonal(box)
-                r_ij = r_ij - torch.round(r_ij / box_diag.unsqueeze(0).unsqueeze(0)) * box_diag.unsqueeze(0).unsqueeze(0)
+        r_ij = minimum_image_displacements(r_ij, box)
         
         # Compute distances
         r = torch.sqrt(torch.sum(r_ij * r_ij, dim=-1) + 1e-12)  # (natom, Nc)

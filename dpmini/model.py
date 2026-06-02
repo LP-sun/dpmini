@@ -142,8 +142,8 @@ class DeepMDModel(nn.Module):
         # Compute atomic energies
         atomic_energies = self.fitting(descriptor)  # (natom,)
         
-        # Total energy
-        total_energy = atomic_energies.sum()
+        # Total energy: scalar for one frame, one value per frame for batched input
+        total_energy = atomic_energies.sum(dim=-1)
         
         return total_energy, atomic_energies
     
@@ -166,10 +166,11 @@ class DeepMDModel(nn.Module):
         positions = positions.requires_grad_(True)
         total_energy, atomic_energies = self.forward(positions, atom_types, box)
         
-        # Compute forces via autograd
+        # Compute forces via autograd. For batched energies, differentiating the
+        # sum is equivalent because frames are evaluated independently.
         forces = -torch.autograd.grad(
-            total_energy, 
-            positions, 
+            total_energy.sum(),
+            positions,
             create_graph=True,
             retain_graph=True
         )[0]
