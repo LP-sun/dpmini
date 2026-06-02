@@ -173,14 +173,14 @@ def main():
         for batch_idx, batch in enumerate(dataloader):
             positions, atom_types, box, target_energy, target_forces = batch
             
-            # Move to device
-            positions = positions.to(device).squeeze(0).requires_grad_(True)
-            atom_types = atom_types.to(device).squeeze(0)
-            box = box.to(device).squeeze(0)
-            target_energy = target_energy.to(device).squeeze(0)
-            target_forces = target_forces.to(device).squeeze(0)
+            # Move to device. Keep the batch dimension so batch_size > 1 works.
+            positions = positions.to(device).requires_grad_(True)
+            atom_types = atom_types.to(device)
+            box = box.to(device)
+            target_energy = target_energy.to(device)
+            target_forces = target_forces.to(device)
             
-            natoms = positions.shape[0]
+            natoms = positions.shape[-2]
             
             # Get learning rate and loss prefactors
             lr = get_learning_rate(step, config)

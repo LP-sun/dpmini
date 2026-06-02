@@ -20,7 +20,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import List, Optional, Sequence, Tuple, Union
 
 
 def infer_natom_from_coord(coord_path: Path) -> int:
@@ -88,7 +88,42 @@ def load_deepmd_set(set_dir: Path) -> dict:
     }
 
 
-def load_deepmd_system(system_dir) -> dict:
+def load_atom_types(system_dir: Path, natom: int, type_map: Optional[List[str]] = None) -> Optional[np.ndarray]:
+    """Load atom type indices from a DeepMD system directory when available.
+
+    DeepMD stores per-atom type indices in ``type.raw`` at the system root. If
+    the file is absent, callers can fall back to domain-specific inference.
+    """
+    type_path = system_dir / 'type.raw'
+    if not type_path.exists():
+        return None
+
+    atom_types = np.loadtxt(type_path, dtype=np.int64).reshape(-1)
+    if atom_types.shape[0] != natom:
+        raise ValueError(
+            f"type.raw in {system_dir} has {atom_types.shape[0]} entries, expected {natom}"
+        )
+    if np.any(atom_types < 0):
+        raise ValueError(f"type.raw in {system_dir} contains negative type indices")
+    if type_map is not None and np.any(atom_types >= len(type_map)):
+        raise ValueError(
+            f"type.raw in {system_dir} contains indices outside type_map of size {len(type_map)}"
+        )
+    return atom_types
+
+
+def infer_water_atom_types(natom: int) -> np.ndarray:
+    """Infer the common water ordering: all O atoms followed by all H atoms."""
+    if natom % 3 == 0:
+        nO = natom // 3
+        nH = 2 * nO
+        return np.array([0] * nO + [1] * nH, dtype=np.int64)
+
+    print(f"Warning: natom={natom} not divisible by 3, assuming all H atoms")
+    return np.ones(natom, dtype=np.int64)
+
+
+def load_deepmd_system(system_dir, type_map: Optional[List[str]] = None) -> dict:
     """Load all sets from a DeepMD system directory.
     
     Args:
@@ -118,11 +153,14 @@ def load_deepmd_system(system_dir) -> dict:
     force = np.concatenate([d['force'] for d in all_data], axis=0)
     nframe = coord.shape[0]
     
+    atom_types = load_atom_types(system_dir, natom, type_map)
+
     return {
         'coord': coord,
         'box': box,
         'energy': energy,
         'force': force,
+        'atom_types': atom_types,
         'natom': natom,
         'nframe': nframe
     }
@@ -135,7 +173,7 @@ class DeepMDDataset(Dataset):
     """
     
     def __init__(self, 
-                 system_dirs: List[str],
+                 system_dirs: Union[str, Path, Sequence[Union[str, Path]]],
                  type_map: List[str] = ["O", "H"],
                  atom_types: Optional[np.ndarray] = None):
         """
@@ -147,6 +185,14 @@ class DeepMDDataset(Dataset):
         """
         self.type_map = type_map
         self.ntypes = len(type_map)
+
+        if isinstance(system_dirs, (str, Path)):
+            system_dirs = [system_dirs]
+        else:
+            system_dirs = list(system_dirs)
+
+        if len(system_dirs) == 0:
+            raise ValueError("system_dirs must contain at least one DeepMD system directory")
         
         # Load all systems
         all_coords = []
@@ -154,14 +200,22 @@ class DeepMDDataset(Dataset):
         all_energies = []
         all_forces = []
         natom = None
+        loaded_atom_types = None
         
         for sys_dir in system_dirs:
-            data = load_deepmd_system(Path(sys_dir))
+            data = load_deepmd_system(Path(sys_dir), type_map=type_map)
             
             if natom is None:
                 natom = data['natom']
+                loaded_atom_types = data.get('atom_types')
             else:
-                assert data['natom'] == natom, f"Inconsistent natom: {natom} vs {data['natom']}"
+                if data['natom'] != natom:
+                    raise ValueError(f"Inconsistent natom: {natom} vs {data['natom']}")
+                current_types = data.get('atom_types')
+                if loaded_atom_types is not None and current_types is not None and not np.array_equal(loaded_atom_types, current_types):
+                    raise ValueError("All systems in one DeepMDDataset must use identical atom type ordering")
+                if loaded_atom_types is None and current_types is not None:
+                    loaded_atom_types = current_types
             
             all_coords.append(data['coord'])
             all_boxes.append(data['box'])
@@ -176,20 +230,16 @@ class DeepMDDataset(Dataset):
         self.nframe = self.coords.shape[0]
         self.natom = natom
         
-        # Infer atom types if not provided
+        # Prefer explicit caller input, then DeepMD type.raw, then legacy water inference.
         if atom_types is None:
-            # Assume water system: first 1/3 are O, rest are H
-            # For O64H128: 64 O + 128 H = 192 atoms
-            # For O128H256: 128 O + 256 H = 384 atoms
-            # Pattern: natom = 3 * nO (nO oxygen, 2*nO hydrogen)
-            if natom % 3 == 0:
-                nO = natom // 3
-                nH = 2 * nO
-                atom_types = np.array([0] * nO + [1] * nH, dtype=np.int64)
-            else:
-                # Fallback: assume all H (type 1)
-                print(f"Warning: natom={natom} not divisible by 3, assuming all H atoms")
-                atom_types = np.ones(natom, dtype=np.int64)
+            atom_types = loaded_atom_types if loaded_atom_types is not None else infer_water_atom_types(natom)
+        else:
+            atom_types = np.asarray(atom_types, dtype=np.int64).reshape(-1)
+
+        if atom_types.shape[0] != natom:
+            raise ValueError(f"atom_types has {atom_types.shape[0]} entries, expected {natom}")
+        if np.any(atom_types < 0) or np.any(atom_types >= self.ntypes):
+            raise ValueError(f"atom_types must be in [0, {self.ntypes}), got {atom_types}")
         
         self.atom_types = torch.from_numpy(atom_types).long()
         

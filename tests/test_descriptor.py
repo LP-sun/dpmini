@@ -139,8 +139,9 @@ class TestPeriodicBoundaryConditions:
             positions, atom_types, type_map, sel, rcut, box
         )
         
-        # First atom should see second as neighbor
-        assert neighbor_mask[0, 0].item() > 0, "Neighbor not detected within cutoff"
+        # First atom should see the second atom in the H-type neighbor block.
+        assert (neighbor_indices[0] == 1).any().item(), "Neighbor not detected within cutoff"
+        assert neighbor_mask[0, (neighbor_indices[0] == 1)].max().item() > 0
         
         print(f"✓ PBC test passed")
         print(f"  Neighbor indices: {neighbor_indices}")
@@ -203,3 +204,84 @@ class TestSmokeTest:
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
+
+
+class TestBatchedCoreFunctionality:
+    """Tests for batched model execution and DeepMD metadata loading."""
+
+    def test_model_get_forces_supports_batches(self):
+        """Model should preserve a DataLoader batch dimension."""
+        device = torch.device('cpu')
+        type_map = ["O", "H"]
+
+        model = DeepMDModel(
+            type_map=type_map,
+            rcut=6.0,
+            rcut_smth=0.5,
+            sel=[2, 4],
+            descriptor_neuron=[8, 16],
+            axis_neuron=4,
+            fitting_neuron=[16, 16],
+            type_one_side=False,
+            resnet_dt=False
+        ).to(device)
+
+        frame = torch.tensor([
+            [0.0, 0.0, 0.0],
+            [0.957, 0.0, 0.0],
+            [-0.239, 0.927, 0.0],
+        ], dtype=torch.float32, device=device)
+        positions = torch.stack([frame, frame + 0.2], dim=0).requires_grad_(True)
+        atom_types = torch.tensor([[0, 1, 1], [0, 1, 1]], dtype=torch.long, device=device)
+        box = torch.eye(3, dtype=torch.float32, device=device).expand(2, 3, 3) * 12.4447
+
+        energy, atomic_e, forces = model.get_forces(positions, atom_types, box)
+
+        assert energy.shape == torch.Size([2])
+        assert atomic_e.shape == torch.Size([2, 3])
+        assert forces.shape == torch.Size([2, 3, 3])
+        assert torch.isfinite(energy).all()
+        assert torch.isfinite(forces).all()
+
+    def test_triclinic_neighbor_list_uses_minimum_image(self):
+        """Neighbor detection should work for non-diagonal DeepMD boxes."""
+        box = torch.tensor([
+            [10.0, 0.0, 0.0],
+            [2.0, 9.0, 0.0],
+            [0.0, 0.0, 8.0],
+        ], dtype=torch.float32)
+        positions = torch.tensor([
+            [0.1, 0.1, 0.1],
+            [9.9, 0.1, 0.1],
+        ], dtype=torch.float32)
+        atom_types = torch.tensor([0, 1], dtype=torch.long)
+
+        neighbor_indices, _, neighbor_mask = build_neighbor_list(
+            positions, atom_types, ["O", "H"], [1, 1], 0.5, box
+        )
+
+        assert neighbor_indices[0, 1].item() == 1
+        assert neighbor_mask[0, 1].item() == 1.0
+
+    def test_dataset_accepts_string_path_and_type_raw(self, tmp_path):
+        """DeepMDDataset should accept one path string and prefer type.raw."""
+        from dpmini.data import DeepMDDataset
+
+        system_dir = tmp_path / "system"
+        set_dir = system_dir / "set.000"
+        set_dir.mkdir(parents=True)
+        np.savetxt(system_dir / "type.raw", np.array([1, 0], dtype=np.int64), fmt="%d")
+        np.save(set_dir / "coord.npy", np.array([[0, 0, 0, 1, 0, 0]], dtype=np.float32))
+        np.save(set_dir / "box.npy", np.eye(3, dtype=np.float32).reshape(1, 9) * 10.0)
+        np.save(set_dir / "energy.npy", np.array([1.5], dtype=np.float32))
+        np.save(set_dir / "force.npy", np.zeros((1, 6), dtype=np.float32))
+
+        dataset = DeepMDDataset(str(system_dir), type_map=["O", "H"])
+        positions, atom_types, box, energy, forces = dataset[0]
+
+        assert len(dataset) == 1
+        assert positions.shape == torch.Size([2, 3])
+        assert atom_types.tolist() == [1, 0]
+        assert box.shape == torch.Size([3, 3])
+        assert energy.item() == pytest.approx(1.5)
+        assert forces.shape == torch.Size([2, 3])
